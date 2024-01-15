@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Vector3.h"
 
 //New Vector3 alias for color
