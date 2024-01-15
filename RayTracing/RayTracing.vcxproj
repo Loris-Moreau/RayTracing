@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Hittable.cpp" />
     <ClCompile Include="HittableCollection.cpp" />
     <ClCompile Include="Interval.cpp" />
@@ -137,7 +136,6 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Hittable.h" />
     <ClInclude Include="HittableCollection.h" />

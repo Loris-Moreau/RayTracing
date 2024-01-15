@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 {
     //Resolution
     double resolution = 16.0 / 9.0;
-    int width = 400, height = static_cast<int>(width / resolution);
+    int width = 1600, height = static_cast<int>(width / resolution);
     if (height < 1) height = 1;
 
     //Viewport
