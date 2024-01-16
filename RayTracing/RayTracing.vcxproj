@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="Hittable.cpp" />
     <ClCompile Include="HittableCollection.cpp" />
     <ClCompile Include="Interval.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Dielectric.h" />
     <ClInclude Include="Hittable.h" />
     <ClInclude Include="HittableCollection.h" />
     <ClInclude Include="Interval.h" />

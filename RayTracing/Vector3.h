@@ -122,3 +122,12 @@ inline Vector3 Reflect(const Vector3& v, const Vector3& n)
 {
     return v - 2 * Dot(v, n) * n;
 }
+
+inline Vector3 Refract(const Vector3& uv, const Vector3& n, double etaiOverEtat)
+{
+    double cosTheta = fmin(Dot(-uv, n), 1.0);
+    Vector3 rayOutPerp = etaiOverEtat * (uv + cosTheta * n);
+    Vector3 rayOutParallel = -sqrt(fabs(1.0 - rayOutPerp.SquaredLength())) * n;
+
+    return rayOutPerp + rayOutParallel;
+}
