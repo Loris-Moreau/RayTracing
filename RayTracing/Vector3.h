@@ -46,7 +46,7 @@ public:
     }
 };
 
-// Alias for Vector3 to increase code readability
+//Alias for Vector3 to increase code readability
 using Position = Vector3;
 
 inline std::ostream& operator<<(std::ostream& rOut, const Vector3& rV)
@@ -102,4 +102,3 @@ inline Vector3 Unit(Vector3 vector)
 {
     return vector / vector.Length();
 }
-

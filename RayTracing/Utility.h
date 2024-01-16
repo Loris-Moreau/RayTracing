@@ -3,6 +3,8 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <cstdlib>
+
 #include "Ray.h"
 
 using std::shared_ptr;
@@ -15,4 +17,14 @@ const double pi = 3.1415926535897932385;
 inline double DegToRad(double degrees)
 {
 	return degrees * pi / 180.0;
+}
+
+inline double Random()
+{
+	return rand() / (RAND_MAX + 1.0);
+}
+
+inline double Random(double min, double max)
+{
+	return min + (max - min) * Random();
 }

@@ -1,44 +1,27 @@
 #pragma once
 
-#include <iostream>
-
 #include "Color.h"
-#include "Ray.h"
-#include "HittableCollection.h"
-#include "Sphere.h"
-#include "Utility.h"
+#include "Hittable.h"
+
+using namespace std;
 
 class Camera
 {
 public:
-	void render(const Hittable& world);
+	Camera() = default;
+	Camera(double imageWidth, double ratio, int samplePerPixel = 10) : aspectRatio(ratio), width(imageWidth), sampleCount(samplePerPixel) {}
 
-    //Resolution
-    double resolution;
-    int width;;
-    int height;
-
-    //Viewport
-    double viewportHeight;
-    double viewportWidth;
-    double focalLength;
-    Position cameraCenter;
-
-    Vector3 viewportX;
-    Vector3 viewportY;
-
-    //Delta vector between pixels
-    Vector3 pixelDeltaX;
-    Vector3 pixelDeltaY;
-
-    //Position of the top left pixel
-    Vector3 viewportOrigin;
-
-    Vector3 originPixelLocation;
-
+	void Render(const Hittable& rWorld);
 
 private:
-	void Initialise();
+	int height;
+	double aspectRatio, width;
+	int sampleCount;
+	Position center, originPixelLocation;
+	Vector3 pixelDeltaX, pixelDeltaY;
 
-	Color rayColor(const Ray& ray, const Hittable& world)const;
+	void Initialize();
+	Color RayColor(const Ray& rRay, const Hittable& rWorld) const;
+	Ray GetRay(int x, int y) const;
+	Vector3 PixelSampleSquared() const;
 };

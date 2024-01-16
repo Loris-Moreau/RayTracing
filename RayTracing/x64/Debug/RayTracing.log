@@ -1,2 +1,8 @@
 ﻿  Camera.cpp
+  Hittable.cpp
+  HittableCollection.cpp
+  Interval.cpp
+  RayTracing.cpp
+  Sphere.cpp
+  Generating Code...
   RayTracing.vcxproj -> C:\Users\loris.moreau\Documents\GitHub\RayTracing\x64\Debug\RayTracing.exe
