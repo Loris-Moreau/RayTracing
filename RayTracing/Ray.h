@@ -3,9 +3,6 @@
 
 class Ray
 {
-private:
-    Position mOrigin;
-    Vector3 mDirection;
 public:
     Ray() {}
     Ray(const Position& from, const Vector3& towards) : mOrigin(from), mDirection(towards) {}
@@ -17,4 +14,8 @@ public:
     {
         return mOrigin + time * mDirection;
     }
+
+private:
+    Position mOrigin;
+    Vector3 mDirection;
 };

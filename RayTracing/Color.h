@@ -3,8 +3,13 @@
 #include "Vector3.h"
 #include "Interval.h"
 
-//New Vector3 alias for color
+// New Vector3 alias for color
 using Color = Vector3;
+
+inline double linearToGamma(double linearComponent)
+{
+    return sqrt(linearComponent);
+}
 
 inline void WriteColor(std::ostream& out, Color pixel, int sampleCount)
 {
@@ -12,6 +17,11 @@ inline void WriteColor(std::ostream& out, Color pixel, int sampleCount)
     double r = pixel.x * scale;
     double g = pixel.y * scale;
     double b = pixel.z * scale;
+
+    // Apply the linear to gamma transform.
+    r = linearToGamma(r);
+    g = linearToGamma(g);
+    b = linearToGamma(b);
 
     // Write the translated [0,255] value of each color component.
     static const Interval intensity(0.000, 0.999);

@@ -131,6 +131,8 @@
     <ClCompile Include="Hittable.cpp" />
     <ClCompile Include="HittableCollection.cpp" />
     <ClCompile Include="Interval.cpp" />
+    <ClCompile Include="Lambertian.cpp" />
+    <ClCompile Include="Materials.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayTracing.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -142,6 +144,8 @@
     <ClInclude Include="Hittable.h" />
     <ClInclude Include="HittableCollection.h" />
     <ClInclude Include="Interval.h" />
+    <ClInclude Include="Lambertian.h" />
+    <ClInclude Include="Materials.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Utility.h" />

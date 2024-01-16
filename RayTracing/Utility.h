@@ -5,8 +5,6 @@
 #include <memory>
 #include <cstdlib>
 
-#include "Ray.h"
-
 using std::shared_ptr;
 using std::make_shared;
 using std::sqrt;
@@ -19,12 +17,14 @@ inline double DegToRad(double degrees)
 	return degrees * pi / 180.0;
 }
 
-inline double Random()
+inline double RandomDouble()
 {
+	//Returns a random real in [0,1).
 	return rand() / (RAND_MAX + 1.0);
 }
 
-inline double Random(double min, double max)
+inline double RandomDouble(double min, double max)
 {
-	return min + (max - min) * Random();
+	//Returns a random real in [min,max).
+	return min + (max - min) * RandomDouble();
 }

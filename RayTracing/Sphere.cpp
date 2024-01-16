@@ -25,6 +25,7 @@ bool Sphere::Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const
 	hitInfo.coordinates = rRay.At(root);
 	Vector3 outwardNormal = (hitInfo.coordinates - mCenter) / mRadius;
 	hitInfo.SetFaceNormal(rRay, outwardNormal);
+	hitInfo.mat = mat;
 
 	return true;
 }
