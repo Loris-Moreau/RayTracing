@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Color.h"
+#include "Hittable.h"
 
 class HitInfo;
 

@@ -16,8 +16,8 @@ int main(int argc, char* argv[])
 
 	shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
 	shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
-	shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8));
-	shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2));
+	shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.085);
+	shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2),0.7);
 
 	world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
 	world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
