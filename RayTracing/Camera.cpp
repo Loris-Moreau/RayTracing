@@ -46,19 +46,26 @@ void Camera::Initialize()
     originPixelLocation = viewportOrigin + 0.5 * (pixelDeltaX + pixelDeltaY);
 }
 
-Color Camera::RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld) const
+Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) const
 {
     HitInfo hitInfo;
 
     if (bounceLeft <= 0) return Color(0, 0, 0);
 
-    if (rWorld.Hit(rRay, Interval(0.001, infinity), hitInfo)) 
+    if (rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
     {
-        Vector3 direction = RandomOnHemisphere(hitInfo.normal);
-        return 0.4 * RayColor(Ray(hitInfo.coordinates, direction), bounceLeft - 1, rWorld);
-    }//return percentage of reflectance * RayColor
+        Ray scattered;
+        Color attenuation;
 
-    Vector3 unitDirection = Unit(rRay.GetDirection());
+        if (hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered))
+        {
+            return attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
+        }
+
+        return Color(0, 0, 0);
+    }
+
+    Vector3 unitDirection = Unit(ray.GetDirection());
     double blue = 0.5 * (unitDirection.y + 1.0);
 
     return (1.0 - blue) * Color(1.0, 1.0, 1.0) + blue * Color(0.5, 0.7, 1.0);

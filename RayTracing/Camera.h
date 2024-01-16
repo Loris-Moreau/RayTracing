@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Color.h"
 #include "Hittable.h"
+#include "Materials.h"
 
 using namespace std;
 

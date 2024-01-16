@@ -133,6 +133,7 @@
     <ClCompile Include="Interval.cpp" />
     <ClCompile Include="Lambertian.cpp" />
     <ClCompile Include="Materials.cpp" />
+    <ClCompile Include="Metal.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayTracing.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Interval.h" />
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Materials.h" />
+    <ClInclude Include="Metal.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Utility.h" />

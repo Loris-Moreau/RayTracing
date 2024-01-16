@@ -4,8 +4,8 @@
 class Sphere : public Hittable
 {
 public:
-	Sphere(Position center, double radius, shared_ptr<Materials> material) :mCenter(center), mRadius(radius), mat(material){}
-	bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const override;
+	Sphere(Position center, double radius, shared_ptr<Materials> material) :mCenter(center), mRadius(radius), mat(material) {}
+	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
 
 	
 private:

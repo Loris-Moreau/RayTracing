@@ -1,37 +1,13 @@
 ﻿  Camera.cpp
   Hittable.cpp
   HittableCollection.cpp
+  Interval.cpp
   Lambertian.cpp
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(11,1): error C2027: use of undefined type 'HitInfo'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(6,7): message : see declaration of 'HitInfo'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(11,51): error C3861: 'random_unit_vector': identifier not found
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(12,1): error C2027: use of undefined type 'HitInfo'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(6,7): message : see declaration of 'HitInfo'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(12,1): error C3536: 'scatter_direction': cannot be used before it is initialized
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(12,24): error C2440: '<function-style-cast>': cannot convert from 'int' to 'Ray'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(12,24): message : No constructor could take the source type, or constructor overload resolution was ambiguous
   Materials.cpp
+  Metal.cpp
+  Ray.cpp
   RayTracing.cpp
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): error C2661: 'Sphere::Sphere': no overloaded function takes 2 arguments
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): message : while trying to match the argument list '(_Ty, _Ty)'
-          with
-          [
-              _Ty=Position
-          ]
-          and
-          [
-              _Ty=double
-          ]
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2092,13): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,Vector3,double>(_Ty &,Vector3 &&,double &&) noexcept(false)' being compiled
-          with
-          [
-              _Ty=Sphere
-          ]
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2765,46): message : see reference to function template instantiation 'std::_Ref_count_obj2<Sphere>::_Ref_count_obj2<_Ty,double>(_Ty &&,double &&)' being compiled
-          with
-          [
-              _Ty=Position
-          ]
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\RayTracing.cpp(14,12): message : see reference to function template instantiation 'std::shared_ptr<Sphere> std::make_shared<Sphere,Position,double>(Position &&,double &&)' being compiled
   Sphere.cpp
+  Vector3.cpp
   Generating Code...
+  RayTracing.vcxproj -> C:\Users\loris.moreau\Documents\GitHub\RayTracing\x64\Debug\RayTracing.exe

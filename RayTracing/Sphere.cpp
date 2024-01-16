@@ -1,10 +1,10 @@
 #include "Sphere.h"
 
-bool Sphere::Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const
+bool Sphere::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 {
-	Vector3 oC = rRay.GetOrigin() - mCenter;
-	double a = rRay.GetDirection().SquaredLength();
-	double halfB = Dot(oC, rRay.GetDirection());
+	Vector3 oC = ray.GetOrigin() - mCenter;
+	double a = ray.GetDirection().SquaredLength();
+	double halfB = Dot(oC, ray.GetDirection());
 	double c = oC.SquaredLength() - mRadius * mRadius;
 
 	double discriminant = halfB * halfB - a * c;
@@ -22,9 +22,9 @@ bool Sphere::Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const
 
 
 	hitInfo.time = root;
-	hitInfo.coordinates = rRay.At(root);
+	hitInfo.coordinates = ray.At(root);
 	Vector3 outwardNormal = (hitInfo.coordinates - mCenter) / mRadius;
-	hitInfo.SetFaceNormal(rRay, outwardNormal);
+	hitInfo.SetFaceNormal(ray, outwardNormal);
 	hitInfo.mat = mat;
 
 	return true;

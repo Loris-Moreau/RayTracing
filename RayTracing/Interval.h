@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Utility.h"
+#include "Ray.h"
+
 
 class Interval
 {

@@ -18,43 +18,21 @@ public:
     double operator[](int i) const { return i == 0 ? x : (i == 1 ? y : z); }
     double& operator[](int i) { return i == 0 ? x : (i == 1 ? y : z); }
 
-    Vector3& operator+=(const Vector3& rVec)
-    {
-        x += rVec.x; y += rVec.y; z += rVec.z;
-        return *this;
-    }
+    Vector3& operator+=(const Vector3& rVec);
 
-    Vector3& operator*=(double t)
-    {
-        x *= t; y *= t; z *= t;
-        return *this;
-    }
+    Vector3& operator*=(double t);
 
-    Vector3& operator/=(double t)
-    {
-        x /= t; y *= t; z *= t;
-        return *this;
-    }
+    Vector3& operator/=(double t);
 
-    double Length() const
-    {
-        return sqrt(SquaredLength());
-    }
+    double Length() const;
 
-    double SquaredLength() const
-    {
-        return x * x + y * y + z * z;
-    }
+    double SquaredLength() const;
 
-    static Vector3 Random()
-    {
-        return Vector3(RandomDouble(), RandomDouble(), RandomDouble());
-    }
+    bool NearZero() const;
 
-    static Vector3 Random(double min, double max)
-    {
-        return Vector3(RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max));
-    }
+    static Vector3 Random();
+
+    static Vector3 Random(double min, double max);
 };
 
 
@@ -138,4 +116,9 @@ inline Vector3 RandomOnHemisphere(const Vector3& normal)
         return onUnitSphere;
     }
     return -onUnitSphere;
+}
+
+inline Vector3 Reflect(const Vector3& v, const Vector3& n)
+{
+    return v - 2 * Dot(v, n) * n;
 }
