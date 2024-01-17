@@ -16,34 +16,84 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	//World
-	HittableCollection world;
+    //World
+    HittableCollection world;
 
-	/*
-	shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-	//shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
-	//shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.085);
-	shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2),0.7);
+    /*
+    shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
+    //shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
+    //shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.085);
+    shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2),0.7);
 
-	shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
-	shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
-	*/
+    shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
+    shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
+    */
+    /*
+    shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
+    shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
+    shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
+    shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
 
-	shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-	shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
-	shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
-	shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
+    world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
+    world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
+    //world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat)); //Reflective glass
+    world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat)); //shiny metal ball
 
-	world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
-	world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
-	//world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat)); //Reflective glass
-	world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat)); //shiny metal ball
+    world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
+    */
 
-	world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
+    shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
+    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
 
-	//Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector)
-	Camera camera(400, 16.0 / 9.0, 100, 50, 90, Position(-2, 2, 1), Position(0, 0, -1), Vector3(0, 1, 0));
-	camera.Render(world);
+    for (int a = -11; a < 11; a++)
+    {
+        for (int b = -11; b < 11; b++)
+        {
+            double choose_mat = RandomDouble();
+            Position Center(a + 0.9 * RandomDouble(), 0.2, b + 0.9 * RandomDouble());
 
-	return 0;
+            if ((Center - Position(4, 0.2, 0)).Length() > 0.9)
+            {
+                shared_ptr<Materials> sphereMaterial;
+
+                if (choose_mat < 0.8)
+                {
+                    //Diffuse
+                    Vector3 albedo = Color::Random() * Color::Random();
+                    sphereMaterial = make_shared<Lambertian>(albedo);
+                    world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
+                }
+                else if (choose_mat < 0.95)
+                {
+                    //Metal
+                    Vector3 albedo = Color::Random(0.5, 1);
+                    double fuzz = RandomDouble(0, 0.5);
+                    sphereMaterial = make_shared<Metal>(albedo, fuzz);
+                    world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
+                }
+                else
+                {
+                    //Glass
+                    sphereMaterial = make_shared<Dielectric>(1.5);
+                    world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
+                }
+            }
+        }
+    }
+
+    shared_ptr<Materials> material1 = make_shared<Dielectric>(1.5);
+    world.Add(make_shared<Sphere>(Position(0, 1, 0), 1.0, material1));
+
+    shared_ptr<Materials> material2 = make_shared<Lambertian>(Color(0.4, 0.2, 0.1));
+    world.Add(make_shared<Sphere>(Position(-4, 1, 0), 1.0, material2));
+
+    shared_ptr<Materials> material3 = make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0);
+    world.Add(make_shared<Sphere>(Position(4, 1, 0), 1.0, material3));
+
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
+    Camera camera(1200, 16.0 / 9.0, 500, 50, 20, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    camera.Render(world);
+
+    return 0;
 }
