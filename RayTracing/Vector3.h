@@ -81,7 +81,7 @@ inline double Dot(const Vector3& rLeft, const Vector3 rRight)
         + rLeft.z * rRight.z;
 }
 
-inline Vector3  Cross(const Vector3& rLeft, const Vector3& rRight)
+inline Vector3 Cross(const Vector3& rLeft, const Vector3& rRight)
 {
     return Vector3(rLeft.y * rRight.z - rLeft.z * rRight.y,
         rLeft.z * rRight.x - rLeft.x * rRight.z,
@@ -107,6 +107,18 @@ inline Vector3 RandomUnitVector()
     return Unit(RandomInUnitSphere());
 }
 
+inline Vector3 RandomInUnitDisc()
+{
+    while (true)
+    {
+        Vector3 position = Vector3(RandomDouble(-1, 1), RandomDouble(-1, 1), 0);
+        if (position.SquaredLength() < 1)
+        {
+            return position;
+        }
+    }
+}
+
 inline Vector3 RandomOnHemisphere(const Vector3& normal)
 {
     Vector3 onUnitSphere = RandomUnitVector();
@@ -118,9 +130,9 @@ inline Vector3 RandomOnHemisphere(const Vector3& normal)
     return -onUnitSphere;
 }
 
-inline Vector3 Reflect(const Vector3& v, const Vector3& n)
+inline Vector3 Reflect(const Vector3& y, const Vector3& n)
 {
-    return v - 2 * Dot(v, n) * n;
+    return y - 2 * Dot(y, n) * n;
 }
 
 inline Vector3 Refract(const Vector3& uv, const Vector3& n, double etaiOverEtat)
