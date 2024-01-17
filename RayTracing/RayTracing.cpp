@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
 
 	world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
 
-
-	Camera camera(400, 16.0 / 9.0, 100, 50);
+	//Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector)
+	Camera camera(400, 16.0 / 9.0, 100, 50, 90, Position(-2, 2, 1), Position(0, 0, -1), Vector3(0, 1, 0));
 	camera.Render(world);
 
 	return 0;

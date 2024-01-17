@@ -26,24 +26,35 @@ void Camera::Render(const Hittable& rWorld)
 void Camera::Initialize()
 {
     height = static_cast<int>(width / aspectRatio);
+
     if (height < 1) height = 1;
 
-    center = Position(0, 0, 0);
-    double focalLength = 1;
-    double viewportHeight = 2;
-    double viewportWidth = viewportHeight * (static_cast<double>(width) / height);
+    center = lookFrom;
+    focalLength = (lookFrom - lookAt).Length();
 
-    Vector3 viewportX = Vector3(viewportWidth, 0, 0);
-    Vector3 viewportY = Vector3(0, -viewportHeight, 0); //We invert Y
+    theta = DegToRad(verticalFov);
+    h = tan(theta / 2);
+    viewportHeight = 2 * h * focalLength;
+    viewportWidth = viewportHeight * (static_cast<double>(width) / height);
+
+    // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
+    w = Unit(lookFrom - lookAt); //(Z)
+    u = Unit(Cross(vecUp, w)); //(X)
+    v = Cross(w, u); //(Y)
+
+    // Calculate the vectors across the horizontal and down the vertical viewport edges.
+    Vector3 viewportX = viewportWidth * u; // Vector across viewport horizontal edge
+    Vector3 viewportY = viewportHeight * -v; // Vector down viewport vertical edge
 
     //Delta vector between pixels
     pixelDeltaX = viewportX / width;
     pixelDeltaY = viewportY / height;
 
     //Position of the top left pixel
-    Vector3 viewportOrigin = center - Vector3(0, 0, focalLength) - viewportX / 2 - viewportY / 2;
+    auto viewportUpperLeft = center - (focalLength * w) - viewportX / 2 - viewportY / 2;
+    //Vector3 viewportOrigin = center - Vector3(0, 0, focalLength) - viewportX / 2 - viewportY / 2;
 
-    originPixelLocation = viewportOrigin + 0.5 * (pixelDeltaX + pixelDeltaY);
+    originPixelLocation = viewportUpperLeft + 0.5 * (pixelDeltaX + pixelDeltaY);
 }
 
 Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) const
