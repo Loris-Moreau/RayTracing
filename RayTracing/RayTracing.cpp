@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
 
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(1200, 16.0 / 9.0, 500, 50, 20, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    Camera camera(1200, 16.0 / 9.0, 10, 50, 10, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
     camera.Render(world);
 
     return 0;

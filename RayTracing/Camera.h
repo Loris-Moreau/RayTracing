@@ -2,6 +2,9 @@
 
 #include "Hittable.h"
 #include "Materials.h"
+//Multi Threading
+//#include <thread>
+//#include <mutex>
 
 using namespace std;
 
@@ -50,4 +53,8 @@ private:
 	Vector3 PixelSampleSquared() const;
 
 	Position DefocusDiskSample() const;
+
+	//Multi Threading
+	//mutex mutex;
+	//void RenderRow(int y, const Hittable& rWorld);
 };
