@@ -1,6 +1,9 @@
 // RayTracing.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
-//#include <iostream>
+///Command for .ppm file creation :
+///.\x64\Debug\RayTracing.exe > Render.ppm
+
+
 #include "Camera.h"
 #include "HittableCollection.h"
 #include "Sphere.h"
@@ -33,8 +36,10 @@ int main(int argc, char* argv[])
 
 	world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
 	world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
-	world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat));
-	world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat));
+	//world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat)); //Reflective glass
+	world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat)); //shiny metal ball
+
+	world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
 
 
 	Camera camera(400, 16.0 / 9.0, 100, 50);

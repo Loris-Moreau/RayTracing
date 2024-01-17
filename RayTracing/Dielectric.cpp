@@ -4,27 +4,35 @@ bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenu
 {
     attenuation = Color(1.0, 1.0, 1.0);
 
-    double refraction_ratio = hitInfo.frontFace ? (1.0 / indexOfRefraction) : indexOfRefraction;
+    double refractionRatio = hitInfo.frontFace ? (1.0 / indexOfRefraction) : indexOfRefraction;
 
-    Vector3 unit_direction = Unit(rayIn.GetDirection());
+    Vector3 unitDirection = Unit(rayIn.GetDirection());
 
-    double cos_theta = fmin(Dot(-unit_direction, hitInfo.normal), 1.0);
-    double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
+    double cosTheta = fmin(Dot(-unitDirection, hitInfo.normal), 1.0);
+    double sinTheta = sqrt(1.0 - cosTheta * cosTheta);
 
-    bool cannot_refract = refraction_ratio * sin_theta > 1.0;
+    bool cannotRefract = refractionRatio * sinTheta > 1.0;
 
     Vector3 direction;
 
-    if (cannot_refract)
+    if (cannotRefract || Reflectance(cosTheta, refractionRatio) > RandomDouble())
     {
-        direction = Reflect(unit_direction, hitInfo.normal);
+        direction = Reflect(unitDirection, hitInfo.normal);
     }
     else
     {
-        direction = Refract(unit_direction, hitInfo.normal, refraction_ratio);
+        direction = Refract(unitDirection, hitInfo.normal, refractionRatio);
     }
 
     scattered = Ray(hitInfo.coordinates, direction);
 
     return true;
+}
+
+double Dielectric::Reflectance(double cosine, double reflectanceIndex)
+{
+    // Use Schlick's approximation for reflectance.
+    auto r0 = (1 - reflectanceIndex) / (1 + reflectanceIndex);
+    r0 = r0 * r0;
+    return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
