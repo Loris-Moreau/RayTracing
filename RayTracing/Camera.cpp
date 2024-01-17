@@ -4,34 +4,6 @@ void Camera::Render(const Hittable& rWorld)
 {
     Initialize();
 
-    /*// Create two threads for rendering and progress display
-    std::thread renderingThread([this, &rWorld]()
-        {
-            for (int y = 0; y < height; y++)
-            {
-                RenderRow(y, rWorld);
-            }
-        });
-
-    std::thread progressThread([this]()
-        {
-            for (int y = 0; y < height; y++)
-            {
-                {
-                    std::lock_guard<std::mutex> lock(mutex);
-                    clog << "Progress : " << (y * 100 / height) << " %\n" << std::flush;
-                }
-                // Sleep for a short duration to simulate processing
-                std::this_thread::sleep_for(std::chrono::milliseconds(50));
-            }
-            clog << "It has been done\n";
-        });
-
-    // Wait for both threads to finish
-    renderingThread.join();
-    progressThread.join();
-    */
-
     cout << "P3\n" << width << ' ' << height << "\n255\n";
     for (int y = 0; y < height; y++)
     {
@@ -141,21 +113,3 @@ Position Camera::DefocusDiskSample() const
     Vector3 position = RandomInUnitDisc();
     return center + (position[0] * defocusDiskX) + (position[1] * defocusDiskY);
 }
-
-/*void Camera::RenderRow(int y, const Hittable& rWorld)
-{
-    for (int x = 0; x < width; x++) 
-    {
-        Color pixel(0, 0, 0);
-        for (int sample = 0; sample < sampleCount; sample++) 
-        {
-            Ray ray = GetRay(x, y);
-            pixel += RayColor(ray, maxBounces, rWorld);
-        }
-
-        {
-            std::lock_guard<std::mutex> lock(mutex);
-            WriteColor(cout, pixel, sampleCount);
-        }
-    }
-}*/

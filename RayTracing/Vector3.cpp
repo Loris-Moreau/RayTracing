@@ -14,7 +14,7 @@ Vector3& Vector3::operator*=(double t)
 
 Vector3& Vector3::operator/=(double t)
 {
-    x /= t; y *= t; z *= t;
+    x /= t; y /= t; z /= t;
     return *this;
 }
 

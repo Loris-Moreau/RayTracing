@@ -2,9 +2,6 @@
 
 #include "Hittable.h"
 #include "Materials.h"
-//Multi Threading
-//#include <thread>
-//#include <mutex>
 
 using namespace std;
 
@@ -35,7 +32,8 @@ private:
 	double h;
 
 	int height;
-	double aspectRatio, width;
+	double width;
+	double aspectRatio;
 	int sampleCount;
 
 	int maxBounces;
@@ -53,8 +51,4 @@ private:
 	Vector3 PixelSampleSquared() const;
 
 	Position DefocusDiskSample() const;
-
-	//Multi Threading
-	//mutex mutex;
-	//void RenderRow(int y, const Hittable& rWorld);
 };
