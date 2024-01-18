@@ -29,3 +29,10 @@ bool Sphere::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 
 	return true;
 }
+
+Position Sphere::center(double time) const
+{
+	// Linearly interpolate from center1 to center2 according to time, where t=0 yields
+	// center1, and t=1 yields center2.
+	return mCenter + time * center_vec;
+}

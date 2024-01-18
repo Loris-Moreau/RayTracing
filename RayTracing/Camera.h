@@ -42,6 +42,8 @@ private:
 	Vector3 pixelDeltaX, pixelDeltaY;
 	Vector3 x, y, w; //Camera frame basis vectors (X,Y,Z)
 
+	double rayTime = RandomDouble();
+
 	Vector3 defocusDiskX; //Defocus disk horizontal radius
 	Vector3 defocusDiskY; //Defocus disk vertical radius
 

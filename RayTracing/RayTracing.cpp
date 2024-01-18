@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     //World
     HittableCollection world;
 
-    /*
+    /* //First Set
     shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
     //shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
     //shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.085);
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
     shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
     shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
     */
-    /*
+    /* //Second Set
     shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
     shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
     shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
@@ -41,13 +41,13 @@ int main(int argc, char* argv[])
 
     world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
     */
-
+    //Third Set
     shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
     world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
 
-    for (int a = -11; a < 11; a++)
+    for (int a = -7; a < 7; a++)
     {
-        for (int b = -11; b < 11; b++)
+        for (int b = -7; b < 7; b++)
         {
             double choose_mat = RandomDouble();
             Position Center(a + 0.9 * RandomDouble(), 0.2, b + 0.9 * RandomDouble());
@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
 
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(1200, 16.0 / 9.0, 500, 50, 20, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    Camera camera(1200, 16.0 / 9.0, 50, 50, 40, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
     camera.Render(world);
 
     return 0;

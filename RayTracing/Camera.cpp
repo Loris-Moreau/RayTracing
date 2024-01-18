@@ -95,7 +95,7 @@ Ray Camera::GetRay(int x, int y) const
     Position rayOrigin = (defocusAngle <= 0) ? center : DefocusDiskSample();
     Vector3 rayDirection = pixelSample - rayOrigin;
 
-    return Ray(rayOrigin, rayDirection);
+    return Ray(rayOrigin, rayDirection, rayTime);
 }
 
 Vector3 Camera::PixelSampleSquared() const
