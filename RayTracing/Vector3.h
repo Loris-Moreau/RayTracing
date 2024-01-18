@@ -143,3 +143,9 @@ inline Vector3 Refract(const Vector3& uv, const Vector3& n, double etaiOverEtat)
 
     return rayOutPerp + rayOutParallel;
 }
+
+inline int RandomInt(int min, int max)
+{
+    // Returns a random integer in [min,max].
+    return static_cast<int>(RandomDouble(min, max + 1));
+}

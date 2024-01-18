@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "HittableCollection.h"
 #include "Sphere.h"
+#include "BVHNode.h"
 //Mat
 #include "Lambertian.h"
 #include "Metal.h"
@@ -91,9 +92,10 @@ int main(int argc, char* argv[])
     shared_ptr<Materials> material3 = make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0);
     world.Add(make_shared<Sphere>(Position(4, 1, 0), 1.0, material3));
 
+    world = HittableCollection(make_shared<BVHNode>(world));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 100, 50, 40, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.02, 10);
+    Camera camera(400, 16.0 / 9.0, 100, 50, 25, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
     camera.Render(world);
 
     return 0;

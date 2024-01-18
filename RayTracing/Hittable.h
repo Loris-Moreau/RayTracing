@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Interval.h"
+#include "AABB.h"
 
 class Materials;
 
@@ -22,4 +23,6 @@ class Hittable
 public:
 	virtual ~Hittable() {}
 	virtual bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const = 0;
+
+	virtual AABB BoundingBox() const = 0;
 };

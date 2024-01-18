@@ -7,8 +7,10 @@ class Interval
 {
 public:
     double min, max;
+
     Interval() : min(+infinity), max(-infinity) {} //Default interval is empty
     Interval(double pMin, double pMax) : min(pMin), max(pMax) {}
+    Interval(const Interval& a, const Interval& b) : min(fmin(a.min, b.min)), max(fmax(a.max, b.max)) {}
 
     bool Contains(double x) const
     {
@@ -23,6 +25,17 @@ public:
     double Clamp(double x) const
     {
         return x < min ? min : x > max ? max : x;
+    }
+
+    double Size() const 
+    {
+        return max - min;
+    }
+
+    Interval Expand(double delta) const 
+    {
+        double padding = delta / 2;
+        return Interval(min - padding, max + padding);
     }
 
     static const Interval Empty, Universe;

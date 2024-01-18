@@ -8,8 +8,10 @@ bool HittableCollection::Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo
     bool hasHit = false;
     auto closestHit = rayTime.max;
 
-    for (const shared_ptr<Hittable>& hittable : mPool) {
-        if (hittable->Hit(rRay, Interval(rayTime.min, closestHit), tempInfo)) {
+    for (const shared_ptr<Hittable>& hittable : mPool) 
+    {
+        if (hittable->Hit(rRay, Interval(rayTime.min, closestHit), tempInfo)) 
+        {
             hasHit = true;
             closestHit = tempInfo.time;
             hitInfo = tempInfo;
