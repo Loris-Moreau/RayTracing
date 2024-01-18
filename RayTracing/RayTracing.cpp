@@ -61,7 +61,8 @@ int main(int argc, char* argv[])
                     //Diffuse
                     Vector3 albedo = Color::Random() * Color::Random();
                     sphereMaterial = make_shared<Lambertian>(albedo);
-                    world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
+                    auto center2 = Center + Vector3(0, RandomDouble(0, 0.5), 0);
+                    world.Add(make_shared<Sphere>(Center, center2, 0.2, sphereMaterial));
                 }
                 else if (choose_mat < 0.95)
                 {
@@ -92,7 +93,7 @@ int main(int argc, char* argv[])
 
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(1200, 16.0 / 9.0, 50, 50, 40, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    Camera camera(400, 16.0 / 9.0, 100, 50, 40, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.02, 10);
     camera.Render(world);
 
     return 0;

@@ -28,5 +28,5 @@ private:
     bool isMoving;
     Vector3 center_vec;
 
-    Position center(double time) const;
+    Position Center(double time) const;
 };
