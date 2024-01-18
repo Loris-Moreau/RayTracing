@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
     world = HittableCollection(make_shared<BVHNode>(world));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 100, 50, 25, Position(13, 2, 3), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    Camera camera(400, 16.0 / 9.0, 100, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
     camera.Render(world);
 
     return 0;
