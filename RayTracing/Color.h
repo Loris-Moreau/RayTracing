@@ -26,5 +26,5 @@ inline void WriteColor(std::ostream& out, Color pixel, int sampleCount)
     static const Interval intensity(0.000, 0.999);
     out << static_cast<int>(255.999 * intensity.Clamp(r)) << ' '
         << static_cast<int>(255.999 * intensity.Clamp(g)) << ' '
-        << static_cast<int>(255.999 * intensity.Clamp(b)) /*<< '\n'*/ ;
+        << static_cast<int>(255.999 * intensity.Clamp(b)) << '\n';
 }
