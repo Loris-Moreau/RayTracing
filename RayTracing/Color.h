@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+
 #include "Interval.h"
 
 // New Vector3 alias for color

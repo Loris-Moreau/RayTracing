@@ -3,7 +3,6 @@
 ///Command for .ppm file creation :
 ///.\x64\Debug\RayTracing.exe > Render.ppm
 
-
 #include "Camera.h"
 #include "HittableCollection.h"
 #include "Sphere.h"
@@ -13,14 +12,23 @@
 #include "Metal.h"
 #include "Dielectric.h"
 
+#include "Texture.h"
+
 using namespace std;
 
 int main(int argc, char* argv[])
 {
     //World
     HittableCollection world;
+    
+    shared_ptr<CheckerTexture> checker = make_shared<CheckerTexture>(0.32, Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
+    shared_ptr<SolidColor> solid = make_shared<SolidColor>(0.5, 0.5, 1);
 
-    /* //First Set
+    //world.Add(make_shared<Sphere>(Position(0, -100, 0), 100, make_shared<Lambertian>(solid)));
+    //world.Add(make_shared<Sphere>(Position(0, -100, 0), 100, make_shared<Lambertian>(checker)));
+    
+    /*
+    //First Set
     shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
     //shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
     //shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.085);
@@ -29,7 +37,8 @@ int main(int argc, char* argv[])
     shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
     shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
     */
-    /* //Second Set
+    /*
+    //Second Set
     shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
     shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
     shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
@@ -42,10 +51,11 @@ int main(int argc, char* argv[])
 
     world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
     */
+    
     //Third Set
     shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
     world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
-
+    
     for (int a = -7; a < 7; a++)
     {
         for (int b = -7; b < 7; b++)
@@ -82,7 +92,7 @@ int main(int argc, char* argv[])
             }
         }
     }
-
+    
     shared_ptr<Materials> material1 = make_shared<Dielectric>(1.5);
     world.Add(make_shared<Sphere>(Position(0, 1, 0), 1.0, material1));
 
