@@ -1,2 +1,13 @@
 ﻿  BVHNode.cpp
-  RayTracing.vcxproj -> C:\Users\loris.moreau\Documents\GitHub\RayTracing\x64\Debug\RayTracing.exe
+  Camera.cpp
+  Dielectric.cpp
+  Hittable.cpp
+  HittableCollection.cpp
+  Lambertian.cpp
+  Materials.cpp
+  Metal.cpp
+  RayTracing.cpp
+  Sphere.cpp
+  Texture.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Texture.h(20,11): error C3668: 'SolidColor::Value': method with override specifier 'override' did not override any base class methods
+  Generating Code...

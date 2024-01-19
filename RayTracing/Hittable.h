@@ -16,6 +16,9 @@ public:
 	bool frontFace;
 
 	void SetFaceNormal(const Ray& ray, const Vector3& outwardNormal);
+	
+	double x;
+	double y;
 };
 
 class Hittable
