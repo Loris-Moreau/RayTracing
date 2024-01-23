@@ -1,22 +1,15 @@
-﻿  RayTracing.cpp
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): error C2665: 'Lambertian::Lambertian': no overloaded function could convert all the argument types
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(14,1): message : could be 'Lambertian::Lambertian(Lambertian &&)'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): message : 'Lambertian::Lambertian(Lambertian &&)': cannot convert argument 1 from 'std::shared_ptr<CheckerTexture>' to 'Lambertian &&'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,77): message : Reason: cannot convert from 'std::shared_ptr<CheckerTexture>' to 'Lambertian'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,77): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(14,1): message : or       'Lambertian::Lambertian(const Lambertian &)'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): message : 'Lambertian::Lambertian(const Lambertian &)': cannot convert argument 1 from 'std::shared_ptr<CheckerTexture>' to 'const Lambertian &'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,77): message : Reason: cannot convert from 'std::shared_ptr<CheckerTexture>' to 'const Lambertian'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,77): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Lambertian.h(8,5): message : or       'Lambertian::Lambertian(const Color &)'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): message : 'Lambertian::Lambertian(const Color &)': cannot convert argument 1 from 'std::shared_ptr<CheckerTexture>' to 'const Color &'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,77): message : Reason: cannot convert from 'std::shared_ptr<CheckerTexture>' to 'const Color'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,77): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xutility(265,56): message : while trying to match the argument list '(std::shared_ptr<CheckerTexture>)'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2092,13): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,std::shared_ptr<CheckerTexture>&>(_Ty &,std::shared_ptr<CheckerTexture> &) noexcept(false)' being compiled
-          with
-          [
-              _Ty=Lambertian
-          ]
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2765,46): message : see reference to function template instantiation 'std::_Ref_count_obj2<Lambertian>::_Ref_count_obj2<std::shared_ptr<CheckerTexture>&>(std::shared_ptr<CheckerTexture> &)' being compiled
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\RayTracing.cpp(125,60): message : see reference to function template instantiation 'std::shared_ptr<Lambertian> std::make_shared<Lambertian,std::shared_ptr<CheckerTexture>&>(std::shared_ptr<CheckerTexture> &)' being compiled
+﻿  Camera.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Dielectric.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Lambertian.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Materials.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Metal.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  RayTracing.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Texture.cpp
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\rtw_stb_image.h(32,25): error C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generating Code...

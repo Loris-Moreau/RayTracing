@@ -2,6 +2,7 @@
 
 #include "Color.h"
 #include "Hittable.h"
+#include "Texture.h"
 
 class HitInfo;
 

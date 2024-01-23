@@ -132,7 +132,7 @@ void Checkers()
 
 int main(int argc, char* argv[])
 {
-    switch (3)
+    /*switch (3)
     {
     case 1: BaseBalls(0, 0);
         break;
@@ -140,7 +140,8 @@ int main(int argc, char* argv[])
         break;
     case 3: RandomSpheres(7);
         break;
-    }
+    }*/
+    Checkers();
 
     return 0;
 }

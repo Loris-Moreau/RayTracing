@@ -156,6 +156,7 @@
     <ClInclude Include="Materials.h" />
     <ClInclude Include="Metal.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="rtw_stb_image.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utility.h" />

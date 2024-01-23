@@ -31,6 +31,7 @@ public:
 
     AABB BoundingBox() const override { return bBox; }
 
+
 private:
 	Position mCenter;
 	double mRadius;
@@ -43,4 +44,5 @@ private:
     Position Center(double time) const;
 
     AABB bBox;
+    static void GetSphereUV(const Position& position, double& U, double& V);
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Color.h"
+#include "rtw_stb_image.h"
 
 class Texture
 {
@@ -39,4 +40,9 @@ private:
 
     shared_ptr<Texture> even;
     shared_ptr<Texture> odd;
+};
+
+class ImageTexture : public Texture
+{
+
 };
