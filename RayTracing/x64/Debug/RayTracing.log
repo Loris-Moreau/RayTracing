@@ -19,7 +19,4 @@ C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2092,13): message : see
               _Ty=Lambertian
           ]
 C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2765,46): message : see reference to function template instantiation 'std::_Ref_count_obj2<Lambertian>::_Ref_count_obj2<std::shared_ptr<CheckerTexture>&>(std::shared_ptr<CheckerTexture> &)' being compiled
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\RayTracing.cpp(27,64): message : see reference to function template instantiation 'std::shared_ptr<Lambertian> std::make_shared<Lambertian,std::shared_ptr<CheckerTexture>&>(std::shared_ptr<CheckerTexture> &)' being compiled
-  Sphere.cpp
-  Texture.cpp
-  Generating Code...
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\RayTracing.cpp(125,60): message : see reference to function template instantiation 'std::shared_ptr<Lambertian> std::make_shared<Lambertian,std::shared_ptr<CheckerTexture>&>(std::shared_ptr<CheckerTexture> &)' being compiled

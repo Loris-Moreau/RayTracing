@@ -23,10 +23,10 @@ private:
     Color colorValue;
 };
 
-class CheckerTexture : public Texture 
+class CheckerTexture : public Texture
 {
 public:
-    CheckerTexture(double _scale, shared_ptr<Texture> _even, shared_ptr<Texture> _odd) 
+    CheckerTexture(double _scale, shared_ptr<Texture> _even, shared_ptr<Texture> _odd)
         : inverseScale(1.0 / _scale), even(_even), odd(_odd) {}
 
     CheckerTexture(double _scale, Color color1, Color color2)

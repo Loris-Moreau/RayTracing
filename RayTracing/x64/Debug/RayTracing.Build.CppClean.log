@@ -1,8 +1,8 @@
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\vc143.pdb
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\vc143.idb
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\vector3.obj
+c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\texture.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\sphere.obj
-c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\raytracing.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\ray.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\metal.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\materials.obj
@@ -12,13 +12,12 @@ c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\hittablec
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\hittable.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\dielectric.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\camera.obj
-c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\aabb.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\bvhnode.obj
-c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\texture.obj
+c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\aabb.obj
+c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\raytracing.obj
 c:\users\loris.moreau\documents\github\raytracing\x64\debug\raytracing.exe
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\raytracing.ilk
 c:\users\loris.moreau\documents\github\raytracing\x64\debug\raytracing.pdb
-c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\fuzzymetal.obj
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\raytracing.tlog\cl.command.1.tlog
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\raytracing.tlog\cl.items.tlog
 c:\users\loris.moreau\documents\github\raytracing\raytracing\x64\debug\raytracing.tlog\cl.read.1.tlog

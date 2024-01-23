@@ -16,49 +16,55 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
+void BaseBalls(int set, int glass)
 {
     //World
     HittableCollection world;
 
-    shared_ptr<CheckerTexture> checker = make_shared<CheckerTexture>(0.32, Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
-    //shared_ptr<SolidColor> solid = make_shared<SolidColor>(0.5, 0.5, 1);
+    //First Set Materials
+    //shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
 
-    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, make_shared<Lambertian>(checker)));
-    //world.Add(make_shared<Sphere>(Position(0, -100, 0), 100, make_shared<Lambertian>(solid)));
-
-    /*
-    //First Set
-    shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-    //shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
-    //shared_ptr<Materials> leftMat = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.085);
-    shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2),0.7);
-
+    shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.7);
     shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
     shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
-    */
-    /*
-    //Second Set
-    shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-    shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
-    shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
-    shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
 
-    world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
+    if (set == 1)
+    {
+        //Second Set Materials
+        shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
+        shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
+        shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
+    }
+
+    //world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
     world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
-    //world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat)); //Reflective glass
     world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat)); //shiny metal ball
 
-    world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
-    */
-
-    //Third Set
-    shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
-    //world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
-
-    for (int a = -7; a < 7; a++)
+    if (glass == 1)
     {
-        for (int b = -7; b < 7; b++)
+        world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat)); //Reflective glass
+    }
+    else
+    {
+        world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
+    }
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(2, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.65, 10);
+    camera.Render(world);
+}
+
+void RandomSpheres(int nb)
+{
+    //World
+    HittableCollection world;
+
+    shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
+    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
+
+    for (int a = -nb; a < nb; a++)
+    {
+        for (int b = -nb; b < nb; b++)
         {
             double choose_mat = RandomDouble();
             Position Center(a + 0.9 * RandomDouble(), 0.2, b + 0.9 * RandomDouble());
@@ -105,8 +111,36 @@ int main(int argc, char* argv[])
     world = HittableCollection(make_shared<BVHNode>(world));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 100, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
     camera.Render(world);
+}
+
+void Checkers()
+{
+    //World
+    HittableCollection world;
+
+    shared_ptr<CheckerTexture> checker = make_shared<CheckerTexture>(0.8, Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
+
+    world.Add(make_shared<Sphere>(Position(0, -10, 0), 10, make_shared<Lambertian>(checker)));
+    world.Add(make_shared<Sphere>(Position(0, 10, 0), 10, make_shared<Lambertian>(checker)));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    camera.Render(world);
+}
+
+int main(int argc, char* argv[])
+{
+    switch (3)
+    {
+    case 1: BaseBalls(0, 0);
+        break;
+    case 2: Checkers();
+        break;
+    case 3: RandomSpheres(7);
+        break;
+    }
 
     return 0;
 }

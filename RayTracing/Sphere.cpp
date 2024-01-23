@@ -22,7 +22,6 @@ bool Sphere::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 			return false;
 	}
 
-
 	hitInfo.time = root;
 	hitInfo.coordinates = ray.At(root);
 	Vector3 outwardNormal = (hitInfo.coordinates - mCenter) / mRadius;
