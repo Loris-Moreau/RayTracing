@@ -22,10 +22,10 @@ int main(int argc, char* argv[])
     HittableCollection world;
 
     shared_ptr<CheckerTexture> checker = make_shared<CheckerTexture>(0.32, Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
-    shared_ptr<SolidColor> solid = make_shared<SolidColor>(0.5, 0.5, 1);
+    //shared_ptr<SolidColor> solid = make_shared<SolidColor>(0.5, 0.5, 1);
 
+    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, make_shared<Lambertian>(checker)));
     //world.Add(make_shared<Sphere>(Position(0, -100, 0), 100, make_shared<Lambertian>(solid)));
-    //world.Add(make_shared<Sphere>(Position(0, -100, 0), 100, make_shared<Lambertian>(checker)));
 
     /*
     //First Set
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 
     //Third Set
     shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
-    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
+    //world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
 
     for (int a = -7; a < 7; a++)
     {

@@ -13,12 +13,13 @@ public:
 	shared_ptr<Materials> mat;
 
 	double time;
+
+	double x;
+	double y;
+
 	bool frontFace;
 
 	void SetFaceNormal(const Ray& ray, const Vector3& outwardNormal);
-	
-	double x;
-	double y;
 };
 
 class Hittable

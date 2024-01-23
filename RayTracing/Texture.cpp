@@ -1,10 +1,5 @@
 #include "Texture.h"
 
-Color SolidColor::Value(double x, double y, const Position& position) const
-{
-    return colorValue;
-}
-
 Color CheckerTexture::Value(double x, double y, const Position& position) const
 {
     int xInteger = static_cast<int>(std::floor(inverseScale * position.x));

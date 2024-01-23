@@ -5,7 +5,7 @@
 class Texture
 {
 public:
-    virtual ~Texture() = default;
+    virtual ~Texture() {}
 
     virtual Color Value(double x, double y, const Position& position) const = 0;
 };
@@ -17,7 +17,7 @@ public:
 
     SolidColor(double red, double green, double blue) : SolidColor(Color(red, green, blue)) {}
 
-    Color Value(double x, double y, const Position& position) const override;
+    Color Value(double x, double y, const Position& position) const override { return colorValue; }
 
 private:
     Color colorValue;
