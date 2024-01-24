@@ -65,6 +65,7 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) c
 {
     HitInfo hitInfo;
 
+    /*
     if (bounceLeft <= 0) return Color(0, 0, 0);
 
     if (rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
@@ -84,6 +85,26 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) c
     double blue = 0.5 * (unitDirection.y + 1.0);
 
     return (1.0 - blue) * Color(1.0, 1.0, 1.0) + blue * Color(0.5, 0.7, 1.0);
+    */
+
+    //If we've exceeded the ray bounce limit, no more light is gathered.
+    if (bounceLeft <= 0)
+        return Color(0, 0, 0);
+
+    // If the ray hits nothing, return the background color.
+    if (!rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
+        return background;
+
+    Ray scattered;
+    Color attenuation;
+    Color color_from_emission = hitInfo.mat->Emitted(hitInfo.x, hitInfo.y, hitInfo.coordinates);
+
+    if (!hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered))
+        return color_from_emission;
+
+    Color color_from_scatter = attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
+
+    return color_from_emission + color_from_scatter;
 }
 
 Ray Camera::GetRay(int x, int y) const

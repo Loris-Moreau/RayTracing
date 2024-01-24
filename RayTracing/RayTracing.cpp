@@ -16,6 +16,8 @@
 
 #include "Texture.h"
 
+#include "DiffuseLight.h"
+
 using namespace std;
 
 void BaseBalls(int set, int glass)
@@ -113,7 +115,7 @@ void RandomSpheres(int nb)
     world = HittableCollection(make_shared<BVHNode>(world));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10);
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
     camera.Render(world);
 }
 
@@ -128,7 +130,7 @@ void Checkers()
     world.Add(make_shared<Sphere>(Position(0, 10, 0), 10, make_shared<Lambertian>(checker)));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
     camera.Render(world);
 }
 
@@ -141,7 +143,7 @@ void Earth()
 
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(0, 0, 12), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(0, 0, 12), Position(0, 0, 0), Vector3(0, 1, 0), 0, 0, Color(0.70, 0.80, 1.00));
     camera.Render(HittableCollection(renderedObj));
 }
 */
@@ -156,7 +158,7 @@ void PerlinSphere()
     world.Add(make_shared<Sphere>(Position(0, 2, 0), 2, make_shared<Lambertian>(pertext)));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
     camera.Render(world);
 }
 
@@ -179,13 +181,51 @@ void Quads()
     world.Add(make_shared<Quadrilaterals>(Position(-2, -3, 5), Vector3(4, 0, 0), Vector3(0, 0, -4), lowerMiku));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
+    camera.Render(world);
+}
+
+void SimpleLight() 
+{
+    HittableCollection world;
+
+    shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(4);
+    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, make_shared<Lambertian>(pertext)));
+    world.Add(make_shared<Sphere>(Position(0, 2, 0), 2, make_shared<Lambertian>(pertext)));
+
+    shared_ptr<DiffuseLight> difflight = make_shared<DiffuseLight>(Color(4, 4, 4));
+    world.Add(make_shared<Quadrilaterals>(Position(3, 1, -2), Vector3(2, 0, 0), Vector3(0, 2, 0), difflight));
+    //world.Add(make_shared<Sphere>(Position(0, 6, 0), 1.5, difflight));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
+    Camera camera(1200, 16.0/9.0, 70, 50, 25, Position(20, 3, 6), Position(0, 1, 0), Vector3(0, 1, 0), 0, 10, Color(0, 0, 0));
+    camera.Render(world);
+}
+
+void CornellBox() 
+{
+    HittableCollection world;
+
+    auto red = make_shared<Lambertian>(Color(.65, .05, .05));
+    auto white = make_shared<Lambertian>(Color(.73, .73, .73));
+    auto green = make_shared<Lambertian>(Color(.12, .45, .15));
+    auto light = make_shared<DiffuseLight>(Color(15, 15, 15));
+
+    world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
+    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
+    world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
+    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
+    world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
+    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
+    Camera camera(600, 1.0, 100, 50, 25, Position(278, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
 }
 
 int main(int argc, char* argv[])
 {
-    /*switch (5)
+    switch (8)
     {
     case 1: BaseBalls(0, 0);
         break;
@@ -193,15 +233,17 @@ int main(int argc, char* argv[])
         break;
     case 3: RandomSpheres(7);
         break;
-    case 4: Earth();
+    case 4: //Earth();
         break;
     case 5: PerlinSphere();
         break;
     case 6: Quads();
         break;
-    }*/
-    
-    Quads();
+    case 7: SimpleLight();
+        break;
+    case 8: CornellBox();
+        break;
+    }
 
     return 0;
 }
