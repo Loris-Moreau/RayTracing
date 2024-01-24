@@ -138,6 +138,7 @@
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="Metal.cpp" />
     <ClCompile Include="Perlin.cpp" />
+    <ClCompile Include="Quadrilaterals.cpp" />
     <ClCompile Include="RayTracing.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Materials.h" />
     <ClInclude Include="Metal.h" />
     <ClInclude Include="Perlin.h" />
+    <ClInclude Include="Quadrilaterals.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Texture.h" />

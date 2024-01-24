@@ -4,9 +4,11 @@
 ///.\x64\Debug\RayTracing.exe > Render.ppm
 
 #include "Camera.h"
+#include "BVHNode.h"
+
 #include "HittableCollection.h"
 #include "Sphere.h"
-#include "BVHNode.h"
+#include "Quadrilaterals.h"
 //Mat
 #include "Lambertian.h"
 #include "Metal.h"
@@ -158,6 +160,29 @@ void PerlinSphere()
     camera.Render(world);
 }
 
+void Quads()
+{
+    HittableCollection world;
+
+    //Materials
+    shared_ptr<Lambertian> leftRed = make_shared<Lambertian>(Color(1.0, 0.2, 0.2));
+    shared_ptr<Lambertian> backGreen = make_shared<Lambertian>(Color(0.2, 1.0, 0.2));
+    shared_ptr<Lambertian> rightBlue = make_shared<Lambertian>(Color(0.2, 0.2, 1.0));
+    shared_ptr<Lambertian> upperOrange = make_shared<Lambertian>(Color(1.0, 0.5, 0.0));
+    shared_ptr<Lambertian> lowerMiku = make_shared<Lambertian>(Color(0.2, 0.8, 0.8));
+
+    //Quads
+    world.Add(make_shared<Quadrilaterals>(Position(-3, -2, 5), Vector3(0, 0, -4), Vector3(0, 4, 0), leftRed));
+    world.Add(make_shared<Quadrilaterals>(Position(-2, -2, 0), Vector3(4, 0, 0), Vector3(0, 4, 0), backGreen));
+    world.Add(make_shared<Quadrilaterals>(Position(3, -2, 1), Vector3(0, 0, 4), Vector3(0, 4, 0), rightBlue));
+    world.Add(make_shared<Quadrilaterals>(Position(-2, 3, 1), Vector3(4, 0, 0), Vector3(0, 0, 4), upperOrange));
+    world.Add(make_shared<Quadrilaterals>(Position(-2, -3, 5), Vector3(4, 0, 0), Vector3(0, 0, -4), lowerMiku));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
+    Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    camera.Render(world);
+}
+
 int main(int argc, char* argv[])
 {
     /*switch (5)
@@ -172,9 +197,11 @@ int main(int argc, char* argv[])
         break;
     case 5: PerlinSphere();
         break;
+    case 6: Quads();
+        break;
     }*/
     
-    PerlinSphere();
+    Quads();
 
     return 0;
 }

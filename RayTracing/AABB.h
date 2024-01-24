@@ -21,4 +21,6 @@ public:
     const Interval& axis(int n) const;
 
     bool Hit(const Ray& ray, Interval rayT) const;
+
+    AABB Pad();
 };
