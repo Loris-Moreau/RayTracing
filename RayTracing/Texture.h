@@ -79,7 +79,8 @@ public:
 
     Color Value(double u, double v, const Position& position) const override
     {
-        return Color(1, 1, 1) * 0.5 * (1.0 + noise.noise(scale * position));
+        Vector3 scale_ = scale * position;
+        return Color(1, 1, 1) * 0.5 * (0.9 + sin(scale_.z + 12 * noise.Turbulence(scale_)));
     }
 
 private:

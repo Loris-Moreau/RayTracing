@@ -52,6 +52,22 @@ double Perlin::noise(const Position& position) const
     return PerlinInterp(c, u, v, w);
 }
 
+double Perlin::Turbulence(const Position& position, int depth) const
+{
+    double accum = 0.0;
+    double weight = 1.0; 
+    Position tempP = position;
+
+    for (int i = 0; i < depth; i++) 
+    {
+        accum += weight * noise(tempP);
+        weight *= 0.5;
+        tempP *= 2;
+    }
+
+    return fabs(accum);
+}
+
 int* Perlin::PerlinGeneratePerm()
 {
     int* point = new int[pointCount];

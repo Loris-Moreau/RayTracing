@@ -3,7 +3,6 @@
   Lambertian.cpp
   Materials.cpp
   Metal.cpp
-  Perlin.cpp
   RayTracing.cpp
   Texture.cpp
   Generating Code...
