@@ -130,6 +130,7 @@ void Checkers()
     camera.Render(world);
 }
 
+/*
 void Earth()
 {
     shared_ptr<ImageTexture> imageTexture = make_shared<ImageTexture>("..\\Images\\earthmap.jpg");
@@ -141,10 +142,25 @@ void Earth()
     Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(0, 0, 12), Position(0, 0, 0), Vector3(0, 1, 0), 0);
     camera.Render(HittableCollection(renderedObj));
 }
+*/
+
+void PerlinSphere()
+{
+    //World
+    HittableCollection world;
+
+    shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(4);
+    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, make_shared<Lambertian>(pertext)));
+    world.Add(make_shared<Sphere>(Position(0, 2, 0), 2, make_shared<Lambertian>(pertext)));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
+    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0);
+    camera.Render(world);
+}
 
 int main(int argc, char* argv[])
 {
-    /*switch (3)
+    /*switch (5)
     {
     case 1: BaseBalls(0, 0);
         break;
@@ -154,8 +170,11 @@ int main(int argc, char* argv[])
         break;
     case 4: Earth();
         break;
+    case 5: PerlinSphere();
+        break;
     }*/
-    Earth();
+    
+    PerlinSphere();
 
     return 0;
 }

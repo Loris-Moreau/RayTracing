@@ -137,7 +137,7 @@
     <ClCompile Include="Lambertian.cpp" />
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="Metal.cpp" />
-    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="RayTracing.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -155,8 +155,8 @@
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Materials.h" />
     <ClInclude Include="Metal.h" />
+    <ClInclude Include="Perlin.h" />
     <ClInclude Include="Ray.h" />
-    <ClInclude Include="rtw_stb_image.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utility.h" />

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Color.h"
-#include "rtw_stb_image.h"
+//#include "rtw_stb_image.h"
+#include "Perlin.h"
 
 class Texture
 {
@@ -42,6 +43,7 @@ private:
     shared_ptr<Texture> odd;
 };
 
+/*
 class ImageTexture : public Texture
 {
 public:
@@ -66,4 +68,22 @@ public:
 
 private:
     rtw_image image;
+};
+*/
+
+class NoiseTexture : public Texture
+{
+public:
+    NoiseTexture() {}
+    NoiseTexture(double _scale) : scale(_scale) {}
+
+    Color Value(double u, double v, const Position& position) const override
+    {
+        return Color(1, 1, 1) * 0.5 * (1.0 + noise.noise(scale * position));
+    }
+
+private:
+    Perlin noise;
+
+    double scale;
 };
