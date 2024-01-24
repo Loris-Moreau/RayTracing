@@ -1,4 +1,5 @@
 #pragma once
+
 //Axis-aligned bounding box class
 #include "Interval.h"
 
@@ -23,4 +24,15 @@ public:
     bool Hit(const Ray& ray, Interval rayT) const;
 
     AABB Pad();
+
 };
+
+inline AABB operator+(const AABB& bBox, const Vector3& offset)
+{
+    return AABB(bBox.x + offset.x, bBox.y + offset.y, bBox.z + offset.z);
+}
+
+inline AABB operator+(const Vector3& offset, const AABB& bBox)
+{
+    return bBox + offset;
+}

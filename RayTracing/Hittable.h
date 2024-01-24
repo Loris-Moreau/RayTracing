@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Interval.h"
 #include "AABB.h"
 
 class Materials;
@@ -29,4 +28,35 @@ public:
 	virtual bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const = 0;
 
 	virtual AABB BoundingBox() const = 0;
+};
+
+class Translate : public Hittable
+{
+public:
+	Translate(shared_ptr<Hittable> position, const Vector3& displacement);
+
+	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
+
+    AABB BoundingBox() const override { return bBox; }
+
+private:
+    shared_ptr<Hittable> object;
+    Vector3 offset;
+    AABB bBox;
+};
+
+class RotateY : public Hittable
+{
+public:
+	RotateY(shared_ptr<Hittable> position, double angle);
+
+	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
+
+	AABB BoundingBox() const override { return bBox; }
+
+private:
+	shared_ptr<Hittable> object;
+	double sinTheta;
+	double cosTheta;
+	AABB bBox;
 };

@@ -218,8 +218,18 @@ void CornellBox()
     world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
 
+    shared_ptr<Hittable> box1 = box(Position(0, 0, 0), Position(165, 330, 165), white);
+    box1 = make_shared<RotateY>(box1, 15);
+    box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
+    world.Add(box1);
+
+    shared_ptr<Hittable> box2 = box(Position(0, 0, 0), Position(165, 165, 165), white);
+    box2 = make_shared<RotateY>(box2, -18);
+    box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
+    world.Add(box2);
+
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 100, 50, 25, Position(278, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    Camera camera(600, 1.0, 200, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
 }
 

@@ -39,7 +39,18 @@ public:
     }
 
     static const Interval Empty, Universe;
+
 };
 
 const static Interval Empty(+infinity, -infinity);
 const static Interval Universe(-infinity, +infinity);
+
+inline Interval operator+(const Interval& interval, double displacement)
+{
+    return Interval(interval.min + displacement, interval.max + displacement);
+}
+
+inline Interval operator+(double displacement, const Interval& interval)
+{
+    return interval + displacement;
+}
