@@ -44,5 +44,26 @@ private:
 
 class ImageTexture : public Texture
 {
+public:
+    ImageTexture(const char* filename) : image(filename) {}
 
+    Color Value(double u, double v, const Position& position) const override
+    {
+        // If we have no texture data, then return solid cyan as a debugging aid.
+        if (image.height() <= 0) return Color(0, 1, 1);
+
+        // Clamp input texture coordinates to [0,1] x [1,0]
+        u = Interval(0, 1).Clamp(u);
+        v = 1.0 - Interval(0, 1).Clamp(v);  // Flip V to image coordinates
+
+        int i = static_cast<int>(u * image.width());
+        int j = static_cast<int>(v * image.height());
+        auto pixel = image.pixel_data(i, j);
+
+        double color_scale = 1.0 / 255.0;
+        return Color(color_scale * pixel[0], color_scale * pixel[1], color_scale * pixel[2]);
+    }
+
+private:
+    rtw_image image;
 };

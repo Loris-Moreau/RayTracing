@@ -1,8 +1,8 @@
-#ifndef RTW_STB_IMAGE_H
-#define RTW_STB_IMAGE_H
+#pragma once
 
 // Disable strict warnings for this header from the Microsoft Visual C++ compiler.
 #ifdef _MSC_VER
+#pragma warning(disable : 4996)
 #pragma warning (push, 0)
 #endif
 
@@ -11,8 +11,9 @@
 #include "Externals/stb_image.h"
 
 #include <cstdlib>
-#include <stdlib.h>
 #include <iostream>
+
+using namespace std;
 
 class rtw_image 
 {
@@ -28,46 +29,45 @@ public:
         // parent, on so on, for six levels up. If the image was not loaded successfully,
         // width() and height() will return 0.
 
-        std::string filename = std::string(imageFilename);
-        auto imagedir = getenv("RTW_IMAGES");
+        string filename = string(imageFilename);
+        char *imagedir = getenv("RTW_IMAGES");
 
         // Hunt for the image file in some likely locations.
-        if (imagedir && Load(std::string(imagedir) + "/" + imageFilename)) return;
+        if (imagedir && Load(string(imagedir) + "\\" + imageFilename)) return;
         if (Load(filename)) return;
-        if (Load("images/" + filename)) return;
-        if (Load("../images/" + filename)) return;
-        if (Load("../../images/" + filename)) return;
-        if (Load("../../../images/" + filename)) return;
-        if (Load("../../../../images/" + filename)) return;
-        if (Load("../../../../../images/" + filename)) return;
-        if (Load("../../../../../../images/" + filename)) return;
+        if (Load("images\\" + filename)) return;
+        if (Load("..\\images\\" + filename)) return;
+        if (Load("..\\..\\images\\" + filename)) return;
+        if (Load("..\\..\\../images\\" + filename)) return;
+        if (Load("..\\..\\..\\..\\images\\" + filename)) return;
+        if (Load("..\\..\\..\\..\\..\\images\\" + filename)) return;
+        if (Load("..\\..\\..\\..\\..\\..\\images\\" + filename)) return;
 
-        std::cerr << "ERROR : Could not load image file '" << imageFilename << "'.\n";
+        cerr << "ERROR: Could not load image file '" << imageFilename << "'.\n";
     }
 
     ~rtw_image() { STBI_FREE(data); }
 
-    bool Load(const std::string filename) 
+    bool Load(const string filename) 
     {
         // Loads image data from the given file name. Returns true if the load succeeded.
         auto n = bytes_per_pixel; // Dummy out parameter: original components per pixel
-        data = stbi_load(filename.c_str(), &imageWidth, &imageHeight, &n, bytes_per_pixel);
-        bytes_per_scanline = imageWidth * bytes_per_pixel;
-
+        data = stbi_load(filename.c_str(), &image_width, &image_height, &n, bytes_per_pixel);
+        bytes_per_scanline = image_width * bytes_per_pixel;
         return data != nullptr;
     }
 
-    int width()  const { return (data == nullptr) ? 0 : imageWidth; }
-    int height() const { return (data == nullptr) ? 0 : imageHeight; }
+    int width()  const { return (data == nullptr) ? 0 : image_width; }
+    int height() const { return (data == nullptr) ? 0 : image_height; }
 
-    const unsigned char* PixelData(int x, int y) const 
+    const unsigned char* pixel_data(int x, int y) const 
     {
         // Return the address of the three bytes of the pixel at x,y (or magenta if no data).
         static unsigned char magenta[] = { 255, 0, 255 };
         if (data == nullptr) return magenta;
 
-        x = Clamp(x, 0, imageWidth);
-        y = Clamp(y, 0, imageHeight);
+        x = clamp(x, 0, image_width);
+        y = clamp(y, 0, image_height);
 
         return data + y * bytes_per_scanline + x * bytes_per_pixel;
     }
@@ -75,16 +75,14 @@ public:
 private:
     const int bytes_per_pixel = 3;
     unsigned char* data;
-    int imageWidth, imageHeight;
+    int image_width, image_height;
     int bytes_per_scanline;
 
-    static int Clamp(int x, int low, int high) 
+    static int clamp(int x, int low, int high) 
     {
         // Return the value clamped to the range [low, high).
         if (x < low) return low;
-
         if (x < high) return x;
-
         return high - 1;
     }
 };
@@ -92,6 +90,4 @@ private:
 // Restore MSVC compiler warnings
 #ifdef _MSC_VER
 #pragma warning (pop)
-#endif
-
 #endif
