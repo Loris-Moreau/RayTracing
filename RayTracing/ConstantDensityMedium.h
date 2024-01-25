@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Hittable.h"
 #include "MaterialS.h"
-
-#include "Texture.h"
 
 class ConstantDensityMedium : public Hittable
 {

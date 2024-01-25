@@ -1,18 +1,1 @@
-﻿  AABB.cpp
-  BVHNode.cpp
-  Camera.cpp
-  ConstantDensityMedium.cpp
-  DiffuseLight.cpp
-  Hittable.cpp
-  HittableCollection.cpp
-  Interval.cpp
-  Materials.cpp
-  Perlin.cpp
-  Quadrilaterals.cpp
-  RayTracing.cpp
-  Sphere.cpp
-  Texture.cpp
-  Vector3.cpp
-  Generating Code...
-ConstantDensityMedium.obj : error LNK2001: unresolved external symbol "public: static class Interval const Interval::Universe" (?Universe@Interval@@2V1@B)
-E:\Github\RayTracing\x64\Debug\RayTracing.exe : fatal error LNK1120: 1 unresolved externals
+﻿

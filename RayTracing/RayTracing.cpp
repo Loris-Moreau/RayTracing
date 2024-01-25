@@ -266,6 +266,68 @@ void CornellSmoke()
     Camera camera(600, 1.0, 50, 50, 45, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
 }
+
+void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount) 
+{
+    HittableCollection boxes1;
+    shared_ptr<Lambertian> ground = make_shared<Lambertian>(Color(0.48, 0.83, 0.53));
+
+    for (int i = 0; i < floorAmount; i++)
+    {
+        for (int j = 0; j < floorAmount; j++)
+        {
+            double w = 100.0;
+            double x0 = -1000.0 + i * w;
+            double z0 = -1000.0 + j * w;
+            double y0 = 0.0;
+            double x1 = x0 + w;
+            double y1 = RandomDouble(1, 101);
+            double z1 = z0 + w;
+
+            boxes1.Add(box(Position(x0, y0, z0), Position(x1, y1, z1), ground));
+        }
+    }
+
+    HittableCollection world;
+
+    world.Add(make_shared<BVHNode>(boxes1));
+
+    shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(7, 7, 7));
+    world.Add(make_shared<Quadrilaterals>(Position(123, 554, 147), Vector3(300, 0, 0), Vector3(0, 0, 265), light));
+
+    Position center1 = Position(400, 400, 200);
+    Vector3 center2 = center1 + Vector3(30, 0, 0);
+    shared_ptr<Lambertian> sphere_material = make_shared<Lambertian>(Color(0.7, 0.3, 0.1));
+    world.Add(make_shared<Sphere>(center1, center2, 50, sphere_material));
+
+    world.Add(make_shared<Sphere>(Position(260, 150, 45), 50, make_shared<Dielectric>(1.5)));
+    world.Add(make_shared<Sphere>(Position(0, 150, 145), 50, make_shared<Metal>(Color(0.8, 0.8, 0.9), 1.0)));
+
+    shared_ptr<Sphere> boundary = make_shared<Sphere>(Position(360, 150, 145), 70, make_shared<Dielectric>(1.5));
+    world.Add(boundary);
+    world.Add(make_shared<ConstantDensityMedium>(boundary, 0.2, Color(0.2, 0.4, 0.9)));
+    boundary = make_shared<Sphere>(Position(0, 0, 0), 5000, make_shared<Dielectric>(1.5));
+    world.Add(make_shared<ConstantDensityMedium>(boundary, .0001, Color(1, 1, 1)));
+
+    //shared_ptr<ImageTexture> emat = make_shared<Lambertian>(make_shared<ImageTexture>("earthmap.jpg"));
+    //world.Add(make_shared<Sphere>(Position(400, 200, 400), 100, emat));
+    shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(0.1);
+    world.Add(make_shared<Sphere>(Position(220, 280, 300), 80, make_shared<Lambertian>(pertext)));
+
+    HittableCollection boxes2;
+    shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
+    for (int j = 0; j < clusterAmount; j++) 
+    {
+        boxes2.Add(make_shared<Sphere>(Position::Random(0, 165), 10, white));
+    }
+
+    world.Add(make_shared<Translate>( make_shared<RotateY>( make_shared<BVHNode>(boxes2), 15), Vector3(-100, 270, 395)));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
+    Camera camera(imageWidth, 1.0, samplePerPixel, bounces, 45, Position(478, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    camera.Render(world);
+}
+
 int main(int argc, char* argv[])
 {
     switch (9)
@@ -287,6 +349,11 @@ int main(int argc, char* argv[])
     case 8: CornellBox();
         break;
     case 9: CornellSmoke();
+        break;
+        //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
+    case 10: FinalSceneB2(600, 100, 40, 20, 500);
+        break;
+    default: FinalSceneB2(400, 70, 25, 20, 100); //switch(0) for default
         break;
     }
 
