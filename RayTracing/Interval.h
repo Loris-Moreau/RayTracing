@@ -2,7 +2,6 @@
 
 #include "Ray.h"
 
-
 class Interval
 {
 public:
@@ -12,37 +11,21 @@ public:
     Interval(double pMin, double pMax) : min(pMin), max(pMax) {}
     Interval(const Interval& a, const Interval& b) : min(fmin(a.min, b.min)), max(fmax(a.max, b.max)) {}
 
-    bool Contains(double x) const
-    {
-        return min <= x && x <= max;
-    }
+    bool Contains(double x) const;
 
-    bool Surrounds(double x) const
-    {
-        return min < x && x < max;
-    }
+    bool Surrounds(double x) const;
 
-    double Clamp(double x) const
-    {
-        return x < min ? min : x > max ? max : x;
-    }
+    double Clamp(double x) const;
 
-    double Size() const
-    {
-        return max - min;
-    }
+    double Size() const;
 
-    Interval Expand(double delta) const
-    {
-        double padding = delta / 2;
-        return Interval(min - padding, max + padding);
-    }
+    Interval Expand(double delta) const;
 
     static const Interval Empty, Universe;
 };
 
-const static Interval Empty(+infinity, -infinity);
-const static Interval Universe(-infinity, +infinity);
+//const static Interval Empty(+infinity, -infinity);
+//const static Interval Universe(-infinity, +infinity);
 
 inline Interval operator+(const Interval& interval, double displacement)
 {
