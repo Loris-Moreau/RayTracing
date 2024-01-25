@@ -93,7 +93,7 @@ inline Vector3 Unit(const Vector3& vector)
     return vector / vector.Length();
 }
 
-inline Position RandomInUnitSphere()
+inline Position RandomInUnitSphere() //Las Vegas Algorithm
 {
     while (true)
     {
@@ -148,4 +148,17 @@ inline int RandomInt(int min, int max)
 {
     // Returns a random integer in [min,max].
     return static_cast<int>(RandomDouble(min, max + 1));
+}
+
+inline Vector3 RandomCosineDirection()
+{
+    double r1 = RandomDouble();
+    double r2 = RandomDouble();
+
+    double phi = 2 * pi * r1;
+    double x = cos(phi) * sqrt(r2);
+    double y = sin(phi) * sqrt(r2);
+    double z = sqrt(1 - r2);
+
+    return Vector3(x, y, z);
 }

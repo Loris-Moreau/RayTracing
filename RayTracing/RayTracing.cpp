@@ -133,6 +133,7 @@ void Checkers()
     camera.Render(world);
 }
 
+//Image Texture
 /*
 void Earth()
 {
@@ -217,12 +218,12 @@ void CornellBox()
     world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
 
-    shared_ptr<Hittable> box1 = box(Position(0, 0, 0), Position(165, 330, 165), white);
+    shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), white);
     box1 = make_shared<RotateY>(box1, 15);
     box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
     world.Add(box1);
 
-    shared_ptr<Hittable> box2 = box(Position(0, 0, 0), Position(165, 165, 165), white);
+    shared_ptr<Hittable> box2 = Box(Position(0, 0, 0), Position(165, 165, 165), white);
     box2 = make_shared<RotateY>(box2, -18);
     box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
     world.Add(box2);
@@ -251,11 +252,11 @@ void CornellSmoke()
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
 
-    shared_ptr<Hittable> box1 = box(Position(0, 0, 0), Position(165, 330, 165), white);
+    shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), white);
     box1 = make_shared<RotateY>(box1, 15);
     box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
 
-    shared_ptr<Hittable> box2 = box(Position(0, 0, 0), Position(165, 165, 165), white);
+    shared_ptr<Hittable> box2 = Box(Position(0, 0, 0), Position(165, 165, 165), white);
     box2 = make_shared<RotateY>(box2, -18);
     box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
 
@@ -276,15 +277,15 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
     {
         for (int j = 0; j < floorAmount; j++)
         {
-            double w = 100.0;
-            double x0 = -1000.0 + i * w;
-            double z0 = -1000.0 + j * w;
+            double W = 100.0;
+            double x0 = -1000.0 + i * W;
+            double z0 = -1000.0 + j * W;
             double y0 = 0.0;
-            double x1 = x0 + w;
+            double x1 = x0 + W;
             double y1 = RandomDouble(1, 101);
-            double z1 = z0 + w;
+            double z1 = z0 + W;
 
-            boxes1.Add(box(Position(x0, y0, z0), Position(x1, y1, z1), ground));
+            boxes1.Add(Box(Position(x0, y0, z0), Position(x1, y1, z1), ground));
         }
     }
 
@@ -305,7 +306,7 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
 
     shared_ptr<Sphere> boundary = make_shared<Sphere>(Position(360, 150, 145), 70, make_shared<Dielectric>(1.5));
     world.Add(boundary);
-    world.Add(make_shared<ConstantDensityMedium>(boundary, 0.2, Color(0.2, 0.4, 0.9)));
+    world.Add(make_shared<ConstantDensityMedium>(boundary, 0.05, Color(0.2, 0.4, 0.9)));
     boundary = make_shared<Sphere>(Position(0, 0, 0), 5000, make_shared<Dielectric>(1.5));
     world.Add(make_shared<ConstantDensityMedium>(boundary, .0001, Color(1, 1, 1)));
 
@@ -353,7 +354,7 @@ int main(int argc, char* argv[])
     case 9: CornellSmoke();
         break;
         //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 200, 50, 20, 500);
+    case 10: FinalSceneB2(600, 2000, 50, 20, 500);
         break;
     default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
         break;
@@ -361,4 +362,5 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-//1755
+// Render Started at Date :25/01/2024 Time: 1837
+// Render Ended at Date :25/01/2024 Time: 2326

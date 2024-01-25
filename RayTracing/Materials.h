@@ -3,6 +3,7 @@
 #include "Color.h"
 #include "Hittable.h"
 #include "Texture.h"
+#include "ONB.h"
 
 class HitInfo;
 
@@ -11,9 +12,13 @@ class Materials
 public:
     virtual ~Materials() = default;
 
-    virtual Color Emitted(double u, double v, const Position& p) const;
+    virtual Color Emitted(double U, double V, const Position& p) const;
 
-    virtual bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const = 0;
+    virtual bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const = 0;
+
+    virtual double ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const;
+
+    virtual Color Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position);
 };
 
 class Lambertian : public Materials
@@ -22,7 +27,9 @@ public:
     Lambertian(const Color& a) : albedo(make_shared<SolidColor>(a)) {}
     Lambertian(shared_ptr<Texture> a) : albedo(a) {}
 
-    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const override;
+    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const override;
+
+    double ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const override;
 
 private:
     shared_ptr<Texture> albedo;
@@ -33,7 +40,7 @@ class Dielectric : public Materials
 public:
     Dielectric(double refractionIndex) : indexOfRefraction(refractionIndex) {}
 
-    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const override;
+    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const override;
 
     static double Reflectance(double cosine, double reflectanceIndex);
 
@@ -46,7 +53,7 @@ class Metal :public Materials
 public:
     Metal(const Color& baseColor, double fuzzines) : albedo(baseColor), fuzz(fuzzines < 1 ? fuzzines : 1) {}
 
-    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const override;
+    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const override;
 
 private:
     Color albedo;
@@ -61,7 +68,9 @@ public:
     Isotropic(Color color) : albedo(make_shared<SolidColor>(color)) {}
     Isotropic(shared_ptr<Texture> a) : albedo(a) {}
 
-    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const override;
+    bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const override;
+
+    double ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const override;
 
 private:
     shared_ptr<Texture> albedo;

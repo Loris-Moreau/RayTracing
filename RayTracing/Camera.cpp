@@ -7,20 +7,33 @@ void Camera::Render(const Hittable& rWorld)
     cout << "P3\n" << width << ' ' << height << "\n255\n";
     for (int y = 0; y < height; y++)
     {
-        clog << "Progress : " << (y * 100 / height) << " %\n" << flush;
+        clog << (y * 100 / height) << " % \n" << flush;
         for (int x = 0; x < width; x++)
         {
             Color pixel(0, 0, 0);
+            /*
+            //non Stratified rendering
             for (int sample = 0; sample < sampleCount; sample++)
             {
                 Ray ray = GetRay(x, y);
                 pixel += RayColor(ray, maxBounces, rWorld);
             }
+            */
+
+            //Stratifying the samples inside pixels (Render)
+            for (int s_j = 0; s_j < sqrt_spp; ++s_j)
+            {
+                for (int s_i = 0; s_i < sqrt_spp; ++s_i)
+                {
+                    Ray r = GetRay(x, y, s_i, s_j);
+                    pixel += RayColor(r, maxBounces, rWorld);
+                }
+            }
 
             WriteColor(cout, pixel, sampleCount);
         }
     }
-    clog << "It has been done\n";
+    clog << "It has been done \n";
 }
 
 void Camera::Initialize()
@@ -37,9 +50,9 @@ void Camera::Initialize()
     viewportWidth = viewportHeight * (static_cast<double>(width) / height);
 
     // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
-    w = Unit(lookFrom - lookAt); //(Z)
-    x = Unit(Cross(vecUp, w)); //(X)
-    y = Cross(w, x); //(Y)
+    W = Unit(lookFrom - lookAt); //(Z)
+    x = Unit(Cross(vecUp, W)); //(X)
+    y = Cross(W, x); //(Y)
 
     // Calculate the vectors across the horizontal and down the vertical viewport edges.
     Vector3 viewportX = viewportWidth * x; // Vector across viewport horizontal edge
@@ -50,7 +63,7 @@ void Camera::Initialize()
     pixelDeltaY = viewportY / height;
 
     //Position of the top left pixel
-    Vector3 viewportUpperLeft = center - (focusDist * w) - viewportX / 2 - viewportY / 2;
+    Vector3 viewportUpperLeft = center - (focusDist * W) - viewportX / 2 - viewportY / 2;
     //Vector3 viewportOrigin = center - Vector3(0, 0, focalLength) - viewportX / 2 - viewportY / 2;
 
     originPixelLocation = viewportUpperLeft + 0.5 * (pixelDeltaX + pixelDeltaY);
@@ -89,26 +102,61 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) c
 
     //If we've exceeded the ray bounce limit, no more light is gathered.
     if (bounceLeft <= 0)
+    {
         return Color(0, 0, 0);
+    }
 
-    // If the ray hits nothing, return the background color.
+    //If the ray hits nothing, return the background color.
     if (!rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
+    {
         return background;
+    }
 
     Ray scattered;
     Color attenuation;
-    Color color_from_emission = hitInfo.mat->Emitted(hitInfo.x, hitInfo.y, hitInfo.coordinates);
+    Color colorFromEmission = hitInfo.mat->Emitted(hitInfo.x, hitInfo.y, hitInfo.coordinates);
+    double pdf;
 
-    if (!hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered))
-        return color_from_emission;
+    if (!hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered, pdf))
+    {
+        return colorFromEmission;
+    }
 
-    Color color_from_scatter = attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
+    Vector3 onLight = Position(RandomDouble(213, 343), 554, RandomDouble(227, 332));
+    Vector3 toLight = onLight - hitInfo.coordinates;
+    double distanceSquared = toLight.SquaredLength();
+    toLight = Unit(toLight);
 
-    return color_from_emission + color_from_scatter;
+    if (Dot(toLight, hitInfo.normal) < 0)
+    {
+        return colorFromEmission;
+    }
+
+    double lightArea = (343 - 213) * (332 - 227);
+    double lightCosine = fabs(toLight.y);
+    if (lightCosine < 0.000001)
+    {
+        return colorFromEmission;
+    }
+
+    pdf = distanceSquared / (lightCosine * lightArea);
+    scattered = Ray(hitInfo.coordinates, toLight, ray.time());
+
+    double scattering_pdf = hitInfo.mat->ScatteringPDF(ray, hitInfo, scattered);
+
+    Color colorFromScatter = attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
+
+    double scatteringPDF = hitInfo.mat->ScatteringPDF(ray, hitInfo, scattered);
+    double pdf = scatteringPDF;
+
+    Color colorFromScatter = (attenuation * scatteringPDF * RayColor(scattered, bounceLeft - 1, rWorld)) / pdf;
+
+    return colorFromEmission + colorFromScatter;
 }
 
-Ray Camera::GetRay(int x, int y) const
+Ray Camera::GetRay(int x, int y, int s_i, int s_j) const
 {
+    /*
     //Get a randomly-sampled camera ray for the pixel at location i,j, originating from the camera defocus disk.
     Vector3 pixelCenter = originPixelLocation + (x * pixelDeltaX) + (y * pixelDeltaY);
     Vector3 pixelSample = pixelCenter + PixelSampleSquared();
@@ -117,13 +165,25 @@ Ray Camera::GetRay(int x, int y) const
     Vector3 rayDirection = pixelSample - rayOrigin;
 
     return Ray(rayOrigin, rayDirection, rayTime);
+    */
+
+    // Get a randomly-sampled camera ray for the pixel at location i,j, 
+    //originating from the camera defocus disk, and randomly sampled around the pixel location.
+    Vector3 pixelCenter = originPixelLocation + (x * pixelDeltaX) + (y * pixelDeltaY);
+    Vector3 pixelSample = pixelCenter + PixelSampleSquared(s_i, s_j);
+
+    Vector3 rayOrigin = (defocusAngle <= 0) ? center : DefocusDiskSample();
+    Vector3 rayDirection = pixelSample - rayOrigin;
+    double rayTime = RandomDouble();
+
+    return Ray(rayOrigin, rayDirection, rayTime);
 }
 
-Vector3 Camera::PixelSampleSquared() const
+Vector3 Camera::PixelSampleSquared(int s_i, int s_j) const
 {
     //Returns a random point in the square around a pixel at the origin
-    double pX = -0.5 + RandomDouble();
-    double pY = -0.5 + RandomDouble();
+    double pX = -0.5 + recip_sqrt_spp * (s_i + RandomDouble());
+    double pY = -0.5 + recip_sqrt_spp * (s_j + RandomDouble());
 
     return (pX * pixelDeltaX) + (pY * pixelDeltaY);
 }

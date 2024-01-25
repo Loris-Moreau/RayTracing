@@ -1,24 +1,42 @@
 #include "Materials.h"
 
-Color Materials::Emitted(double u, double v, const Position& p) const
+Color Materials::Emitted(double U, double V, const Position& p) const
 {
     return Color(0, 0, 0);
 }
 
-bool Lambertian::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const
+double Materials::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const
 {
-	Vector3 scatterDirection = hitInfo.normal + RandomUnitVector();
-
-	//Catch invalid directions
-	if (scatterDirection.NearZero()) scatterDirection = hitInfo.normal;
-
-	scattered = Ray(hitInfo.coordinates, scatterDirection, rayIn.time());
-	attenuation = albedo->Value(hitInfo.x, hitInfo.y, hitInfo.coordinates);
-
-	return true;
+    return 0;
 }
 
-bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const
+Color Materials::Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position)
+{
+    return Color(0, 0, 0);
+}
+
+bool Lambertian::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const
+{
+    ONB uvw;
+    uvw.BuildFromW(hitInfo.normal);
+    Vector3 scaterDirection = uvw.Local(RandomCosineDirection());
+
+    scattered = Ray(hitInfo.coordinates, Unit(scaterDirection), rayIn.time());
+    attenuation = albedo->Value(hitInfo.x, hitInfo.y, hitInfo.coordinates);
+
+    double pdf = Dot(uvw.W(), scattered.GetDirection()) / pi;
+
+    return true;
+}
+
+double Lambertian::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const
+{
+    //double cosTheta = Dot(hitInfo.normal, Unit(scattered.GetDirection()));
+    //return cosTheta < 0 ? 0 : cosTheta / pi;
+    return 1 / (2 * pi);
+}
+
+bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const
 {
     attenuation = Color(1.0, 1.0, 1.0);
 
@@ -55,7 +73,7 @@ double Dielectric::Reflectance(double cosine, double reflectanceIndex)
     return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
-bool Metal::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const
+bool Metal::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const
 {
     Vector3 reflected = Reflect(Unit(rayIn.GetDirection()), hitInfo.normal);
     scattered = Ray(hitInfo.coordinates, reflected + fuzz * RandomUnitVector(), rayIn.time());
@@ -64,10 +82,17 @@ bool Metal::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation
     return (Dot(scattered.GetDirection(), hitInfo.normal) > 0);
 }
 
-bool Isotropic::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const
+bool Isotropic::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const
 {
     scattered = Ray(hitInfo.coordinates, RandomUnitVector(), rayIn.time());
     attenuation = albedo->Value(hitInfo.x, hitInfo.y, hitInfo.coordinates);
 
+    pdf = 1 / (4 * pi);
+
     return true;
+}
+
+double Isotropic::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const
+{
+    return 1 / (4 * pi);
 }

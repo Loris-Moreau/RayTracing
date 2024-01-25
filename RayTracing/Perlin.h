@@ -24,6 +24,6 @@ private:
 
     static void Permute(int* point, int n);
 
-    static double TrilinearInterp(double c[2][2][2], double u, double v, double w);
-    static double PerlinInterp(Vector3 c[2][2][2], double u, double v, double w);
+    static double TrilinearInterp(double c[2][2][2], double U, double V, double W);
+    static double PerlinInterp(Vector3 c[2][2][2], double U, double V, double W);
 };

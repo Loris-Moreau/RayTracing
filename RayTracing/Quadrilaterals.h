@@ -19,7 +19,7 @@ public:
 
 private:
     Position Q;
-    Vector3 u, v, w;
+    Vector3 U, V, W;
     shared_ptr<Materials> mat;
     AABB bBox;
 
@@ -27,7 +27,7 @@ private:
     double D;
 };
 
-inline shared_ptr<HittableCollection> box(const Position& a, const Position& b, shared_ptr<Materials> mat)
+inline shared_ptr<HittableCollection> Box(const Position& a, const Position& b, shared_ptr<Materials> mat)
 {
     //Returns the 3D box (six sides) that contains the two opposite vertices a & b.
 

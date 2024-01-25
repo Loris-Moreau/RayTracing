@@ -23,9 +23,9 @@ Perlin::~Perlin()
 
 double Perlin::noise(const Position& position) const
 {
-    double u = position.x - floor(position.x);
-    double v = position.y - floor(position.y);
-    double w = position.z - floor(position.z);
+    double U = position.x - floor(position.x);
+    double V = position.y - floor(position.y);
+    double W = position.z - floor(position.z);
 
     /*
     //Hermitian Smoothing
@@ -49,7 +49,7 @@ double Perlin::noise(const Position& position) const
                     permZ[(k + dk) & 255]
                 ];
 
-    return PerlinInterp(c, u, v, w);
+    return PerlinInterp(c, U, V, W);
 }
 
 double Perlin::Turbulence(const Position& position, int depth) const
@@ -92,31 +92,31 @@ void Perlin::Permute(int* point, int n)
     }
 }
 
-double Perlin::TrilinearInterp(double c[2][2][2], double u, double v, double w)
+double Perlin::TrilinearInterp(double c[2][2][2], double U, double V, double W)
 {
     double accum = 0.0;
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
             for (int k = 0; k < 2; k++)
-                accum += (i * u + (1 - i) * (1 - u)) *
-                (j * v + (1 - j) * (1 - v)) *
-                (k * w + (1 - k) * (1 - w)) * c[i][j][k];
+                accum += (i * U + (1 - i) * (1 - U)) *
+                (j * V + (1 - j) * (1 - V)) *
+                (k * W + (1 - k) * (1 - W)) * c[i][j][k];
 
     return accum;
 }
 
-double Perlin::PerlinInterp(Vector3 c[2][2][2], double u, double v, double w)
+double Perlin::PerlinInterp(Vector3 c[2][2][2], double U, double V, double W)
 {
-    double uu = u * u * (3 - 2 * u);
-    double vv = v * v * (3 - 2 * v);
-    double ww = w * w * (3 - 2 * w);
+    double uu = U * U * (3 - 2 * U);
+    double vv = V * V * (3 - 2 * V);
+    double ww = W * W * (3 - 2 * W);
     double accum = 0.0;
 
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
             for (int k = 0; k < 2; k++)
             {
-                Vector3 weight_v(u - i, v - j, w - k);
+                Vector3 weight_v(U - i, V - j, W - k);
                 accum += (i * uu + (1 - i) * (1 - uu))
                     * (j * vv + (1 - j) * (1 - vv))
                     * (k * ww + (1 - k) * (1 - ww))

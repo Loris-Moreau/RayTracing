@@ -1,19 +1,19 @@
 #include "Quadrilaterals.h"
 
 Quadrilaterals::Quadrilaterals(const Position& _Q, const Vector3& _u, const Vector3& _v, shared_ptr<Materials> _mat)
-    : Q(_Q), u(_u), v(_v), mat(_mat)
+    : Q(_Q), U(_u), V(_v), mat(_mat)
 {
-    Vector3 n = Cross(u, v);
+    Vector3 n = Cross(U, V);
     normal = Unit(n);
     D = Dot(normal, Q);
-    w = n / Dot(n, n);
+    W = n / Dot(n, n);
 
     SetBoundingBox();
 }
 
 void Quadrilaterals::SetBoundingBox()
 {
-    bBox = AABB(Q, Q + u + v).Pad();
+    bBox = AABB(Q, Q + U + V).Pad();
 }
 
 bool Quadrilaterals::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
@@ -36,8 +36,8 @@ bool Quadrilaterals::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) con
     // Determine the hit point lies within the planar shape using its plane coordinates.
     Position intersection = ray.At(t);
     Vector3 planar_hitpt_vector = intersection - Q;
-    double alpha = Dot(w, Cross(planar_hitpt_vector, v));
-    double beta = Dot(w, Cross(u, planar_hitpt_vector));
+    double alpha = Dot(W, Cross(planar_hitpt_vector, V));
+    double beta = Dot(W, Cross(U, planar_hitpt_vector));
 
     if (!isInterior(alpha, beta, hitInfo))
     {

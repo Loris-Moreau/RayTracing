@@ -1,2 +1,18 @@
-﻿  RayTracing.cpp
-  RayTracing.vcxproj -> E:\Github\RayTracing\x64\Debug\RayTracing.exe
+﻿  AABB.cpp
+  BVHNode.cpp
+  Camera.cpp
+  ConstantDensityMedium.cpp
+  DiffuseLight.cpp
+  Hittable.cpp
+  HittableCollection.cpp
+  Interval.cpp
+  Materials.cpp
+  Perlin.cpp
+  Quadrilaterals.cpp
+  RayTracing.cpp
+  Sphere.cpp
+  Texture.cpp
+  Vector3.cpp
+  Generating Code...
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(1096,5): error MSB6006: "link.exe" exited with code 1168.
+LINK : fatal error LNK1168: cannot open E:\Github\RayTracing\x64\Debug\RayTracing.exe for writing

@@ -77,7 +77,7 @@ public:
     NoiseTexture() {}
     NoiseTexture(double _scale) : scale(_scale) {}
 
-    Color Value(double u, double v, const Position& position) const override
+    Color Value(double U, double V, const Position& position) const override
     {
         Vector3 scale_ = scale * position;
         return Color(1, 1, 1) * 0.5 * (0.9 + sin(scale_.z + 12 * noise.Turbulence(scale_)));

@@ -45,7 +45,7 @@ private:
 
 	Position center, originPixelLocation;
 	Vector3 pixelDeltaX, pixelDeltaY;
-	Vector3 x, y, w; //Camera frame basis vectors (X,Y,Z)
+	Vector3 x, y, W; //Camera frame basis vectors (X,Y,Z)
 
 	double rayTime = RandomDouble();
 
@@ -54,8 +54,8 @@ private:
 
 	void Initialize();
 	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld) const;
-	Ray GetRay(int x, int y) const;
-	Vector3 PixelSampleSquared() const;
+	Ray GetRay(int x, int y, int s_i, int s_j) const;
+	Vector3 PixelSampleSquared(int s_i, int s_j) const;
 
 	Position DefocusDiskSample() const;
 };
