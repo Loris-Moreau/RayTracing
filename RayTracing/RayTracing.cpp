@@ -25,7 +25,7 @@ void BaseBalls(int set, int glass)
     HittableCollection world;
 
     //First Set Materials
-    //shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
+    shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
 
     shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.7);
     shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
@@ -39,7 +39,7 @@ void BaseBalls(int set, int glass)
         shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
     }
 
-    //world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
+    world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
     world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
     world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat)); //shiny metal ball
 
@@ -263,11 +263,11 @@ void CornellSmoke()
     world.Add(make_shared<ConstantDensityMedium>(box2, 0.01, Color(1, 1, 1)));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 50, 50, 45, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    Camera camera(600, 1.0, 50, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
 }
 
-void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount) 
+void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
 {
     HittableCollection boxes1;
     shared_ptr<Lambertian> ground = make_shared<Lambertian>(Color(0.48, 0.83, 0.53));
@@ -311,31 +311,33 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
 
     //shared_ptr<ImageTexture> emat = make_shared<Lambertian>(make_shared<ImageTexture>("earthmap.jpg"));
     //world.Add(make_shared<Sphere>(Position(400, 200, 400), 100, emat));
-    shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(0.1);
+    shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(0.65);
     world.Add(make_shared<Sphere>(Position(220, 280, 300), 80, make_shared<Lambertian>(pertext)));
 
     HittableCollection boxes2;
     shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
-    for (int j = 0; j < clusterAmount; j++) 
+    for (int j = 0; j < clusterAmount; j++)
     {
         boxes2.Add(make_shared<Sphere>(Position::Random(0, 165), 10, white));
     }
 
-    world.Add(make_shared<Translate>( make_shared<RotateY>( make_shared<BVHNode>(boxes2), 15), Vector3(-100, 270, 395)));
+    world.Add(make_shared<Translate>(make_shared<RotateY>(make_shared<BVHNode>(boxes2), 15), Vector3(-100, 270, 395)));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(imageWidth, 1.0, samplePerPixel, bounces, 45, Position(478, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    Camera camera(imageWidth, 1.0, samplePerPixel, bounces, 27, Position(478, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
 }
 
 int main(int argc, char* argv[])
 {
-    switch (9)
+    switch (10)
     {
-    case 1: BaseBalls(0, 0);
+        //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
+    case 1: BaseBalls(1, 0);
         break;
     case 2: Checkers();
         break;
+        //Amount of spheres (smol), recomended 7~11
     case 3: RandomSpheres(7);
         break;
     case 4: //Earth();
@@ -351,11 +353,12 @@ int main(int argc, char* argv[])
     case 9: CornellSmoke();
         break;
         //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 100, 40, 20, 500);
+    case 10: FinalSceneB2(600, 200, 50, 20, 500);
         break;
-    default: FinalSceneB2(400, 70, 25, 20, 100); //switch(0) for default
+    default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
         break;
     }
 
     return 0;
 }
+//1755
