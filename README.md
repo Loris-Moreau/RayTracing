@@ -39,3 +39,9 @@
 
 ### Cornell's Box (Standard) Render of Book 2 Part 8
 ![Cornell's Standard Box (B2, P8)](https://github.com/Loris-Moreau/RayTracing/blob/67b0dee542b0eff8d9c4a799574407e098df5bf8/Images/Cornell's%20Box%20(B2%2C%20P8).png "Also Corn")
+
+### Cornell's Box (Foggy)
+![Cornell's Foggy Box (B2 P9](https://github.com/Loris-Moreau/RayTracing/blob/980fdc6f97b9a255894f0d68f418f7490e6b39ab/Images/Cornell's%20Foggy%20Box%20(B2%2C%20P9).png "Foggy Corn")
+
+### Final Render of Book 2
+![Final Render (B2 P10)](https://github.com/Loris-Moreau/RayTracing/blob/980fdc6f97b9a255894f0d68f418f7490e6b39ab/Images/Final%20Render%20(B2).png "Final Render Book 2")
