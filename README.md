@@ -32,10 +32,10 @@
 
 <br>
 
-### Cornell's Boox (Empty) Render of Box 2 Part 7.4
+### Cornell's Box (Empty) Render of Book 2 Part 7.4
 ![Cornell's Empty Box (B2, P7 4)](https://github.com/Loris-Moreau/RayTracing/blob/40ac082b9de1f7e08b7ad7c964261e8d726c7139/Images/Cornells%20Box%20(B2%2C%20P7.4).png)
 
 <br>
 
-### Cornell's Boox (Standard) Render of Box 2 Part 8
-![Cornell's Box (B2, P8)](https://github.com/Loris-Moreau/RayTracing/blob/67b0dee542b0eff8d9c4a799574407e098df5bf8/Images/Cornell's%20Box%20(B2%2C%20P8).png)
+### Cornell's Box (Standard) Render of Book 2 Part 8
+![Cornell's Standard Box (B2, P8)](https://github.com/Loris-Moreau/RayTracing/blob/67b0dee542b0eff8d9c4a799574407e098df5bf8/Images/Cornell's%20Box%20(B2%2C%20P8).png)
