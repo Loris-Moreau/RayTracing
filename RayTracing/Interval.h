@@ -27,19 +27,18 @@ public:
         return x < min ? min : x > max ? max : x;
     }
 
-    double Size() const 
+    double Size() const
     {
         return max - min;
     }
 
-    Interval Expand(double delta) const 
+    Interval Expand(double delta) const
     {
         double padding = delta / 2;
         return Interval(min - padding, max + padding);
     }
 
     static const Interval Empty, Universe;
-
 };
 
 const static Interval Empty(+infinity, -infinity);

@@ -10,9 +10,8 @@
 #include "Sphere.h"
 #include "Quadrilaterals.h"
 //Mat
-#include "Lambertian.h"
-#include "Metal.h"
-#include "Dielectric.h"
+#include "Materials.h"
+#include "ConstantDensityMedium.h"
 
 #include "Texture.h"
 
@@ -205,11 +204,11 @@ void SimpleLight()
 void CornellBox() 
 {
     HittableCollection world;
-
-    auto red = make_shared<Lambertian>(Color(.65, .05, .05));
-    auto white = make_shared<Lambertian>(Color(.73, .73, .73));
-    auto green = make_shared<Lambertian>(Color(.12, .45, .15));
-    auto light = make_shared<DiffuseLight>(Color(15, 15, 15));
+    
+    shared_ptr<Lambertian> red = make_shared<Lambertian>(Color(.65, .05, .05));
+    shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(.73, .73, .73));
+    shared_ptr<Lambertian> green = make_shared<Lambertian>(Color(.12, .45, .15));
+    shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(15, 15, 15));
 
     world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
@@ -233,9 +232,43 @@ void CornellBox()
     camera.Render(world);
 }
 
+void CornellSmoke() 
+{
+    HittableCollection world;
+
+    shared_ptr<Lambertian> red = make_shared<Lambertian>(Color(.65, .05, .05));
+    shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(.73, .73, .73));
+    shared_ptr<Lambertian> green = make_shared<Lambertian>(Color(.12, .45, .15));
+
+    shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(7, 7, 7));
+
+    world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
+    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
+
+    world.Add(make_shared<Quadrilaterals>(Position(113, 554, 127), Vector3(330, 0, 0), Vector3(0, 0, 305), light));
+
+    world.Add(make_shared<Quadrilaterals>(Position(0, 555, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
+    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
+    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
+
+    shared_ptr<Hittable> box1 = box(Position(0, 0, 0), Position(165, 330, 165), white);
+    box1 = make_shared<RotateY>(box1, 15);
+    box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
+
+    shared_ptr<Hittable> box2 = box(Position(0, 0, 0), Position(165, 165, 165), white);
+    box2 = make_shared<RotateY>(box2, -18);
+    box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
+
+    world.Add(make_shared<ConstantDensityMedium>(box1, 0.01, Color(0, 0, 0)));
+    world.Add(make_shared<ConstantDensityMedium>(box2, 0.01, Color(1, 1, 1)));
+
+    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
+    Camera camera(600, 1.0, 50, 50, 45, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    camera.Render(world);
+}
 int main(int argc, char* argv[])
 {
-    switch (8)
+    switch (9)
     {
     case 1: BaseBalls(0, 0);
         break;
@@ -252,6 +285,8 @@ int main(int argc, char* argv[])
     case 7: SimpleLight();
         break;
     case 8: CornellBox();
+        break;
+    case 9: CornellSmoke();
         break;
     }
 
