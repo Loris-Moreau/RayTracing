@@ -1,10 +1,12 @@
 #include "Camera.h"
 
-void Camera::Render(const Hittable& rWorld)
+void Camera::Render(const Hittable& rWorld, const Hittable& lights)
 {
     Initialize();
 
     cout << "P3\n" << width << ' ' << height << "\n255\n";
+
+    sqrt_spp = int(sqrt(sampleCount));
     for (int y = 0; y < height; y++)
     {
         clog << (y * 100 / height) << " % \n" << flush;
@@ -25,8 +27,8 @@ void Camera::Render(const Hittable& rWorld)
             {
                 for (int s_i = 0; s_i < sqrt_spp; ++s_i)
                 {
-                    Ray r = GetRay(x, y, s_i, s_j);
-                    pixel += RayColor(r, maxBounces, rWorld);
+                    Ray ray = GetRay(x, y, s_i, s_j);
+                    pixel += RayColor(ray, maxBounces, rWorld);
                 }
             }
 
@@ -147,9 +149,9 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) c
     Color colorFromScatter = attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
 
     double scatteringPDF = hitInfo.mat->ScatteringPDF(ray, hitInfo, scattered);
-    double pdf = scatteringPDF;
+    pdf = scatteringPDF;
 
-    Color colorFromScatter = (attenuation * scatteringPDF * RayColor(scattered, bounceLeft - 1, rWorld)) / pdf;
+    colorFromScatter = (attenuation * scatteringPDF * RayColor(scattered, bounceLeft - 1, rWorld)) / pdf;
 
     return colorFromEmission + colorFromScatter;
 }
@@ -182,8 +184,8 @@ Ray Camera::GetRay(int x, int y, int s_i, int s_j) const
 Vector3 Camera::PixelSampleSquared(int s_i, int s_j) const
 {
     //Returns a random point in the square around a pixel at the origin
-    double pX = -0.5 + recip_sqrt_spp * (s_i + RandomDouble());
-    double pY = -0.5 + recip_sqrt_spp * (s_j + RandomDouble());
+    double pX = -0.5 + sqrt_spp * (s_i + RandomDouble());
+    double pY = -0.5 + sqrt_spp * (s_j + RandomDouble());
 
     return (pX * pixelDeltaX) + (pY * pixelDeltaY);
 }

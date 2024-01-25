@@ -54,7 +54,7 @@ void BaseBalls(int set, int glass)
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(2, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.65, 10);
-    camera.Render(world);
+    camera.Render(world, world);
 }
 
 void RandomSpheres(int nb)
@@ -81,7 +81,7 @@ void RandomSpheres(int nb)
                     //Diffuse
                     Vector3 albedo = Color::Random() * Color::Random();
                     sphereMaterial = make_shared<Lambertian>(albedo);
-                    auto center2 = Center + Vector3(0, RandomDouble(0, 0.5), 0);
+                    Vector3 center2 = Center + Vector3(0, RandomDouble(0, 0.5), 0);
                     world.Add(make_shared<Sphere>(Center, center2, 0.2, sphereMaterial));
                 }
                 else if (choose_mat < 0.95)
@@ -115,7 +115,7 @@ void RandomSpheres(int nb)
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world);
+    camera.Render(world, world);
 }
 
 void Checkers()
@@ -130,7 +130,7 @@ void Checkers()
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world);
+    camera.Render(world, world);
 }
 
 //Image Texture
@@ -159,7 +159,7 @@ void PerlinSphere()
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world);
+    camera.Render(world, world);
 }
 
 void Quads()
@@ -182,7 +182,7 @@ void Quads()
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world);
+    camera.Render(world, world);
 }
 
 void SimpleLight() 
@@ -197,23 +197,28 @@ void SimpleLight()
     world.Add(make_shared<Quadrilaterals>(Position(3, 1, -2), Vector3(2, 0, 0), Vector3(0, 2, 0), difflight));
     //world.Add(make_shared<Sphere>(Position(0, 6, 0), 1.5, difflight));
 
+    // light source
+    HittableCollection lights;
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
+    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
+
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
     Camera camera(1200, 16.0/9.0, 70, 50, 25, Position(20, 3, 6), Position(0, 1, 0), Vector3(0, 1, 0), 0, 10, Color(0, 0, 0));
-    camera.Render(world);
+    camera.Render(world, lights);
 }
 
-void CornellBox() 
+void CornellBox()
 {
     HittableCollection world;
-    
+
     shared_ptr<Lambertian> red = make_shared<Lambertian>(Color(.65, .05, .05));
     shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(.73, .73, .73));
     shared_ptr<Lambertian> green = make_shared<Lambertian>(Color(.12, .45, .15));
-    shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(15, 15, 15));
+    //shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(15, 15, 15));
 
     world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
-    world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
+    //world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
     world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
@@ -228,9 +233,14 @@ void CornellBox()
     box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
     world.Add(box2);
 
+    //light source
+    HittableCollection lights;
+    shared_ptr<DiffuseLight> lightMat = make_shared<DiffuseLight>(Color(15, 15, 15));
+    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -150), lightMat));
+
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
     Camera camera(600, 1.0, 200, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
-    camera.Render(world);
+    camera.Render(world, lights);
 }
 
 void CornellSmoke() 
@@ -263,9 +273,14 @@ void CornellSmoke()
     world.Add(make_shared<ConstantDensityMedium>(box1, 0.01, Color(0, 0, 0)));
     world.Add(make_shared<ConstantDensityMedium>(box2, 0.01, Color(1, 1, 1)));
 
+    //light source
+    HittableCollection lights;
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
+    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
+
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
     Camera camera(600, 1.0, 50, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
-    camera.Render(world);
+    camera.Render(world, lights);
 }
 
 void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
@@ -324,14 +339,19 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
 
     world.Add(make_shared<Translate>(make_shared<RotateY>(make_shared<BVHNode>(boxes2), 15), Vector3(-100, 270, 395)));
 
+    //light source
+    HittableCollection lights;
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
+    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
+
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
     Camera camera(imageWidth, 1.0, samplePerPixel, bounces, 27, Position(478, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
-    camera.Render(world);
+    camera.Render(world, lights);
 }
 
 int main(int argc, char* argv[])
 {
-    switch (10)
+    switch (8)
     {
         //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
@@ -354,7 +374,8 @@ int main(int argc, char* argv[])
     case 9: CornellSmoke();
         break;
         //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 2000, 50, 20, 500);
+    case 10: FinalSceneB2(600, 200, 50, 20, 500);
+    //case 10: FinalSceneB2(600, 2000, 50, 20, 500); <--this took 5 hours to render
         break;
     default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
         break;

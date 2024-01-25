@@ -24,7 +24,7 @@ bool Lambertian::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenu
     scattered = Ray(hitInfo.coordinates, Unit(scaterDirection), rayIn.time());
     attenuation = albedo->Value(hitInfo.x, hitInfo.y, hitInfo.coordinates);
 
-    double pdf = Dot(uvw.W(), scattered.GetDirection()) / pi;
+    pdf = Dot(uvw.W(), scattered.GetDirection()) / pi;
 
     return true;
 }

@@ -17,7 +17,7 @@ public:
 		  lookFrom(lookfrom), lookAt(lookat), vecUp(upVector),
 		  defocusAngle(defocus_Angle), focusDist(focusDistance), background(bg) {}
 
-	void Render(const Hittable& rWorld);
+	void Render(const Hittable& rWorld, const Hittable& lights);
 
 	double verticalFov; //Vertical view angle (field of view)
 	Position lookFrom; //Point camera is looking from
@@ -30,6 +30,8 @@ public:
 	Color background; //Scene Background color
 
 private:
+	int sqrt_spp;
+
 	double viewportHeight;
 	double viewportWidth;
 
