@@ -6,7 +6,7 @@
 >
 
 >[!TIP]
->If you wish to do the renders yourself, at the end of the main file "[RayTracing.cpp](https://github.com/Loris-Moreau/RayTracing/blob/77fb6afde7d800a05a50b8c01a9844efee07e87b/RayTracing/RayTracing.cpp#L238 "Line 238 of Main")" change the number in the switch for the corresponding render you wish to do.
+>If you wish to do the renders yourself, at the end of the main file "[RayTracing.cpp](https://github.com/Loris-Moreau/RayTracing/blob/b894421b12f8b2ddfb9136333192a70b5050cb1d/RayTracing/RayTracing.cpp#L333 "Line 333 of Main")" change the number in the switch for the corresponding render you wish to do.
 
 <br>
 
