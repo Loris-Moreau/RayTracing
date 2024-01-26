@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Hittable.h"
 #include <memory>
 #include <vector>
@@ -8,20 +9,16 @@ class HittableCollection : public Hittable
 {
 public:
 	HittableCollection() = default;
-	HittableCollection(std::shared_ptr<Hittable> hittable) { Add(hittable); }
+	HittableCollection(std::shared_ptr<Hittable> hittable);
 
 	std::vector<std::shared_ptr<Hittable>> mPool;
 
-	void Clear() { mPool.clear(); }
-	void Add(std::shared_ptr<Hittable> hittable)
-	{
-		mPool.push_back(hittable);
-		bBox = AABB(bBox, hittable->BoundingBox());
-	}
+	void Clear();
+	void Add(std::shared_ptr<Hittable> hittable);
 
 	bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const override;
 
-	AABB BoundingBox() const override { return bBox; }
+	AABB BoundingBox() const override;
 
 private:
 	AABB bBox;

@@ -17,6 +17,29 @@ public:
 
     virtual bool isInterior(double a, double b, HitInfo& hitInfo) const;
 
+    double PDFValue(const Position& origin, const Vector3& v) const override 
+    {
+        HitInfo hitInfo;
+        if (!this->Hit(Ray(origin, v, 0.0), Interval(0.001, infinity), hitInfo))
+        {
+            return 0;
+        }
+
+        auto distance_squared = hitInfo.time * hitInfo.time * v.SquaredLength();
+        auto cosine = fabs(Dot(v, hitInfo.normal) / v.Length());
+
+        return distance_squared / (cosine * area);
+    }
+
+    Vector3 Random(const Position& origin) const override 
+    {
+        Vector3 plane_origin;
+        Vector3 axis_A;
+        Vector3 axis_B;
+        Vector3 position = plane_origin + (RandomDouble() * axis_A) + (RandomDouble() * axis_B);
+
+        return position - origin;
+    }
 private:
     Position Q;
     Vector3 U, V, W;
@@ -25,6 +48,8 @@ private:
 
     Vector3 normal;
     double D;
+
+    double area;
 };
 
 inline shared_ptr<HittableCollection> Box(const Position& a, const Position& b, shared_ptr<Materials> mat)

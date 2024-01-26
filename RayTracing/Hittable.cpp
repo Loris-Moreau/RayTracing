@@ -94,3 +94,13 @@ bool RotateY::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 
     return true;
 }
+
+double Hittable::PDFValue(const Position& o, const Vector3& v) const
+{
+    return 0.0;
+}
+
+Vector3 Hittable::Random(const Vector3& o) const
+{
+    return Vector3(1, 0, 0);
+}

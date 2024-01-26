@@ -8,6 +8,8 @@ Quadrilaterals::Quadrilaterals(const Position& _Q, const Vector3& _u, const Vect
     D = Dot(normal, Q);
     W = n / Dot(n, n);
 
+    area = n.Length();
+
     SetBoundingBox();
 }
 

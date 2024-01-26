@@ -10,7 +10,7 @@ double Materials::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const 
     return 0;
 }
 
-Color Materials::Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position)
+Color Materials::Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position) const
 {
     return Color(0, 0, 0);
 }

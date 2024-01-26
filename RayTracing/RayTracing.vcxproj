@@ -137,6 +137,7 @@
     <ClCompile Include="Interval.cpp" />
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="ONB.cpp" />
+    <ClCompile Include="PDF.cpp" />
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Quadrilaterals.cpp" />
     <ClCompile Include="RayTracing.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Interval.h" />
     <ClInclude Include="Materials.h" />
     <ClInclude Include="ONB.h" />
+    <ClInclude Include="PDF.h" />
     <ClInclude Include="Perlin.h" />
     <ClInclude Include="Quadrilaterals.h" />
     <ClInclude Include="Ray.h" />

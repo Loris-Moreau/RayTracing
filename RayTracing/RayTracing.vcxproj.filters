@@ -63,6 +63,9 @@
     <ClCompile Include="ONB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PDF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ONB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

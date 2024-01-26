@@ -1,4 +1,6 @@
 #include "Camera.h"
+#include "PDF.h"
+#include "HittableCollection.h"
 
 void Camera::Render(const Hittable& rWorld, const Hittable& lights)
 {
@@ -28,7 +30,7 @@ void Camera::Render(const Hittable& rWorld, const Hittable& lights)
                 for (int s_i = 0; s_i < sqrt_spp; ++s_i)
                 {
                     Ray ray = GetRay(x, y, s_i, s_j);
-                    pixel += RayColor(ray, maxBounces, rWorld);
+                    pixel += RayColor(ray, maxBounces, rWorld, lights);
                 }
             }
 
@@ -76,39 +78,17 @@ void Camera::Initialize()
     defocusDiskY = y * defocusRadius;
 }
 
-Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) const
+Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const
 {
     HitInfo hitInfo;
 
-    /*
-    if (bounceLeft <= 0) return Color(0, 0, 0);
-
-    if (rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
-    {
-        Ray scattered;
-        Color attenuation;
-
-        if (hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered))
-        {
-            return attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
-        }
-
-        return Color(0, 0, 0);
-    }
-
-    Vector3 unitDirection = Unit(ray.GetDirection());
-    double blue = 0.5 * (unitDirection.y + 1.0);
-
-    return (1.0 - blue) * Color(1.0, 1.0, 1.0) + blue * Color(0.5, 0.7, 1.0);
-    */
-
-    //If we've exceeded the ray bounce limit, no more light is gathered.
+    // If we've exceeded the ray bounce limit, no more light is gathered.
     if (bounceLeft <= 0)
     {
         return Color(0, 0, 0);
     }
 
-    //If the ray hits nothing, return the background color.
+    // If the ray hits nothing, return the background color.
     if (!rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
     {
         return background;
@@ -116,44 +96,27 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld) c
 
     Ray scattered;
     Color attenuation;
-    Color colorFromEmission = hitInfo.mat->Emitted(hitInfo.x, hitInfo.y, hitInfo.coordinates);
-    double pdf;
+    double pdfVal;
+    Color colorFromEmision = hitInfo.mat->Emitted(ray, hitInfo, hitInfo.x, hitInfo.y, hitInfo.coordinates);
 
-    if (!hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered, pdf))
+    if (!hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered, pdfVal))
     {
-        return colorFromEmission;
+        return colorFromEmision;
     }
 
-    Vector3 onLight = Position(RandomDouble(213, 343), 554, RandomDouble(227, 332));
-    Vector3 toLight = onLight - hitInfo.coordinates;
-    double distanceSquared = toLight.SquaredLength();
-    toLight = Unit(toLight);
-
-    if (Dot(toLight, hitInfo.normal) < 0)
-    {
-        return colorFromEmission;
-    }
-
-    double lightArea = (343 - 213) * (332 - 227);
-    double lightCosine = fabs(toLight.y);
-    if (lightCosine < 0.000001)
-    {
-        return colorFromEmission;
-    }
-
-    pdf = distanceSquared / (lightCosine * lightArea);
-    scattered = Ray(hitInfo.coordinates, toLight, ray.time());
+    //shared_ptr<HittablePDF> light_ptr = make_shared<HittablePDF>(lights, hitInfo.coordinates);
+    HittableCollection light_ptr;
+    HittablePDF lightPDF(light_ptr, hitInfo.coordinates);
+    
+    scattered = Ray(hitInfo.coordinates, lightPDF.Generate(), ray.time());
+    pdfVal = lightPDF.Value(scattered.GetDirection());
 
     double scattering_pdf = hitInfo.mat->ScatteringPDF(ray, hitInfo, scattered);
 
-    Color colorFromScatter = attenuation * RayColor(scattered, bounceLeft - 1, rWorld);
+    Color sampleColor = RayColor(scattered, bounceLeft - 1, rWorld, lights);
+    Color colorFromScatter = (attenuation * scattering_pdf * sampleColor) / pdfVal;
 
-    double scatteringPDF = hitInfo.mat->ScatteringPDF(ray, hitInfo, scattered);
-    pdf = scatteringPDF;
-
-    colorFromScatter = (attenuation * scatteringPDF * RayColor(scattered, bounceLeft - 1, rWorld)) / pdf;
-
-    return colorFromEmission + colorFromScatter;
+    return colorFromEmision + colorFromScatter;
 }
 
 Ray Camera::GetRay(int x, int y, int s_i, int s_j) const

@@ -10,7 +10,7 @@ class HitInfo;
 class Materials
 {
 public:
-    virtual ~Materials() = default;
+    virtual ~Materials() {}
 
     virtual Color Emitted(double U, double V, const Position& p) const;
 
@@ -18,7 +18,7 @@ public:
 
     virtual double ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const;
 
-    virtual Color Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position);
+    virtual Color Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position) const;
 };
 
 class Lambertian : public Materials

@@ -15,7 +15,7 @@ public:
 
     // Moving Sphere
     Sphere(Position _center2, Position _center3, double _radius, shared_ptr<Materials> _material)
-        : mCenter(_center2), mRadius(_radius), mat(_material), isMoving(true) 
+        : mCenter(_center2), mRadius(_radius), mat(_material), isMoving(true)
     {
         Vector3 roundVector = Vector3(mRadius, mRadius, mRadius);
         AABB box1(_center2 - roundVector, _center2 + roundVector);

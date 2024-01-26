@@ -214,11 +214,11 @@ void CornellBox()
     shared_ptr<Lambertian> red = make_shared<Lambertian>(Color(.65, .05, .05));
     shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(.73, .73, .73));
     shared_ptr<Lambertian> green = make_shared<Lambertian>(Color(.12, .45, .15));
-    //shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(15, 15, 15));
+    shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(15, 15, 15));
 
     world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
-    //world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
+    world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
     world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
@@ -235,11 +235,11 @@ void CornellBox()
 
     //light source
     HittableCollection lights;
-    shared_ptr<DiffuseLight> lightMat = make_shared<DiffuseLight>(Color(15, 15, 15));
+    shared_ptr<Materials> lightMat = make_shared<Materials>();
     lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -150), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 200, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    Camera camera(600, 1.0, 10, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world, lights);
 }
 
@@ -353,12 +353,12 @@ int main(int argc, char* argv[])
 {
     switch (8)
     {
-        //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
+    //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
         break;
     case 2: Checkers();
         break;
-        //Amount of spheres (smol), recomended 7~11
+    //Amount of spheres (smol), recomended 7~11
     case 3: RandomSpheres(7);
         break;
     case 4: //Earth();
@@ -373,7 +373,7 @@ int main(int argc, char* argv[])
         break;
     case 9: CornellSmoke();
         break;
-        //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
+    //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
     case 10: FinalSceneB2(600, 200, 50, 20, 500);
     //case 10: FinalSceneB2(600, 2000, 50, 20, 500); <--this took 5 hours to render
         break;

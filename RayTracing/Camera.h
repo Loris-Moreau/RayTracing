@@ -55,7 +55,7 @@ private:
 	Vector3 defocusDiskY; //Defocus disk vertical radius
 
 	void Initialize();
-	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld) const;
+	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const;
 	Ray GetRay(int x, int y, int s_i, int s_j) const;
 	Vector3 PixelSampleSquared(int s_i, int s_j) const;
 
