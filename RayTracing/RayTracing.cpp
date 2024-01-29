@@ -208,10 +208,11 @@ void SimpleLight()
 void CornellBox()
 {
     HittableCollection world;
+    HittableCollection lights;
 
-    shared_ptr<Materials> red = make_shared<Lambertian>(Color(.65, .05, .05));
-    shared_ptr<Materials> white = make_shared<Lambertian>(Color(.73, .73, .73));
-    shared_ptr<Materials> green = make_shared<Lambertian>(Color(.12, .45, .15));
+    shared_ptr<Materials> red = make_shared<Lambertian>(Color(0.65, 0.05, 0.05));
+    shared_ptr<Materials> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
+    shared_ptr<Materials> green = make_shared<Lambertian>(Color(0.12, 0.45, 0.15));
     shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(15, 15, 15));
 
     world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
@@ -232,7 +233,10 @@ void CornellBox()
     world.Add(box2);
 
     //light source
-    HittableCollection lights;
+    /*
+    shared_ptr<Texture> test = make_shared< SolidColor>(0.01, 0.01, 0.01);
+    shared_ptr<Materials> lightMat = make_shared<DiffuseLight>(test);
+    */
     shared_ptr<Materials> lightMat = make_shared<Materials>();
     lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -150), lightMat));
 

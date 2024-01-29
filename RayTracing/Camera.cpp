@@ -114,7 +114,9 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, c
     }
 
     //shared_ptr<HittablePDF> light_ptr = make_shared<HittablePDF>(lights, hitInfo.coordinates);
+    //shared_ptr<HittableCollection> light_ptr = make_shared<HittableCollection>(lights);
     HittableCollection light_ptr;
+    //std::shared_ptr<HittableCollection> light_ptr = std::make_shared<HittableCollection>();
     HittablePDF lightPDF(light_ptr, hitInfo.coordinates);
     
     scattered = Ray(hitInfo.coordinates, lightPDF.Generate(), ray.time());

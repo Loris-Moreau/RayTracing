@@ -97,7 +97,7 @@ double Isotropic::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const 
     return 1 / (4 * pi);
 }
 
-bool DiffuseLight::Scatter(const Ray& r_in, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const
+bool DiffuseLight::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered, double& pdf) const
 {
     return false;
 }
