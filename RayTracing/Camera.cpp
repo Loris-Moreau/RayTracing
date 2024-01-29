@@ -89,7 +89,7 @@ void Camera::Initialize()
 
 Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const
 {
-    HitInfo hitInfo;
+    HittableCollection info;
 
     // If we've exceeded the ray bounce limit, no more light is gathered.
     if (bounceLeft <= 0)
@@ -98,36 +98,31 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, c
     }
 
     // If the ray hits nothing, return the background color.
-    if (!rWorld.Hit(ray, Interval(0.001, infinity), hitInfo))
+    if (!rWorld.Hit(ray, Interval(0.001, infinity), info))
     {
         return background;
     }
+    
+    ScaterInfo scatterInfo;
+    Color color_from_emission = info.mat->Emitted(ray, info, info.u, info.v, info.p);
 
-    Ray scattered;
-    Color attenuation;
-    double pdfVal;
-    Color colorFromEmision = hitInfo.mat->Emitted(ray, hitInfo, hitInfo.x, hitInfo.y, hitInfo.coordinates);
-
-    if (!hitInfo.mat->Scatter(ray, hitInfo, attenuation, scattered, pdfVal))
+    if (!info.mat->scatter(ray, info, scatterInfo))
     {
-        return colorFromEmision;
+        return color_from_emission;
     }
 
-    //shared_ptr<HittablePDF> light_ptr = make_shared<HittablePDF>(lights, hitInfo.coordinates);
-    //shared_ptr<HittableCollection> light_ptr = make_shared<HittableCollection>(lights);
-    HittableCollection light_ptr;
-    //std::shared_ptr<HittableCollection> light_ptr = std::make_shared<HittableCollection>();
-    HittablePDF lightPDF(light_ptr, hitInfo.coordinates);
-    
-    scattered = Ray(hitInfo.coordinates, lightPDF.Generate(), ray.time());
-    pdfVal = lightPDF.Value(scattered.GetDirection());
+    auto light_ptr = make_shared<HittablePDF>(lights, info.p);
+    MixturePDF p(light_ptr, scatterInfo.pdf_ptr);
 
-    double scattering_pdf = hitInfo.mat->ScatteringPDF(ray, hitInfo, scattered);
+    Ray scattered = Ray(info.p, p.Generate(), ray.time());
+    auto pdf_val = p.Value(scattered.GetDirection());
 
-    Color sampleColor = RayColor(scattered, bounceLeft - 1, rWorld, lights);
-    Color colorFromScatter = (attenuation * scattering_pdf * sampleColor) / pdfVal;
+    double scattering_pdf = info.mat->scattering_pdf(ray, info, scattered);
 
-    return colorFromEmision + colorFromScatter;
+    Color sample_color = RayColor(scattered, bounceLeft - 1, rWorld, lights);
+    Color color_from_scatter = (scatterInfo.attenuation * scattering_pdf * sample_color) / pdf_val;
+
+    return color_from_emission + color_from_scatter;
 }
 
 Ray Camera::GetRay(int x, int y, int sampleI, int sampleJ) const
