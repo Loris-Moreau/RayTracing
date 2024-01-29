@@ -387,3 +387,28 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+.vs/RayTracing/v17/ipch/AutoPCH/f14d31923cc8086c/SPHERE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/dba139a9fecf20a5/VECTOR3.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/cbd4b8d2e73e343/RAYTRACING.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/cb5ab8cefc69c9bb/MATERIALS.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/8a6fc1004e9c3c5b/AABB.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/62802da70f672a92/TEXTURE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/61171f3874a6d87e/HITTABLECOLLECTION.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/49d11efffe118ff1/BVHNODE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/47e795eeeb225312/HITTABLE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/4724f9883dfbcf96/CAMERA.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/2598efda80ec2fdc/INTERVAL.ipch
+*.ipch
+*.ipch
+*.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/f14d31923cc8086c/SPHERE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/dba139a9fecf20a5/VECTOR3.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/cbd4b8d2e73e343/RAYTRACING.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/cb5ab8cefc69c9bb/MATERIALS.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/8a6fc1004e9c3c5b/AABB.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/62802da70f672a92/TEXTURE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/61171f3874a6d87e/HITTABLECOLLECTION.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/49d11efffe118ff1/BVHNODE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/47e795eeeb225312/HITTABLE.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/4724f9883dfbcf96/CAMERA.ipch
+.vs/RayTracing/v17/ipch/AutoPCH/2598efda80ec2fdc/INTERVAL.ipch

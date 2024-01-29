@@ -9,8 +9,7 @@ class HitInfo
 public:
 	Position coordinates;
 	Vector3 normal;
-	shared_ptr<Materials> mat;
-
+	
 	double time;
 
 	double x;
@@ -19,6 +18,8 @@ public:
 	bool frontFace;
 
 	void SetFaceNormal(const Ray& ray, const Vector3& outwardNormal);
+	
+	shared_ptr<Materials> mat;
 };
 
 class Hittable

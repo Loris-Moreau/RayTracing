@@ -43,6 +43,7 @@ public:
 private:
     Position Q;
     Vector3 U, V, W;
+
     shared_ptr<Materials> mat;
     AABB bBox;
 
@@ -52,7 +53,7 @@ private:
     double area;
 };
 
-inline shared_ptr<HittableCollection> Box(const Position& a, const Position& b, shared_ptr<Materials> mat)
+inline shared_ptr<HittableCollection> Box(const Position& a, const Position& b, shared_ptr<Materials> _mat)
 {
     //Returns the 3D box (six sides) that contains the two opposite vertices a & b.
 
@@ -66,12 +67,12 @@ inline shared_ptr<HittableCollection> Box(const Position& a, const Position& b, 
     Vector3 dy = Vector3(0, max.y - min.y, 0);
     Vector3 dz = Vector3(0, 0, max.z - min.z);
 
-    sides->Add(make_shared<Quadrilaterals>(Position(min.x, min.y, max.z), dx, dy, mat)); //front
-    sides->Add(make_shared<Quadrilaterals>(Position(max.x, min.y, max.z), -dz, dy, mat)); //right
-    sides->Add(make_shared<Quadrilaterals>(Position(max.x, min.y, min.z), -dx, dy, mat)); //back
-    sides->Add(make_shared<Quadrilaterals>(Position(min.x, min.y, min.z), dz, dy, mat)); //left
-    sides->Add(make_shared<Quadrilaterals>(Position(min.x, max.y, max.z), dx, -dz, mat)); //top
-    sides->Add(make_shared<Quadrilaterals>(Position(min.x, min.y, min.z), dx, dz, mat)); //bottom
+    sides->Add(make_shared<Quadrilaterals>(Position(min.x, min.y, max.z), dx, dy, _mat)); //front
+    sides->Add(make_shared<Quadrilaterals>(Position(max.x, min.y, max.z), -dz, dy, _mat)); //right
+    sides->Add(make_shared<Quadrilaterals>(Position(max.x, min.y, min.z), -dx, dy, _mat)); //back
+    sides->Add(make_shared<Quadrilaterals>(Position(min.x, min.y, min.z), dz, dy, _mat)); //left
+    sides->Add(make_shared<Quadrilaterals>(Position(min.x, max.y, max.z), dx, -dz, _mat)); //top
+    sides->Add(make_shared<Quadrilaterals>(Position(min.x, min.y, min.z), dx, dz, _mat)); //bottom
 
     return sides;
 }

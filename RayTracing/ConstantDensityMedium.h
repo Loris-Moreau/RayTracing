@@ -20,6 +20,8 @@ public:
 
 private:
     shared_ptr<Hittable> boundary;
+
     double negInvDensity;
+
     shared_ptr<Materials> phaseFunction;
 };

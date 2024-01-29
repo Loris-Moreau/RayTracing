@@ -54,9 +54,6 @@
     <ClCompile Include="Quadrilaterals.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DiffuseLight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ConstantDensityMedium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,9 +108,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Quadrilaterals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DiffuseLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConstantDensityMedium.h">

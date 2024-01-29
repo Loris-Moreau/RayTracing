@@ -1,4 +1,5 @@
 #include "Camera.h"
+
 #include "PDF.h"
 #include "HittableCollection.h"
 
@@ -8,10 +9,15 @@ void Camera::Render(const Hittable& rWorld, const Hittable& lights)
 
     cout << "P3\n" << width << ' ' << height << "\n255\n";
 
+    // Calculate the number of samples per pixel in each dimension
     sqrt_spp = int(sqrt(sampleCount));
+
+    // Loop through each pixel in the image
     for (int y = 0; y < height; y++)
     {
+        // Print the progress
         clog << (y * 100 / height) << " % \n" << flush;
+
         for (int x = 0; x < width; x++)
         {
             Color pixel(0, 0, 0);
@@ -24,12 +30,14 @@ void Camera::Render(const Hittable& rWorld, const Hittable& lights)
             }
             */
 
-            //Stratifying the samples inside pixels (Render)
+            // Stratified sampling: loop through each sub-pixel sample
             for (int s_j = 0; s_j < sqrt_spp; ++s_j)
             {
                 for (int s_i = 0; s_i < sqrt_spp; ++s_i)
                 {
+                    // Get a ray for the current sub-pixel sample
                     Ray ray = GetRay(x, y, s_i, s_j);
+                    // Accumulate color for the current sub-pixel sample
                     pixel += RayColor(ray, maxBounces, rWorld, lights);
                 }
             }
@@ -42,7 +50,8 @@ void Camera::Render(const Hittable& rWorld, const Hittable& lights)
 
 void Camera::Initialize()
 {
-    height = static_cast<int>(width / aspectRatio);
+    // Calculate camera parameters based on user input and aspect ratio
+    height = /*static_cast<int>*/(int)(width / aspectRatio);
 
     if (height < 1) height = 1;
 
@@ -51,18 +60,18 @@ void Camera::Initialize()
     theta = DegToRad(verticalFov);
     h = tan(theta / 2);
     viewportHeight = 2 * h * focusDist;
-    viewportWidth = viewportHeight * (static_cast<double>(width) / height);
+    viewportWidth = viewportHeight * (/*static_cast<double>*/(double)(width) / height);
 
-    // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
+    // Calculate the u,v,w unit basis vectors for the camera coordinate frame.(Calculate camera coordinate frame vectors)
     W = Unit(lookFrom - lookAt); //(Z)
     x = Unit(Cross(vecUp, W)); //(X)
     y = Cross(W, x); //(Y)
 
-    // Calculate the vectors across the horizontal and down the vertical viewport edges.
+    // Calculate the vectors across the horizontal and down the vertical viewport edges.(Calculate viewport vectors)
     Vector3 viewportX = viewportWidth * x; // Vector across viewport horizontal edge
     Vector3 viewportY = viewportHeight * -y; // Vector down viewport vertical edge
 
-    //Delta vector between pixels
+    //Calculate pixel delta vectors and the top-left pixel position
     pixelDeltaX = viewportX / width;
     pixelDeltaY = viewportY / height;
 
@@ -119,7 +128,7 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, c
     return colorFromEmision + colorFromScatter;
 }
 
-Ray Camera::GetRay(int x, int y, int s_i, int s_j) const
+Ray Camera::GetRay(int x, int y, int sampleI, int sampleJ) const
 {
     /*
     //Get a randomly-sampled camera ray for the pixel at location i,j, originating from the camera defocus disk.
@@ -135,7 +144,7 @@ Ray Camera::GetRay(int x, int y, int s_i, int s_j) const
     // Get a randomly-sampled camera ray for the pixel at location i,j, 
     //originating from the camera defocus disk, and randomly sampled around the pixel location.
     Vector3 pixelCenter = originPixelLocation + (x * pixelDeltaX) + (y * pixelDeltaY);
-    Vector3 pixelSample = pixelCenter + PixelSampleSquared(s_i, s_j);
+    Vector3 pixelSample = pixelCenter + PixelSampleSquared(sampleI, sampleJ);
 
     Vector3 rayOrigin = (defocusAngle <= 0) ? center : DefocusDiskSample();
     Vector3 rayDirection = pixelSample - rayOrigin;
@@ -144,11 +153,11 @@ Ray Camera::GetRay(int x, int y, int s_i, int s_j) const
     return Ray(rayOrigin, rayDirection, rayTime);
 }
 
-Vector3 Camera::PixelSampleSquared(int s_i, int s_j) const
+Vector3 Camera::PixelSampleSquared(int sampleI, int sampleJ) const
 {
     //Returns a random point in the square around a pixel at the origin
-    double pX = -0.5 + sqrt_spp * (s_i + RandomDouble());
-    double pY = -0.5 + sqrt_spp * (s_j + RandomDouble());
+    double pX = -0.5 + sqrt_spp * (sampleI + RandomDouble());
+    double pY = -0.5 + sqrt_spp * (sampleJ + RandomDouble());
 
     return (pX * pixelDeltaX) + (pY * pixelDeltaY);
 }

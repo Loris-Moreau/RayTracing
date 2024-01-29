@@ -2,7 +2,6 @@
   BVHNode.cpp
   Camera.cpp
   ConstantDensityMedium.cpp
-  DiffuseLight.cpp
   Hittable.cpp
   HittableCollection.cpp
   Interval.cpp
@@ -12,18 +11,18 @@
   Perlin.cpp
   Quadrilaterals.cpp
   RayTracing.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\xmemory(1979,9): error C2259: 'Materials': cannot instantiate abstract class
-E:\Github\RayTracing\RayTracing\Materials.h(10,7): message : see declaration of 'Materials'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\xmemory(1979,9): message : due to following members:
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\xmemory(1979,9): message : 'bool Materials::Scatter(const Ray &,const HitInfo &,Color &,Ray &,double &) const': is abstract
-E:\Github\RayTracing\RayTracing\Materials.h(17,18): message : see declaration of 'Materials::Scatter'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\memory(2004,1): message : see reference to class template instantiation 'std::_Wrap<_Ty>' being compiled
+C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xmemory(2096,9): error C2259: 'Materials': cannot instantiate abstract class
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(10,7): message : see declaration of 'Materials'
+C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xmemory(2096,9): message : due to following members:
+C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xmemory(2096,9): message : 'bool Materials::Scatter(const Ray &,const HitInfo &,Color &,Ray &,double &) const': is abstract
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(15,18): message : see declaration of 'Materials::Scatter'
+C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2105,1): message : see reference to class template instantiation 'std::_Wrap<_Ty>' being compiled
           with
           [
               _Ty=Materials
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\memory(2663): message : see reference to class template instantiation 'std::_Ref_count_obj2<Materials>' being compiled
-E:\Github\RayTracing\RayTracing\RayTracing.cpp(238,61): message : see reference to function template instantiation 'std::shared_ptr<Materials> std::make_shared<Materials,>(void)' being compiled
+C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2764): message : see reference to class template instantiation 'std::_Ref_count_obj2<Materials>' being compiled
+C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\RayTracing.cpp(200,38): message : see reference to function template instantiation 'std::shared_ptr<Materials> std::make_shared<Materials,>(void)' being compiled
   Sphere.cpp
   Texture.cpp
   Vector3.cpp

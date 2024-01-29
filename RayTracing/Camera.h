@@ -56,8 +56,8 @@ private:
 
 	void Initialize();
 	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const;
-	Ray GetRay(int x, int y, int s_i, int s_j) const;
-	Vector3 PixelSampleSquared(int s_i, int s_j) const;
+	Ray GetRay(int x, int y, int sampleI, int sampleJ) const;
+	Vector3 PixelSampleSquared(int sampleI, int sampleJ) const;
 
 	Position DefocusDiskSample() const;
 };
