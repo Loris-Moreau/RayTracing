@@ -85,7 +85,6 @@ private:
     shared_ptr<Texture> albedo;
 };
 
-
 class DiffuseLight : public Materials
 {
 public:

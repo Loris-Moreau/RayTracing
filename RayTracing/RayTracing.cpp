@@ -214,7 +214,7 @@ void CornellBox()
     shared_ptr<Materials> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
     shared_ptr<Materials> green = make_shared<Lambertian>(Color(0.12, 0.45, 0.15));
 
-    shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(15, 15, 15));
+    shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(4, 4, 4));
 
     //Room
     world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
@@ -241,10 +241,10 @@ void CornellBox()
 
     //light source
     shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -150), lightMat));
+    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 50, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    Camera camera(600, 1.0, 50, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0.35, 0.40, 0.50));
     camera.Render(world, lights);
 }
 
