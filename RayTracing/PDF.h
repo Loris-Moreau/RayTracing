@@ -52,3 +52,19 @@ class MixturePDF : public PDF
   private:
     shared_ptr<PDF> pdf[2];
 };
+
+class SpherePDF : public PDF 
+{
+public:
+    SpherePDF() { }
+
+    double Value(const Vector3 direction) const override 
+    {
+        return 1 / (4 * pi);
+    }
+
+    Vector3 Generate() const override 
+    {
+        return RandomUnitVector();
+    }
+};

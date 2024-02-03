@@ -89,7 +89,7 @@ void Camera::Initialize()
 
 Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const
 {
-    HittableCollection info;
+    HitInfo info;
 
     // If we've exceeded the ray bounce limit, no more light is gathered.
     if (bounceLeft <= 0)
@@ -104,20 +104,25 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, c
     }
     
     ScaterInfo scatterInfo;
-    Color color_from_emission = info.mat->Emitted(ray, info, info.u, info.v, info.p);
+    Color color_from_emission = info.mat->Emitted(ray, info, info.x, info.y, info.coordinates);
 
-    if (!info.mat->scatter(ray, info, scatterInfo))
+    if (!info.mat->Scatter(ray, info, scatterInfo))
     {
         return color_from_emission;
     }
 
-    auto light_ptr = make_shared<HittablePDF>(lights, info.p);
+    if (scatterInfo.skipPDF)
+    {
+        return scatterInfo.attenuation * RayColor(scatterInfo.skipPDFRay, bounceLeft - 1, rWorld, lights);
+    }
+
+    auto light_ptr = make_shared<HittablePDF>(lights, info.coordinates );
     MixturePDF p(light_ptr, scatterInfo.pdf_ptr);
 
-    Ray scattered = Ray(info.p, p.Generate(), ray.time());
+    Ray scattered = Ray(info.coordinates   , p.Generate(), ray.time());
     auto pdf_val = p.Value(scattered.GetDirection());
 
-    double scattering_pdf = info.mat->scattering_pdf(ray, info, scattered);
+    double scattering_pdf = info.mat->ScatteringPDF(ray, info, scattered);
 
     Color sample_color = RayColor(scattered, bounceLeft - 1, rWorld, lights);
     Color color_from_scatter = (scatterInfo.attenuation * scattering_pdf * sample_color) / pdf_val;
@@ -127,8 +132,9 @@ Color Camera::RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, c
 
 Ray Camera::GetRay(int x, int y, int sampleI, int sampleJ) const
 {
-    /*
+    
     //Get a randomly-sampled camera ray for the pixel at location i,j, originating from the camera defocus disk.
+    /*
     Vector3 pixelCenter = originPixelLocation + (x * pixelDeltaX) + (y * pixelDeltaY);
     Vector3 pixelSample = pixelCenter + PixelSampleSquared();
 

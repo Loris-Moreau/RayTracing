@@ -136,8 +136,8 @@ void Checkers()
 void Earth()
 {
     shared_ptr<Texture> imageTexture = make_shared<ImageTexture>("..\\Images\\earthmap.jpg");
-    shared_ptr<Materials>   imageSurface = make_shared<Lambertian>(imageTexture);
-    shared_ptr<Sphere>       renderedObj = make_shared<Sphere>(Position(0, 0, 0), 2, imageSurface);
+    shared_ptr<Materials> imageSurface = make_shared<Lambertian>(imageTexture);
+    shared_ptr<Sphere> renderedObj = make_shared<Sphere>(Position(0, 0, 0), 2, imageSurface);
 
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
@@ -197,7 +197,7 @@ void SimpleLight()
 
     // light source
     HittableCollection lights;
-    shared_ptr<Materials> lightMat = make_shared<Materials>();
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
     lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
@@ -213,35 +213,38 @@ void CornellBox()
     shared_ptr<Materials> red = make_shared<Lambertian>(Color(0.65, 0.05, 0.05));
     shared_ptr<Materials> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
     shared_ptr<Materials> green = make_shared<Lambertian>(Color(0.12, 0.45, 0.15));
+
     shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(15, 15, 15));
 
+    //Room
     world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
-    world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
+
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
     world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
 
-    shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), white);
+   //Light  
+    world.Add(make_shared<Quadrilaterals>(Position(213, 554, 227), Vector3(130, 0, 0), Vector3(0, 0, 105), light));
+    //Box 1
+    shared_ptr<Materials> aluminum = make_shared<Metal>(Color(0.8, 0.85, 0.88), 0.0);
+    shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), aluminum);
     box1 = make_shared<RotateY>(box1, 15);
     box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
     world.Add(box1);
 
+    //Box 2
     shared_ptr<Hittable> box2 = Box(Position(0, 0, 0), Position(165, 165, 165), white);
     box2 = make_shared<RotateY>(box2, -18);
     box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
     world.Add(box2);
 
     //light source
-    /*
-    shared_ptr<Texture> test = make_shared< SolidColor>(0.01, 0.01, 0.01);
-    shared_ptr<Materials> lightMat = make_shared<DiffuseLight>(test);
-    */
-    shared_ptr<Materials> lightMat = make_shared<Materials>();
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
     lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -150), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 10, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
+    Camera camera(600, 1.0, 50, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world, lights);
 }
 
@@ -277,7 +280,7 @@ void CornellSmoke()
 
     //light source
     HittableCollection lights;
-    shared_ptr<Materials> lightMat = make_shared<Materials>();
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
     lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
@@ -343,7 +346,7 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
 
     //light source
     HittableCollection lights;
-    shared_ptr<Materials> lightMat = make_shared<Materials>();
+    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
     lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)

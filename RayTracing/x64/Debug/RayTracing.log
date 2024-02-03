@@ -1,25 +1,2 @@
-﻿  Camera.cpp
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Camera.cpp(111,21): error C2660: 'Materials::Scatter': function does not take 5 arguments
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(25,18): message : see declaration of 'Materials::Scatter'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Camera.cpp(111,21): message : while trying to match the argument list '(const Ray, HitInfo, Color, Ray, double)'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Camera.cpp(116,53): error C2065: 'light_ptr': undeclared identifier
-  ConstantDensityMedium.cpp
-  Materials.cpp
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.cpp(88,39): error C2065: 'SpherePDF': undeclared identifier
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.cpp(88,27): error C2672: 'std::make_shared': no matching overloaded function found
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2764,5): message : could be 'std::shared_ptr<_Ty> std::make_shared(_Types &&...)'
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.cpp(88,39): message : 'std::make_shared': invalid template argument for '_Ty', type expected
-  RayTracing.cpp
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xmemory(2096,9): error C2259: 'Materials': cannot instantiate abstract class
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(20,7): message : see declaration of 'Materials'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xmemory(2096,9): message : due to following members:
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\xmemory(2096,9): message : 'bool Materials::Scatter(const Ray &,const HitInfo &,ScaterInfo &) const': is abstract
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\Materials.h(25,18): message : see declaration of 'Materials::Scatter'
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2105,1): message : see reference to class template instantiation 'std::_Wrap<_Ty>' being compiled
-          with
-          [
-              _Ty=Materials
-          ]
-C:\VisualStudio\VC\Tools\MSVC\14.36.32532\include\memory(2764): message : see reference to class template instantiation 'std::_Ref_count_obj2<Materials>' being compiled
-C:\Users\loris.moreau\Documents\GitHub\RayTracing\RayTracing\RayTracing.cpp(200,38): message : see reference to function template instantiation 'std::shared_ptr<Materials> std::make_shared<Materials,>(void)' being compiled
-  Generating Code...
+﻿  RayTracing.cpp
+  RayTracing.vcxproj -> E:\Github\RayTracing\x64\Debug\RayTracing.exe

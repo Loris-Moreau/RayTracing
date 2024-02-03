@@ -39,6 +39,8 @@ double Lambertian::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const
 bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
 {
     scatterInfo.attenuation = Color(1.0, 1.0, 1.0);
+    scatterInfo.pdf_ptr = nullptr;
+    scatterInfo.skipPDF = true;
 
     double refractionRatio = hitInfo.frontFace ? (1.0 / indexOfRefraction) : indexOfRefraction;
 
@@ -60,7 +62,7 @@ bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& s
         direction = Refract(unitDirection, hitInfo.normal, refractionRatio);
     }
 
-    Ray scattered = Ray(hitInfo.coordinates, direction, rayIn.time());
+    scatterInfo.skipPDFRay = Ray(hitInfo.coordinates, direction, rayIn.time());
 
     return true;
 }
@@ -75,11 +77,15 @@ double Dielectric::Reflectance(double cosine, double reflectanceIndex)
 
 bool Metal::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
 {
-    Vector3 reflected = Reflect(Unit(rayIn.GetDirection()), hitInfo.normal);
-    Ray scattered = Ray(hitInfo.coordinates, reflected + fuzz * RandomUnitVector(), rayIn.time());
     scatterInfo.attenuation = albedo;
+    scatterInfo.pdf_ptr = nullptr;
+    scatterInfo.skipPDF = true;
 
-    return (Dot(scattered.GetDirection(), hitInfo.normal) > 0);
+    Vector3 reflected = Reflect(Unit(rayIn.GetDirection()), hitInfo.normal);
+
+    scatterInfo.skipPDFRay = Ray(hitInfo.coordinates, reflected + fuzz * RandomInUnitSphere(), rayIn.time());
+
+    return true;
 }
 
 bool Isotropic::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
