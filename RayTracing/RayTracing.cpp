@@ -1,4 +1,4 @@
-// RayTracing.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//RayTracing.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 ///Command for .ppm file creation :
 ///.\x64\Debug\RayTracing.exe > Render.ppm
@@ -195,20 +195,20 @@ void SimpleLight()
     world.Add(make_shared<Quadrilaterals>(Position(3, 1, -2), Vector3(2, 0, 0), Vector3(0, 2, 0), difflight));
     //world.Add(make_shared<Sphere>(Position(0, 6, 0), 1.5, difflight));
 
-    // light source
+    //light source
     HittableCollection lights;
     shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
+    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-2, 0, 0), Vector3(0, 2, 0), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(1200, 16.0/9.0, 70, 50, 25, Position(20, 3, 6), Position(0, 1, 0), Vector3(0, 1, 0), 0, 10, Color(0, 0, 0));
+    Camera camera(600, 16.0/9.0, 45, 50, 25, Position(20, 3, 6), Position(0, 1, 0), Vector3(0, 1, 0), 0, 10, Color(0, 0, 0));
     camera.Render(world, lights);
 }
 
 void CornellBox()
 {
     HittableCollection world;
-    HittableCollection lights;
+
 
     shared_ptr<Materials> red = make_shared<Lambertian>(Color(0.65, 0.05, 0.05));
     shared_ptr<Materials> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
@@ -224,8 +224,9 @@ void CornellBox()
     world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
     world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
 
-   //Light  
-    world.Add(make_shared<Quadrilaterals>(Position(213, 554, 227), Vector3(130, 0, 0), Vector3(0, 0, 105), light));
+    //Light  
+    world.Add(make_shared<Quadrilaterals>(Position(213, 500, 227), Vector3(-130, 0, 0), Vector3(0, 0, 105), light));
+
     //Box 1
     shared_ptr<Materials> aluminum = make_shared<Metal>(Color(0.8, 0.85, 0.88), 0.0);
     shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), aluminum);
@@ -240,11 +241,12 @@ void CornellBox()
     world.Add(box2);
 
     //light source
+    HittableCollection lights;
     shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
+    lights.Add(make_shared<Quadrilaterals>(Position(213, 500, 227), Vector3(-130, 0, 0), Vector3(0, 0, 105), lightMat));
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 25, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 1000, Color(0.70, 0.80, 1.00));
+    Camera camera(600, 1.0, 25, 40, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0.70, 0.80, 1.00));
     camera.Render(world, lights);
 }
 

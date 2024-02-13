@@ -6,7 +6,7 @@
 >
 
 >[!TIP]
->If you wish to do the renders yourself, at the end of the main file "[RayTracing.cpp](https://github.com/Loris-Moreau/RayTracing/blob/b894421b12f8b2ddfb9136333192a70b5050cb1d/RayTracing/RayTracing.cpp#L333 "Line 333 of Main")" change the number in the switch for the corresponding render you wish to do.
+>If you wish to do the renders yourself, at the end of the main file "[RayTracing.cpp](https://github.com/Loris-Moreau/RayTracing/blob/b894421b12f8b2ddfb9136333192a70b5050cb1d/RayTracing/RayTracing.cpp#L333 "Final Lines of Main")" change the number in the switch for the corresponding render you wish to do.
 
 <br>
 
@@ -45,3 +45,10 @@
 
 ### Final Render of Book 2
 ![Final Render (B2 P10)](https://github.com/Loris-Moreau/RayTracing/blob/61018af991300b79ecaced69f145492cb1550079/Images/Final%20Render%20high-Res%20(B2).png "This took 5 Hours")
+
+
+<br>
+<br>
+<br>
+<br>
+Curently having issues with the lighting for the render in Book 3 Part 12.2
