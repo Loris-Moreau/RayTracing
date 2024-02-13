@@ -1,12 +1,21 @@
 # RayTracing 
 #### My Adventure following The [Ray Tracing in One Weekend](https://raytracing.github.io/) Series
 
+
+> [!CAUTION]
+> Hi, 
+> Curently having issues with the lighting for the render in Book 3 Part 12.2
+> <br>
+> The last functional commit is [This](https://github.com/Loris-Moreau/RayTracing/tree/c42413199092b00ed8b337ded7ebd7757c6934e3 "Final Working Commit")
+
+<br>
+
 > [!NOTE]
 > Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/main/Images "Images Folder") Folder for more Renders.
 >
 
->[!TIP]
->If you wish to do the renders yourself, at the end of the [Main](https://github.com/Loris-Moreau/RayTracing/blob/main/RayTracing/RayTracing.cpp "RayTracing.cpp") file change the number in the switch for the corresponding render you wish to do.
+> [!TIP]
+> If you wish to do the renders yourself, at the end of the [Main](https://github.com/Loris-Moreau/RayTracing/blob/main/RayTracing/RayTracing.cpp "RayTracing.cpp") file change the number in the switch for the corresponding render you wish to do.
 
 <br>
 
@@ -47,8 +56,3 @@
 ![Final Render (B2 P10)](https://github.com/Loris-Moreau/RayTracing/blob/main/Images/Final%20Render%20high-Res%20(B2).png "This took 5 Hours")
 
 
-<br>
-<br>
-<br>
-<br>
-Curently having issues with the lighting for the render in Book 3 Part 12.2
