@@ -4,7 +4,7 @@
 
 > [!CAUTION]
 > Hi, 
-> Curently having issues with the lighting for the render in Book 3 Part 12.2
+> Currently having issues with the lighting for the render in Book 3 Part 12.2
 > <br>
 > The last functional commit is [This](https://github.com/Loris-Moreau/RayTracing/tree/c42413199092b00ed8b337ded7ebd7757c6934e3 "Final Working Commit")
 
