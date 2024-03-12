@@ -8,8 +8,6 @@
 > <br>
 > The last functional commit is [This](https://github.com/Loris-Moreau/RayTracing/tree/c42413199092b00ed8b337ded7ebd7757c6934e3 "Final Working Commit")
 
-<br>
-
 > [!NOTE]
 > Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/main/Images "Images Folder") Folder for more Renders.
 >
