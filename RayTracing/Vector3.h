@@ -10,13 +10,12 @@ public:
     double x, y, z;
 
     Vector3() : x(0), y(0), z(0) {}
-    Vector3(double pX, double pY, double pZ) : x(pX), y(pY), z(pZ) {}
+    Vector3(const double pX, const double pY, const double pZ) : x(pX), y(pY), z(pZ) {}
+    
+    Vector3 operator-() const { return {-x, -y, -z}; }
 
-
-    Vector3 operator-() const { return Vector3(-x, -y, -z); }
-
-    double operator[](int i) const { return i == 0 ? x : (i == 1 ? y : z); }
-    double& operator[](int i) { return i == 0 ? x : (i == 1 ? y : z); }
+    double operator[](const int i) const { return i == 0 ? x : (i == 1 ? y : z); }
+    double& operator[](const int i) { return i == 0 ? x : (i == 1 ? y : z); }
 
     Vector3& operator+=(const Vector3& rVec);
 
@@ -35,46 +34,45 @@ public:
     static Vector3 Random(double min, double max);
 };
 
-
 //Alias for Vector3 to increase code readability
 using Position = Vector3;
 
 inline std::ostream& operator<<(std::ostream& rOut, const Vector3& rV)
 {
-    return rOut << rV.x << ' ' << rV.y << ' ' << rV.z << std::endl;
+    return rOut << rV.x << ' ' << rV.y << ' ' << rV.z << '\n';
 }
 
 inline Vector3 operator+(const Vector3& rLeft, const Vector3& rRight)
 {
-    return Vector3(rLeft.x + rRight.x, rLeft.y + rRight.y, rLeft.z + rRight.z);
+    return {rLeft.x + rRight.x, rLeft.y + rRight.y, rLeft.z + rRight.z};
 }
 
 inline Vector3 operator-(const Vector3& rLeft, const Vector3& rRight)
 {
-    return Vector3(rLeft.x - rRight.x, rLeft.y - rRight.y, rLeft.z - rRight.z);
+    return {rLeft.x - rRight.x, rLeft.y - rRight.y, rLeft.z - rRight.z};
 }
 
 inline Vector3 operator*(const Vector3& rLeft, const Vector3& rRight)
 {
-    return Vector3(rLeft.x * rRight.x, rLeft.y * rRight.y, rLeft.z * rRight.z);
+    return {rLeft.x * rRight.x, rLeft.y * rRight.y, rLeft.z * rRight.z};
 }
 
-inline Vector3 operator*(const Vector3& rLeft, double scalar)
+inline Vector3 operator*(const Vector3& rLeft, const double scalar)
 {
-    return Vector3(rLeft.x * scalar, rLeft.y * scalar, rLeft.z * scalar);
+    return {rLeft.x * scalar, rLeft.y * scalar, rLeft.z * scalar};
 }
 
-inline Vector3 operator*(double scalar, const Vector3& rRight)
+inline Vector3 operator*(const double scalar, const Vector3& rRight)
 {
     return rRight * scalar;
 }
 
-inline Vector3 operator/(Vector3 vector, double scalar)
+inline Vector3 operator/(const Vector3& vector, const double scalar)
 {
     return (1 / scalar) * vector;
 }
 
-inline double Dot(const Vector3& rLeft, const Vector3 rRight)
+inline double Dot(const Vector3& rLeft, const Vector3& rRight)
 {
     return rLeft.x * rRight.x
         + rLeft.y * rRight.y
@@ -83,9 +81,12 @@ inline double Dot(const Vector3& rLeft, const Vector3 rRight)
 
 inline Vector3 Cross(const Vector3& rLeft, const Vector3& rRight)
 {
-    return Vector3(rLeft.y * rRight.z - rLeft.z * rRight.y,
+    return
+    {
+        rLeft.y * rRight.z - rLeft.z * rRight.y,
         rLeft.z * rRight.x - rLeft.x * rRight.z,
-        rLeft.x * rRight.y - rLeft.y * rRight.x);
+        rLeft.x * rRight.y - rLeft.y * rRight.x
+    };
 }
 
 inline Vector3 Unit(const Vector3& vector)
@@ -121,7 +122,7 @@ inline Vector3 RandomInUnitDisc()
 
 inline Vector3 RandomOnHemisphere(const Vector3& normal)
 {
-    Vector3 onUnitSphere = RandomUnitVector();
+    const Vector3 onUnitSphere = RandomUnitVector();
     //If in the same hemisphere as the normal
     if (Dot(onUnitSphere, normal) > 0.0)
     {
@@ -135,16 +136,16 @@ inline Vector3 Reflect(const Vector3& y, const Vector3& n)
     return y - 2 * Dot(y, n) * n;
 }
 
-inline Vector3 Refract(const Vector3& uv, const Vector3& n, double etaiOverEtat)
+inline Vector3 Refract(const Vector3& uv, const Vector3& n, const double etaiOverEtat)
 {
-    double cosTheta = fmin(Dot(-uv, n), 1.0);
-    Vector3 rayOutPerp = etaiOverEtat * (uv + cosTheta * n);
-    Vector3 rayOutParallel = -sqrt(fabs(1.0 - rayOutPerp.SquaredLength())) * n;
+    const double cosTheta = fmin(Dot(-uv, n), 1.0);
+    const Vector3 rayOutPerp = etaiOverEtat * (uv + cosTheta * n);
+    const Vector3 rayOutParallel = -sqrt(fabs(1.0 - rayOutPerp.SquaredLength())) * n;
 
     return rayOutPerp + rayOutParallel;
 }
 
-inline int RandomInt(int min, int max)
+inline int RandomInt(const int min, const int max)
 {
     // Returns a random integer in [min,max].
     return static_cast<int>(RandomDouble(min, max + 1));
@@ -152,13 +153,13 @@ inline int RandomInt(int min, int max)
 
 inline Vector3 RandomCosineDirection()
 {
-    double r1 = RandomDouble();
-    double r2 = RandomDouble();
+    const double r1 = RandomDouble();
+    const double r2 = RandomDouble();
 
-    double phi = 2 * pi * r1;
-    double x = cos(phi) * sqrt(r2);
-    double y = sin(phi) * sqrt(r2);
-    double z = sqrt(1 - r2);
+    const double phi = 2 * pi * r1;
+    const double x = cos(phi) * sqrt(r2);
+    const double y = sin(phi) * sqrt(r2);
+    const double z = sqrt(1 - r2);
 
-    return Vector3(x, y, z);
+    return {x, y, z};
 }

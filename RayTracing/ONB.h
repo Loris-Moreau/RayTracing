@@ -5,10 +5,10 @@
 class ONB
 {
 public:
-    ONB() {}
+    ONB() = default;
 
-    Vector3 operator[](int i) const { return axis[i]; }
-    Vector3& operator[](int i) { return axis[i]; }
+    Vector3 operator[](const int i) const { return axis[i]; }
+    Vector3& operator[](const int i) { return axis[i]; }
 
     Vector3 U() const { return axis[0]; }
     Vector3 V() const { return axis[1]; }

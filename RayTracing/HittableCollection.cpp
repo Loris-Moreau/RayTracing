@@ -2,7 +2,7 @@
 
 using namespace std;
 
-HittableCollection::HittableCollection(std::shared_ptr<Hittable> hittable)
+HittableCollection::HittableCollection(const std::shared_ptr<Hittable>& hittable)
 {
     Add(hittable);
 }
@@ -12,13 +12,13 @@ void HittableCollection::Clear()
     mPool.clear();
 }
 
-void HittableCollection::Add(std::shared_ptr<Hittable> hittable)
+void HittableCollection::Add(const std::shared_ptr<Hittable>& hittable)
 {
     mPool.push_back(hittable);
     bBox = AABB(bBox, hittable->BoundingBox());
 }
 
-bool HittableCollection::Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const
+bool HittableCollection::Hit(const Ray& rRay, const Interval rayTime, HitInfo& hitInfo) const
 {
     HitInfo tempInfo;
     bool hasHit = false;

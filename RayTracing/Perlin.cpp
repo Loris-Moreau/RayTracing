@@ -29,14 +29,14 @@ double Perlin::noise(const Position& position) const
 
     /*
     //Hermitian Smoothing
-    u = u * u * (3 - 2 * u);
-    v = v * v * (3 - 2 * v);
-    w = w * w * (3 - 2 * w);
+    U = U * U * (3 - 2 * U);
+    V = V* V * (3 - 2 * V);
+    W = W * W * (3 - 2 * W);
     */
 
-    int i = static_cast<int>(floor(position.x));
-    int j = static_cast<int>(floor(position.y));
-    int k = static_cast<int>(floor(position.z));
+    const int i = static_cast<int>(floor(position.x));
+    const int j = static_cast<int>(floor(position.y));
+    const int k = static_cast<int>(floor(position.z));
     Vector3 c[2][2][2];
 
     for (int di = 0; di < 2; di++)
@@ -52,7 +52,7 @@ double Perlin::noise(const Position& position) const
     return PerlinInterp(c, U, V, W);
 }
 
-double Perlin::Turbulence(const Position& position, int depth) const
+double Perlin::Turbulence(const Position& position, const int depth) const
 {
     double accum = 0.0;
     double weight = 1.0; 
@@ -81,18 +81,18 @@ int* Perlin::PerlinGeneratePerm()
     return point;
 }
 
-void Perlin::Permute(int* point, int n)
+void Perlin::Permute(int* point, const int n)
 {
     for (int i = n - 1; i > 0; i--)
     {
-        int target = RandomInt(0, i);
-        int tmp = point[i];
+        const int target = RandomInt(0, i);
+        const int tmp = point[i];
         point[i] = point[target];
         point[target] = tmp;
     }
 }
 
-double Perlin::TrilinearInterp(double c[2][2][2], double U, double V, double W)
+double Perlin::TrilinearInterp(double c[2][2][2], const double U, const double V, const double W)
 {
     double accum = 0.0;
     for (int i = 0; i < 2; i++)
@@ -105,18 +105,18 @@ double Perlin::TrilinearInterp(double c[2][2][2], double U, double V, double W)
     return accum;
 }
 
-double Perlin::PerlinInterp(Vector3 c[2][2][2], double U, double V, double W)
+double Perlin::PerlinInterp(Vector3 c[2][2][2], const double U, const double V, const double W)
 {
-    double uu = U * U * (3 - 2 * U);
-    double vv = V * V * (3 - 2 * V);
-    double ww = W * W * (3 - 2 * W);
+    const double uu = U * U * (3 - 2 * U);
+    const double vv = V * V * (3 - 2 * V);
+    const double ww = W * W * (3 - 2 * W);
     double accum = 0.0;
 
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
             for (int k = 0; k < 2; k++)
             {
-                Vector3 weight_v(U - i, V - j, W - k);
+                const Vector3 weight_v(U - i, V - j, W - k);
                 accum += (i * uu + (1 - i) * (1 - uu))
                     * (j * vv + (1 - j) * (1 - vv))
                     * (k * ww + (1 - k) * (1 - ww))

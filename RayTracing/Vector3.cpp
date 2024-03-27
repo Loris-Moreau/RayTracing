@@ -6,13 +6,13 @@ Vector3& Vector3::operator+=(const Vector3& rVec)
     return *this;
 }
 
-Vector3& Vector3::operator*=(double t)
+Vector3& Vector3::operator*=(const double t)
 {
     x *= t; y *= t; z *= t;
     return *this;
 }
 
-Vector3& Vector3::operator/=(double t)
+Vector3& Vector3::operator/=(const double t)
 {
     x /= t; y /= t; z /= t;
     return *this;
@@ -31,16 +31,16 @@ double Vector3::SquaredLength() const
 bool Vector3::NearZero() const
 {
     // Return true if the vector is close to zero in all dimensions.
-    double s = 1e-8;
+    constexpr double s = 1e-8;
     return fabs(x < s) && fabs(y < s) && fabs(z < s);
 }
 
 Vector3 Vector3::Random()
 {
-    return Vector3(RandomDouble(), RandomDouble(), RandomDouble());
+    return {RandomDouble(), RandomDouble(), RandomDouble()};
 }
 
-Vector3 Vector3::Random(double min, double max)
+Vector3 Vector3::Random(const double min, const double max)
 {
-    return Vector3(RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max));
+    return {RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max)};
 }

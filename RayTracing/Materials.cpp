@@ -2,10 +2,10 @@
 
 Color Materials::Emitted(double U, double V, const Position& position) const
 {
-    return Color(0, 0, 0);
+    return {0, 0, 0};
 }
 
-bool Materials::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
+bool Materials::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScatterInfo& scatterInfo) const
 {
     return false;
 }
@@ -17,10 +17,10 @@ double Materials::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const 
 
 Color Materials::Emitted(const Ray& rayIn, const HitInfo hitInfo, double u, double v, const Position& position) const
 {
-    return Color(0, 0, 0);
+    return {0, 0, 0};
 }
 
-bool Lambertian::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
+bool Lambertian::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScatterInfo& scatterInfo) const
 {
     scatterInfo.attenuation = albedo->Value(hitInfo.x, hitInfo.y, hitInfo.coordinates);
     scatterInfo.pdf_ptr = make_shared<CosinePDF>(hitInfo.normal);
@@ -31,25 +31,25 @@ bool Lambertian::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& s
 
 double Lambertian::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const Ray& scattered) const
 {
-    double cosine = Dot(hitInfo.normal, Unit(scattered.GetDirection()));
+    const double cosine = Dot(hitInfo.normal, Unit(scattered.GetDirection()));
 
     return cosine < 0 ? 0 : cosine / pi;
 }
 
-bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
+bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScatterInfo& scatterInfo) const
 {
     scatterInfo.attenuation = Color(1.0, 1.0, 1.0);
     scatterInfo.pdf_ptr = nullptr;
     scatterInfo.skipPDF = true;
 
-    double refractionRatio = hitInfo.frontFace ? (1.0 / indexOfRefraction) : indexOfRefraction;
+    const double refractionRatio = hitInfo.frontFace ? (1.0 / indexOfRefraction) : indexOfRefraction;
 
-    Vector3 unitDirection = Unit(rayIn.GetDirection());
+    const Vector3 unitDirection = Unit(rayIn.GetDirection());
 
-    double cosTheta = fmin(Dot(-unitDirection, hitInfo.normal), 1.0);
-    double sinTheta = sqrt(1.0 - cosTheta * cosTheta);
+    const double cosTheta = fmin(Dot(-unitDirection, hitInfo.normal), 1.0);
+    const double sinTheta = sqrt(1.0 - cosTheta * cosTheta);
 
-    bool cannotRefract = refractionRatio * sinTheta > 1.0;
+    const bool cannotRefract = refractionRatio * sinTheta > 1.0;
 
     Vector3 direction;
 
@@ -67,7 +67,7 @@ bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& s
     return true;
 }
 
-double Dielectric::Reflectance(double cosine, double reflectanceIndex)
+double Dielectric::Reflectance(const double cosine, const double reflectanceIndex)
 {
     // Use Schlick's approximation for reflectance.
     auto r0 = (1 - reflectanceIndex) / (1 + reflectanceIndex);
@@ -75,20 +75,20 @@ double Dielectric::Reflectance(double cosine, double reflectanceIndex)
     return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
-bool Metal::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
+bool Metal::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScatterInfo& scatterInfo) const
 {
     scatterInfo.attenuation = albedo;
     scatterInfo.pdf_ptr = nullptr;
     scatterInfo.skipPDF = true;
 
-    Vector3 reflected = Reflect(Unit(rayIn.GetDirection()), hitInfo.normal);
+    const Vector3 reflected = Reflect(Unit(rayIn.GetDirection()), hitInfo.normal);
 
     scatterInfo.skipPDFRay = Ray(hitInfo.coordinates, reflected + fuzz * RandomInUnitSphere(), rayIn.time());
 
     return true;
 }
 
-bool Isotropic::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
+bool Isotropic::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScatterInfo& scatterInfo) const
 {
     scatterInfo.attenuation = albedo->Value(hitInfo.x, hitInfo.y, hitInfo.coordinates);
     scatterInfo.pdf_ptr = make_shared<SpherePDF>();
@@ -102,21 +102,21 @@ double Isotropic::ScatteringPDF(const Ray& rayIn, const HitInfo& hitInfo, const 
     return 1 / (4 * pi);
 }
 
-bool DiffuseLight::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScaterInfo& scatterInfo) const
+bool DiffuseLight::Scatter(const Ray& rayIn, const HitInfo& hitInfo, ScatterInfo& scatterInfo) const
 {
     return false;
 }
 
-Color DiffuseLight::Emitted(double U, double V, const Position& position) const
+Color DiffuseLight::Emitted(const double U, const double V, const Position& position) const
 {
     return emit->Value(U, V, position);
 }
 
-Color DiffuseLight::Emitted(const Ray& rayIn, const HitInfo hitInfo, double U, double V, const Position& position) const
+Color DiffuseLight::Emitted(const Ray& rayIn, const HitInfo hitInfo, const double U, const double V, const Position& position) const
 {
     if (!hitInfo.frontFace)
     {
-        return Color(0, 0, 0);
+        return {0, 0, 0};
     }
     return emit->Value(U, V, position);
 }

@@ -7,17 +7,17 @@
 class Texture
 {
 public:
-    virtual ~Texture() {}
+    virtual ~Texture() = default;
 
     virtual Color Value(double x, double y, const Position& position) const = 0;
 };
 
-class SolidColor : public Texture
+class SolidColor final : public Texture
 {
 public:
-    SolidColor(Color color) : colorValue(color) {}
+    SolidColor(const Color& color) : colorValue(color) {}
 
-    SolidColor(double red, double green, double blue) : SolidColor(Color(red, green, blue)) {}
+    SolidColor(const double red, const double green, const double blue) : SolidColor(Color(red, green, blue)) {}
 
     Color Value(double x, double y, const Position& position) const override { return colorValue; }
 
@@ -25,13 +25,13 @@ private:
     Color colorValue;
 };
 
-class CheckerTexture : public Texture
+class CheckerTexture final : public Texture
 {
 public:
-    CheckerTexture(double _scale, shared_ptr<Texture> _even, shared_ptr<Texture> _odd)
+    CheckerTexture(const double _scale, const shared_ptr<Texture>& _even, const shared_ptr<Texture>& _odd)
         : inverseScale(1.0 / _scale), even(_even), odd(_odd) {}
 
-    CheckerTexture(double _scale, Color color1, Color color2)
+    CheckerTexture(const double _scale, Color color1, Color color2)
         : inverseScale(1.0 / _scale), even(make_shared<SolidColor>(color1)), odd(make_shared<SolidColor>(color2)) {}
 
     Color Value(double x, double y, const Position& position) const override;
@@ -71,15 +71,15 @@ private:
 };
 */
 
-class NoiseTexture : public Texture
+class NoiseTexture final : public Texture
 {
 public:
-    NoiseTexture() {}
-    NoiseTexture(double _scale) : scale(_scale) {}
+    NoiseTexture() = default;
+    explicit NoiseTexture(const double _scale) : scale(_scale) {}
 
     Color Value(double U, double V, const Position& position) const override
     {
-        Vector3 scale_ = scale * position;
+        const Vector3 scale_ = scale * position;
         return Color(1, 1, 1) * 0.5 * (0.9 + sin(scale_.z + 12 * noise.Turbulence(scale_)));
     }
 

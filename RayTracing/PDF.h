@@ -7,16 +7,16 @@
 class PDF
 {
 public:
-	virtual ~PDF() {}
+	virtual ~PDF() = default;
 
-	virtual double Value(const Vector3 direction) const = 0;
+    virtual double Value(const Vector3 direction) const = 0;
 	virtual Vector3 Generate()const = 0;
 };
 
-class CosinePDF : public PDF
+class CosinePDF final : public PDF
 {
 public:
-	CosinePDF(const Vector3 w);
+	CosinePDF(const Vector3& w);
 
 	double Value(const Vector3 direction) const override;
 
@@ -26,7 +26,7 @@ private:
 	ONB uvw;
 };
 
-class HittablePDF : public PDF
+class HittablePDF final : public PDF
 {
 public:
     HittablePDF(const Hittable& _objects, const Position& _origin) : objects(_objects), origin(_origin){}
@@ -40,12 +40,12 @@ private:
     Position origin;
 };
 
-class MixturePDF : public PDF
+class MixturePDF final : public PDF
 {
   public:
-      MixturePDF(shared_ptr<PDF> pdf0, shared_ptr<PDF> pdf1);
+      MixturePDF(const shared_ptr<PDF>& pdf0, const shared_ptr<PDF>& pdf1);
 
-      double Value(const Vector3 direction) const override;
+      double Value(Vector3 direction) const override;
 
 	  Vector3 Generate() const override;
 
@@ -53,10 +53,10 @@ class MixturePDF : public PDF
     shared_ptr<PDF> pdf[2];
 };
 
-class SpherePDF : public PDF 
+class SpherePDF final : public PDF 
 {
 public:
-    SpherePDF() { }
+    SpherePDF() = default;
 
     double Value(const Vector3 direction) const override 
     {

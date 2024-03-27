@@ -13,9 +13,13 @@ public:
 		Position lookfrom = Position(0, 0, 0), Position lookat = Position(0, 0, 0), Vector3 upVector = Vector3(0, 1, 0), 
 		double defocus_Angle = 1, double focusDistance = 4, 
 		Color bg = Color(0.70,0.80,1.00))
-		:  aspectRatio(ratio), width(imageWidth), sampleCount(samplePerPixel), maxBounces(bounces), verticalFov(fov), 
-		  lookFrom(lookfrom), lookAt(lookat), vecUp(upVector),
-		  defocusAngle(defocus_Angle), focusDist(focusDistance), background(bg) {}
+		: verticalFov(fov), lookFrom(lookfrom), lookAt(lookat), vecUp(upVector), defocusAngle(defocus_Angle),
+		  focusDist(focusDistance), background(bg), sqrt_spp(0), viewportHeight(0), viewportWidth(0), theta(0), h(0),
+		  height(0),
+		  width(imageWidth),
+		  aspectRatio(ratio), sampleCount(samplePerPixel), maxBounces(bounces)
+	{
+	}
 
 	void Render(const Hittable& rWorld, const Hittable& lights);
 
@@ -55,7 +59,7 @@ private:
 	Vector3 defocusDiskY; //Defocus disk vertical radius
 
 	void Initialize();
-	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const;
+	Color RayColor(const Ray& ray, int bounceLeft, const Hittable& rWorld, const Hittable& lights) const;
 	Ray GetRay(int x, int y, int sampleI, int sampleJ) const;
 	Vector3 PixelSampleSquared(int sampleI, int sampleJ) const;
 

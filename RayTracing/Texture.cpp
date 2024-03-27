@@ -1,12 +1,12 @@
 #include "Texture.h"
 
-Color CheckerTexture::Value(double x, double y, const Position& position) const
+Color CheckerTexture::Value(const double x, const double y, const Position& position) const
 {
-    int xInteger = static_cast<int>(std::floor(inverseScale * position.x));
-    int yInteger = static_cast<int>(std::floor(inverseScale * position.y));
-    int zInteger = static_cast<int>(std::floor(inverseScale * position.z));
+    const int xInteger = static_cast<int>(std::floor(inverseScale * position.x));
+    const int yInteger = static_cast<int>(std::floor(inverseScale * position.y));
+    const int zInteger = static_cast<int>(std::floor(inverseScale * position.z));
 
-    bool isEven = (xInteger + yInteger + zInteger) % 2 == 0;
+    const bool isEven = (xInteger + yInteger + zInteger) % 2 == 0;
 
     return isEven ? even->Value(x, y, position) : odd->Value(x, y, position);
 }

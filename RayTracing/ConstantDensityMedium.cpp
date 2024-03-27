@@ -1,10 +1,10 @@
 #include "ConstantDensityMedium.h"
 
-bool ConstantDensityMedium::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
+bool ConstantDensityMedium::Hit(const Ray& ray, const Interval rayTime, HitInfo& hitInfo) const
 {
     //Print occasional samples when debugging. To enable, set enableDebug true.
-    const bool enableDebug = false;
-    const bool debugging = enableDebug && RandomDouble() < 0.00001;
+    bool enableDebug = false;
+    bool debugging = enableDebug && RandomDouble() < 0.00001;
 
     HitInfo hitInfo1, hitInfo2;
 
@@ -14,7 +14,7 @@ bool ConstantDensityMedium::Hit(const Ray& ray, Interval rayTime, HitInfo& hitIn
     if (!boundary->Hit(ray, Interval(hitInfo1.time + 0.0001, infinity), hitInfo2))
         return false;
 
-    if (debugging) std::clog << "\nray time min = " << hitInfo1.time << ", ray time max = " << hitInfo2.time << '\n';
+    if (debugging) std::clog << "\n ray time min = " << hitInfo1.time << ", ray time max = " << hitInfo2.time << '\n';
 
     if (hitInfo1.time < rayTime.min) hitInfo1.time = rayTime.min;
     if (hitInfo2.time > rayTime.max) hitInfo2.time = rayTime.max;
@@ -25,9 +25,9 @@ bool ConstantDensityMedium::Hit(const Ray& ray, Interval rayTime, HitInfo& hitIn
     if (hitInfo1.time < 0)
         hitInfo1.time = 0;
 
-    double rayLength = ray.GetDirection().Length();
-    double distanceInsideBoundary = (hitInfo2.time - hitInfo1.time) * rayLength;
-    double hitDistance = negInvDensity * log(RandomDouble());
+    const double rayLength = ray.GetDirection().Length();
+    const double distanceInsideBoundary = (hitInfo2.time - hitInfo1.time) * rayLength;
+    const double hitDistance = negInvDensity * log(RandomDouble());
 
     if (hitDistance > distanceInsideBoundary)
         return false;

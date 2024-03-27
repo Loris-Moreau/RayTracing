@@ -365,7 +365,7 @@ int main(int argc, char* argv[])
         break;
     case 2: Checkers();
         break;
-        //Amount of spheres (smol), recomended 7~11
+        //Amount of spheres (small), recommended 7~11
     case 3: RandomSpheres(7);
         break;
     case 4: //Earth();

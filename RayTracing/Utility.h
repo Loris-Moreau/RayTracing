@@ -10,9 +10,9 @@ using std::make_shared;
 using std::sqrt;
 
 const double infinity = std::numeric_limits<double>::infinity();
-const double pi = 3.1415926535897932385;
+constexpr double pi = 3.1415926535897932385;
 
-inline double DegToRad(double degrees)
+inline double DegToRad(const double degrees)
 {
 	return degrees * pi / 180.0;
 }
@@ -23,7 +23,7 @@ inline double RandomDouble()
 	return rand() / (RAND_MAX + 1.0);
 }
 
-inline double RandomDouble(double min, double max)
+inline double RandomDouble(const double min, const double max)
 {
 	//Returns a random real in [min,max).
 	return min + (max - min) * RandomDouble();

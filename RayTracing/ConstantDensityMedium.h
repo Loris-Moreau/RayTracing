@@ -2,13 +2,13 @@
 
 #include "MaterialS.h"
 
-class ConstantDensityMedium : public Hittable
+class ConstantDensityMedium final : public Hittable
 {
 public:
-    ConstantDensityMedium(shared_ptr<Hittable> b, double d, shared_ptr<Texture> a)
+    ConstantDensityMedium(const shared_ptr<Hittable>& b, const double d, const shared_ptr<Texture>& a)
         : boundary(b), negInvDensity(-1 / d), phaseFunction(make_shared<Isotropic>(a)) {}
 
-    ConstantDensityMedium(shared_ptr<Hittable> b, double d, Color color)
+    ConstantDensityMedium(const shared_ptr<Hittable>& b, const double d, Color color)
         : boundary(b), negInvDensity(-1 / d), phaseFunction(make_shared<Isotropic>(color)) {}
 
     bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;

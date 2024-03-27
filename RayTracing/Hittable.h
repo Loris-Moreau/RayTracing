@@ -25,7 +25,9 @@ public:
 class Hittable
 {
 public:
-	virtual ~Hittable() {}
+	Hittable() = default;
+	virtual ~Hittable() = default;
+	
 	virtual bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const = 0;
 
 	virtual AABB BoundingBox() const = 0;
@@ -35,10 +37,10 @@ public:
 	virtual Vector3 Random(const Vector3& o) const;
 };
 
-class Translate : public Hittable
+class Translate final : public Hittable
 {
 public:
-	Translate(shared_ptr<Hittable> position, const Vector3& displacement);
+	Translate(const shared_ptr<Hittable>& position, const Vector3& displacement);
 
 	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
 
@@ -50,10 +52,10 @@ private:
     AABB bBox;
 };
 
-class RotateY : public Hittable
+class RotateY final : public Hittable
 {
 public:
-	RotateY(shared_ptr<Hittable> position, double angle);
+	RotateY(const shared_ptr<Hittable>& position, double angle);
 
 	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
 

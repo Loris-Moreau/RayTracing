@@ -7,16 +7,16 @@ void HitInfo::SetFaceNormal(const Ray& ray, const Vector3& outwardNormal)
 	normal = frontFace ? outwardNormal : -outwardNormal;
 }
 
-Translate::Translate(shared_ptr<Hittable> position, const Vector3& displacement)
+Translate::Translate(const shared_ptr<Hittable>& position, const Vector3& displacement)
     : object(position), offset(displacement)
 {
     bBox = object->BoundingBox() + offset;
 }
 
-bool Translate::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
+bool Translate::Hit(const Ray& ray, const Interval rayTime, HitInfo& hitInfo) const
 {
     // Move the ray backwards by the offset
-    Ray offsetRay(ray.GetOrigin() - offset, ray.GetDirection(), ray.time());
+    const Ray offsetRay(ray.GetOrigin() - offset, ray.GetDirection(), ray.time());
 
     // Determine where (if any) an intersection occurs along the offset ray
     if (!object->Hit(offsetRay, rayTime, hitInfo))
@@ -28,9 +28,9 @@ bool Translate::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
     return true;
 }
 
-RotateY::RotateY(shared_ptr<Hittable> position, double angle) : object(position)
+RotateY::RotateY(const shared_ptr<Hittable>& position, const double angle) : object(position)
 {
-    double radians = DegToRad(angle);
+    const double radians = DegToRad(angle);
     sinTheta = sin(radians);
     cosTheta = cos(radians);
     bBox = object->BoundingBox();
@@ -41,14 +41,14 @@ RotateY::RotateY(shared_ptr<Hittable> position, double angle) : object(position)
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 2; k++) {
-                auto x = i * bBox.x.max + (1 - i) * bBox.x.min;
-                auto y = j * bBox.y.max + (1 - j) * bBox.y.min;
-                auto z = k * bBox.z.max + (1 - k) * bBox.z.min;
+                const auto x = i * bBox.x.max + (1 - i) * bBox.x.min;
+                const auto y = j * bBox.y.max + (1 - j) * bBox.y.min;
+                const auto z = k * bBox.z.max + (1 - k) * bBox.z.min;
 
-                auto newx = cosTheta * x + sinTheta * z;
-                auto newz = -sinTheta * x + cosTheta * z;
+                const auto newX = cosTheta * x + sinTheta * z;
+                const auto newZ = -sinTheta * x + cosTheta * z;
 
-                Vector3 tester(newx, y, newz);
+                Vector3 tester(newX, y, newZ);
 
                 for (int c = 0; c < 3; c++) {
                     min[c] = fmin(min[c], tester[c]);
@@ -61,7 +61,7 @@ RotateY::RotateY(shared_ptr<Hittable> position, double angle) : object(position)
     bBox = AABB(min, max);
 }
 
-bool RotateY::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
+bool RotateY::Hit(const Ray& ray, const Interval rayTime, HitInfo& hitInfo) const
 {
     // Change the ray from world space to object space
     Position origin = ray.GetOrigin();
@@ -73,7 +73,7 @@ bool RotateY::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
     direction[0] = cosTheta * ray.GetDirection()[0] - sinTheta * ray.GetDirection()[2];
     direction[2] = sinTheta * ray.GetDirection()[0] + cosTheta * ray.GetDirection()[2];
 
-    Ray rotatedRay(origin, direction, ray.time());
+    const Ray rotatedRay(origin, direction, ray.time());
 
     // Determine where (if any) an intersection occurs in object space
     if (!object->Hit(rotatedRay, rayTime, hitInfo))
@@ -102,5 +102,5 @@ double Hittable::PDFValue(const Position& o, const Vector3& v) const
 
 Vector3 Hittable::Random(const Vector3& o) const
 {
-    return Vector3(1, 0, 0);
+    return {1, 0, 0};
 }

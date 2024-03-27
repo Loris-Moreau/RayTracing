@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Utility.h"
 #include "Vector3.h"
 
 class Perlin
@@ -14,7 +13,7 @@ public:
     double Turbulence(const Position& position, int depth = 7) const;
 
 private:
-    static const int pointCount = 256;
+    static constexpr int pointCount = 256;
     Vector3* ranvec;
     int* permX;
     int* permY;

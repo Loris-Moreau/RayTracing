@@ -5,12 +5,12 @@ BVHNode::BVHNode(const std::vector<shared_ptr<Hittable>>& srcObjects, size_t sta
     {
         std::vector<shared_ptr<Hittable>> objects = srcObjects; // Create a modifiable array of the source scene objects
 
-        int axis = RandomInt(0, 2);
-        auto comparator = (axis == 0) ? BoxXCompare
-            : (axis == 1) ? BoxYCompare
-            : BoxZCompare;
+        const int axis = RandomInt(0, 2);
+        const auto comparator = (axis == 0) ? BoxXCompare
+                                    : (axis == 1) ? BoxYCompare
+                                    : BoxZCompare;
 
-        size_t object_span = end - start;
+        const size_t object_span = end - start;
 
         if (object_span == 1) {
             left = right = objects[start];

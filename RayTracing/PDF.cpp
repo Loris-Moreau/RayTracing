@@ -10,14 +10,14 @@ Vector3 PDF::Generate() const
     return RandomUnitVector();
 }
 
-CosinePDF::CosinePDF(const Vector3 w)
+CosinePDF::CosinePDF(const Vector3& w)
 {
 	uvw.BuildFromW(w);
 }
 
 double CosinePDF::Value(const Vector3 direction) const
 {
-	double cosineTheta = Dot(Unit(direction), uvw.W());
+    const double cosineTheta = Dot(Unit(direction), uvw.W());
 	return fmax(0, cosineTheta / pi);
 }
 
@@ -36,7 +36,7 @@ Vector3 HittablePDF::Generate() const
     return objects.Random(origin);
 }
 
-MixturePDF::MixturePDF(shared_ptr<PDF> pdf0, shared_ptr<PDF> pdf1)
+MixturePDF::MixturePDF(const shared_ptr<PDF>& pdf0, const shared_ptr<PDF>& pdf1)
 {
     pdf[0] = pdf0;
     pdf[1] = pdf1;

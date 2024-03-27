@@ -5,16 +5,16 @@
 #include <vector>
 #include "AABB.h"
 
-class HittableCollection : public Hittable
+class HittableCollection final : public Hittable
 {
 public:
 	HittableCollection() = default;
-	HittableCollection(std::shared_ptr<Hittable> hittable);
+	HittableCollection(const std::shared_ptr<Hittable>& hittable);
 
 	std::vector<std::shared_ptr<Hittable>> mPool;
 
 	void Clear();
-	void Add(std::shared_ptr<Hittable> hittable);
+	void Add(const std::shared_ptr<Hittable>& hittable);
 
 	bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const override;
 

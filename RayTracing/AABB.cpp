@@ -8,7 +8,7 @@ AABB::AABB(const Position& a, const Position& b)
     z = Interval(fmin(a[2], b[2]), fmax(a[2], b[2]));
 }
 
-const Interval& AABB::axis(int n) const
+const Interval& AABB::axis(const int n) const
 {
     if (n == 1) 
     {
@@ -25,8 +25,8 @@ bool AABB::Hit(const Ray& ray, Interval rayT) const
 {
     for (int a = 0; a < 3; a++)
     {
-        double invD = 1 / ray.GetDirection()[a];
-        double origin = ray.GetOrigin()[a];
+        const double invD = 1 / ray.GetDirection()[a];
+        const double origin = ray.GetOrigin()[a];
 
         double t0 = (axis(a).min - origin) * invD;
         double t1 = (axis(a).max - origin) * invD;
@@ -51,13 +51,13 @@ bool AABB::Hit(const Ray& ray, Interval rayT) const
     return true;
 }
 
-AABB AABB::Pad()
+AABB AABB::Pad() const
 {
     //Return an AABB that has no side narrower than some delta, padding if necessary.
-    double delta = 0.0001;
-    Interval newX = (x.Size() >= delta) ? x : x.Expand(delta);
-    Interval newY = (y.Size() >= delta) ? y : y.Expand(delta);
-    Interval newZ = (z.Size() >= delta) ? z : z.Expand(delta);
+    constexpr double delta = 0.0001;
+    const Interval newX = (x.Size() >= delta) ? x : x.Expand(delta);
+    const Interval newY = (y.Size() >= delta) ? y : y.Expand(delta);
+    const Interval newZ = (z.Size() >= delta) ? z : z.Expand(delta);
 
     return AABB(newX, newY, newZ);
 }

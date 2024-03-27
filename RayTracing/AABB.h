@@ -8,7 +8,7 @@ class AABB
 public:
     Interval x, y, z;
 
-    AABB() {} // The default AABB is empty, since intervals are empty by default.
+    AABB() = default; // The default AABB is empty, since intervals are empty by default.
     AABB(const Interval& ix, const Interval& iy, const Interval& iz) : x(ix), y(iy), z(iz) {}
     AABB(const Position& a, const Position& b);
 
@@ -23,7 +23,7 @@ public:
 
     bool Hit(const Ray& ray, Interval rayT) const;
 
-    AABB Pad();
+    AABB Pad() const;
 
 };
 

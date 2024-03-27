@@ -5,14 +5,14 @@
 // New Vector3 alias for color
 using Color = Vector3;
 
-inline double LinearToGamma(double linearComponent)
+inline double LinearToGamma(const double linearComponent)
 {
     return sqrt(linearComponent);
 }
 
-inline void WriteColor(std::ostream& out, Color pixel, int sampleCount)
+inline void WriteColor(std::ostream& out, const Color& pixel, const int sampleCount)
 {
-    double scale = 1.0 / sampleCount;
+    const double scale = 1.0 / sampleCount;
     double r = pixel.x * scale;
     double g = pixel.y * scale;
     double b = pixel.z * scale;
