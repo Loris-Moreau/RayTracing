@@ -330,7 +330,7 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
 
 int main(int argc, char* argv[])
 {
-    switch (10)
+    switch (0)
     {
         //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
@@ -352,8 +352,8 @@ int main(int argc, char* argv[])
         break;
     case 9: CornellSmoke();
         break;
-        //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 200, 50, 20, 500);
+        // FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
+    case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders
         break;
     default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
         break;
