@@ -1,6 +1,7 @@
 // RayTracing.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
-///Command for .ppm file creation :
+/// Build then input the command below 
+/// Command for .ppm file creation :
 ///.\x64\Debug\RayTracing.exe > Render.ppm
 
 #include "Camera.h"
@@ -9,7 +10,8 @@
 #include "HittableCollection.h"
 #include "Sphere.h"
 #include "Quadrilaterals.h"
-//Mat
+
+// Mat
 #include "Materials.h"
 #include "ConstantDensityMedium.h"
 
@@ -18,6 +20,11 @@
 #include "DiffuseLight.h"
 
 using namespace std;
+
+// Timer
+#include <chrono>
+using namespace std::chrono;
+
 
 void BaseBalls(int set, int glass)
 {
@@ -330,6 +337,10 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
 
 int main(int argc, char* argv[])
 {
+    // Timer
+    auto globalTimeClockStart = high_resolution_clock::now();
+
+    // Main Computation
     switch (0)
     {
         //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
@@ -359,6 +370,10 @@ int main(int argc, char* argv[])
         break;
     }
 
+    // Timer Finish
+    auto globalTimeClockEnd = high_resolution_clock::now();
+    clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';
+    
     return 0;
 }
 //1755

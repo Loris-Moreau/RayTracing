@@ -3,11 +3,15 @@
 void Camera::Render(const Hittable& rWorld)
 {
     Initialize();
-
+    
     cout << "P3\n" << width << ' ' << height << "\n255\n";
+    
+    clog << "Game Start !" << '\n';
+    
     for (int y = 0; y < height; y++)
     {
         clog << "Progress : " << (y * 100 / height) << " %\n" << flush;
+        
         for (int x = 0; x < width; x++)
         {
             Color pixel(0, 0, 0);
@@ -20,6 +24,7 @@ void Camera::Render(const Hittable& rWorld)
             WriteColor(cout, pixel, sampleCount);
         }
     }
+    
     clog << "It has been done\n";
 }
 
