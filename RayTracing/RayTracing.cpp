@@ -367,13 +367,15 @@ int main(int argc, char* argv[])
         // FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
     case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders & Multi Threading
         break;
-    default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
+    default: FinalSceneB2(315, 65, 25, 15, 70); //switch(0) for default
         break;
     }
-
+    
     // Timer Finish
     auto globalTimeClockEnd = high_resolution_clock::now();
     std::clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';
+    std::clog << '\n' << "Total Time taken : " << duration_cast<seconds>(globalTimeClockEnd - globalTimeClockStart).count() << " seconds" << '\n';
+    std::clog << '\n' << "Total Time taken : " << duration_cast<minutes>(globalTimeClockEnd - globalTimeClockStart).count() << " minutes" << '\n';
     
     return 0;
 }

@@ -6,11 +6,12 @@ void Camera::Render(const Hittable& rWorld)
     
     std::cout << "P3\n" << width << ' ' << height << "\n255\n";
     
-    std::clog << "Game Start !" << '\n';
+    std::clog << "Execute order 37" << '\n';
     
     for (int y = 0; y < height; y++)
     {
-        std::clog << "Progress : " << (y * 100 / height) << " %\n" << std::flush;
+        //std::clog << "Progress : " << (y * 100 / height) << " %\n" << std::flush;
+        std::clog << (y * 100 / height) << " %\n" << std::flush;
         
         for (int x = 0; x < width; x++)
         {
@@ -25,7 +26,7 @@ void Camera::Render(const Hittable& rWorld)
         }
     }
     
-    std::clog << "It has been done\n";
+    std::clog << "It has been done" << '\n';
 }
 
 void Camera::Initialize()

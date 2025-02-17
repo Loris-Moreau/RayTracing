@@ -9,7 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.Build.CppClean.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Render.ppm" beforeDir="false" afterPath="$PROJECT_DIR$/Render.ppm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,6 +139,7 @@
       <workItem from="1739533773388" duration="10273000" />
       <workItem from="1739780253056" duration="4230000" />
       <workItem from="1739784597040" duration="1672000" />
+      <workItem from="1739786667897" duration="5826000" />
     </task>
     <servers />
   </component>
