@@ -25,24 +25,24 @@ public:
 
         center_vec = _center3 - _center2;
     }
-
-	//Sphere(Position center, double radius, shared_ptr<Materials> material) :mCenter(center), mRadius(radius), mat(material) {}
-	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
-
+    
+    //Sphere(Position center, double radius, shared_ptr<Materials> material) :mCenter(center), mRadius(radius), mat(material) {}
+    bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
+    
     AABB BoundingBox() const override { return bBox; }
-
-
+    
 private:
-	Position mCenter;
-	double mRadius;
-
-	shared_ptr<Materials> mat;
-
+    Position mCenter;
+    double mRadius;
+    
+    shared_ptr<Materials> mat;
+    
     bool isMoving;
     Vector3 center_vec;
-
+    
     Position Center(double time) const;
-
+    
     AABB bBox;
+    
     static void GetSphereUV(const Position& position, double& U, double& V);
 };

@@ -8,10 +8,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Performance.md" beforeDir="false" afterPath="$PROJECT_DIR$/Performance.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Ray.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Ray.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Sphere.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Sphere.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Sphere.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Sphere.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Vector3.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Vector3.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.Build.CppClean.log" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.Build.CppClean.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.exe.recipe" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.exe.recipe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Render.ppm" beforeDir="false" afterPath="$PROJECT_DIR$/Render.ppm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,40 +36,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://24" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/ucrt/stdlib.h" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../Files/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/include/random" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../Files/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/include/stdint.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/ucrt/stdlib.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -76,27 +51,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C++ Project.RayTracing.executor": "Debug",
-    "C/C++ Project.RayTracing.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Compute-Shader",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C++ Project.RayTracing.executor&quot;: &quot;Debug&quot;,
+    &quot;C/C++ Project.RayTracing.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Compute-Shader&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\loris.moreau\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\loris.moreau\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\loris.moreau\\AppData\\Local\\Symbols\\src&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="RayTracing" type="CppProject" factoryName="C++ Project">
-      <configuration_1 setup="1">
+      <configuration_1>
         <option name="CONFIGURATION" value="Debug" />
         <option name="PLATFORM" value="x64" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXE_PATH" value="$(LocalDebuggerCommand)" />
         <option name="PROGRAM_PARAMETERS" value="$(LocalDebuggerCommandArguments)" />
@@ -104,11 +87,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
       </configuration_1>
-      <configuration_2 setup="1">
+      <configuration_2>
         <option name="CONFIGURATION" value="Debug" />
         <option name="PLATFORM" value="x86" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXE_PATH" value="$(LocalDebuggerCommand)" />
         <option name="PROGRAM_PARAMETERS" value="$(LocalDebuggerCommandArguments)" />
@@ -116,11 +99,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
       </configuration_2>
-      <configuration_3 setup="1">
+      <configuration_3>
         <option name="CONFIGURATION" value="Release" />
         <option name="PLATFORM" value="x64" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXE_PATH" value="$(LocalDebuggerCommand)" />
         <option name="PROGRAM_PARAMETERS" value="$(LocalDebuggerCommandArguments)" />
@@ -128,11 +111,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
       </configuration_3>
-      <configuration_4 setup="1">
+      <configuration_4>
         <option name="CONFIGURATION" value="Release" />
         <option name="PLATFORM" value="x86" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXE_PATH" value="$(LocalDebuggerCommand)" />
         <option name="PROGRAM_PARAMETERS" value="$(LocalDebuggerCommandArguments)" />
@@ -140,10 +123,8 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
       </configuration_4>
       <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
-      <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" />
       <option name="AUTO_SELECT_PRIORITY" value="0" />
       <method v="2">
         <option name="Build" />
@@ -164,6 +145,8 @@
       <workItem from="1739531793110" duration="681000" />
       <workItem from="1739532528403" duration="1222000" />
       <workItem from="1739533773388" duration="10273000" />
+      <workItem from="1739780253056" duration="4230000" />
+      <workItem from="1739784597040" duration="70000" />
     </task>
     <servers />
   </component>

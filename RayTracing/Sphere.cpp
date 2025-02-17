@@ -18,8 +18,7 @@ bool Sphere::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 	if (!rayTime.Surrounds(root))
 	{
 		root = (-halfB + sqrtDiscriminant) / a;
-		if (!rayTime.Surrounds(root))
-			return false;
+		if (!rayTime.Surrounds(root)) return false;
 	}
 
 	hitInfo.time = root;

@@ -4,13 +4,13 @@ void Camera::Render(const Hittable& rWorld)
 {
     Initialize();
     
-    cout << "P3\n" << width << ' ' << height << "\n255\n";
+    std::cout << "P3\n" << width << ' ' << height << "\n255\n";
     
-    clog << "Game Start !" << '\n';
+    std::clog << "Game Start !" << '\n';
     
     for (int y = 0; y < height; y++)
     {
-        clog << "Progress : " << (y * 100 / height) << " %\n" << flush;
+        std::clog << "Progress : " << (y * 100 / height) << " %\n" << std::flush;
         
         for (int x = 0; x < width; x++)
         {
@@ -21,11 +21,11 @@ void Camera::Render(const Hittable& rWorld)
                 pixel += RayColor(ray, maxBounces, rWorld);
             }
 
-            WriteColor(cout, pixel, sampleCount);
+            WriteColor(std::cout, pixel, sampleCount);
         }
     }
     
-    clog << "It has been done\n";
+    std::clog << "It has been done\n";
 }
 
 void Camera::Initialize()

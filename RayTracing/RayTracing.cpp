@@ -341,7 +341,7 @@ int main(int argc, char* argv[])
     auto globalTimeClockStart = high_resolution_clock::now();
 
     // Main Computation
-    switch (0)
+    switch (1)
     {
         //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
@@ -352,6 +352,7 @@ int main(int argc, char* argv[])
     case 3: RandomSpheres(7);
         break;
     case 4: //Earth();
+        std::clog << "no" << '\n';
         break;
     case 5: PerlinSphere();
         break;
@@ -364,7 +365,7 @@ int main(int argc, char* argv[])
     case 9: CornellSmoke();
         break;
         // FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders
+    case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders & Multi Threading
         break;
     default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
         break;
@@ -372,7 +373,7 @@ int main(int argc, char* argv[])
 
     // Timer Finish
     auto globalTimeClockEnd = high_resolution_clock::now();
-    clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';
+    std::clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';
     
     return 0;
 }

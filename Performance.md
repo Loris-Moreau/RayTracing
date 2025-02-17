@@ -71,7 +71,7 @@ Time to Render : 5 Hrs *(No Compute Shaders & No Multi Threading)*
 case 0: FinalSceneB2(400, 70, 30, 20, 100); 
         break;
 ```
-Time to Render : *(No Compute Shaders & No Multi Threading)*
+Time to Render : 23 min 28 sec *(No Compute Shaders & No Multi Threading)*
 
 ---
 

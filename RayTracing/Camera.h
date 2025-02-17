@@ -3,7 +3,7 @@
 #include "Hittable.h"
 #include "Materials.h"
 
-using namespace std;
+//using namespace std;
 
 class Camera
 {
