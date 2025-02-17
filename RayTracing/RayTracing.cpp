@@ -341,7 +341,7 @@ int main(int argc, char* argv[])
     auto globalTimeClockStart = high_resolution_clock::now();
 
     // Main Computation
-    switch (1)
+    switch (0)
     {
         //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
