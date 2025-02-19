@@ -18,7 +18,7 @@ public:
         y = Interval(box0.y, box1.y);
         z = Interval(box0.z, box1.z);
     }
-
+    
     const Interval& axis(int n) const;
 
     bool Hit(const Ray& ray, Interval rayT) const;
@@ -29,7 +29,12 @@ public:
 
 inline AABB operator+(const AABB& bBox, const Vector3& offset)
 {
-    return AABB(bBox.x + offset.x, bBox.y + offset.y, bBox.z + offset.z);
+    return AABB
+    (
+        bBox.x + offset.x,
+        bBox.y + offset.y,
+        bBox.z + offset.z
+    );
 }
 
 inline AABB operator+(const Vector3& offset, const AABB& bBox)

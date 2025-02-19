@@ -28,19 +28,19 @@ using namespace std::chrono;
 
 void BaseBalls(int set, int glass)
 {
-    //World
+    // World
     HittableCollection world;
 
-    //First Set Materials
+    // First Set Materials
     shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
 
     shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.7);
-    shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
+    shared_ptr<Materials> centerMat = make_shared<Dielectric>(5);
     shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
 
     if (set == 1)
     {
-        //Second Set Materials
+        // Second Set Materials
         shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
         shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
         shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
@@ -66,7 +66,7 @@ void BaseBalls(int set, int glass)
 
 void RandomSpheres(int nb)
 {
-    //World
+    // World
     HittableCollection world;
 
     shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
@@ -85,7 +85,7 @@ void RandomSpheres(int nb)
 
                 if (choose_mat < 0.8)
                 {
-                    //Diffuse
+                    // Diffuse
                     Vector3 albedo = Color::Random() * Color::Random();
                     sphereMaterial = make_shared<Lambertian>(albedo);
                     auto center2 = Center + Vector3(0, RandomDouble(0, 0.5), 0);
@@ -93,7 +93,7 @@ void RandomSpheres(int nb)
                 }
                 else if (choose_mat < 0.95)
                 {
-                    //Metal
+                    // Metal
                     Vector3 albedo = Color::Random(0.5, 1);
                     double fuzz = RandomDouble(0, 0.5);
                     sphereMaterial = make_shared<Metal>(albedo, fuzz);
@@ -101,7 +101,7 @@ void RandomSpheres(int nb)
                 }
                 else
                 {
-                    //Glass
+                    // Glass
                     sphereMaterial = make_shared<Dielectric>(1.5);
                     world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
                 }
@@ -120,14 +120,14 @@ void RandomSpheres(int nb)
 
     world = HittableCollection(make_shared<BVHNode>(world));
 
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
+    // Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
     camera.Render(world);
 }
 
 void Checkers()
 {
-    //World
+    // World
     HittableCollection world;
 
     shared_ptr<CheckerTexture> checker = make_shared<CheckerTexture>(0.8, Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
@@ -156,7 +156,7 @@ void Earth()
 
 void PerlinSphere()
 {
-    //World
+    // World
     HittableCollection world;
 
     shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(4);
@@ -172,14 +172,14 @@ void Quads()
 {
     HittableCollection world;
 
-    //Materials
+    // Materials
     shared_ptr<Lambertian> leftRed = make_shared<Lambertian>(Color(1.0, 0.2, 0.2));
     shared_ptr<Lambertian> backGreen = make_shared<Lambertian>(Color(0.2, 1.0, 0.2));
     shared_ptr<Lambertian> rightBlue = make_shared<Lambertian>(Color(0.2, 0.2, 1.0));
     shared_ptr<Lambertian> upperOrange = make_shared<Lambertian>(Color(1.0, 0.5, 0.0));
     shared_ptr<Lambertian> lowerMiku = make_shared<Lambertian>(Color(0.2, 0.8, 0.8));
 
-    //Quads
+    // Quads
     world.Add(make_shared<Quadrilaterals>(Position(-3, -2, 5), Vector3(0, 0, -4), Vector3(0, 4, 0), leftRed));
     world.Add(make_shared<Quadrilaterals>(Position(-2, -2, 0), Vector3(4, 0, 0), Vector3(0, 4, 0), backGreen));
     world.Add(make_shared<Quadrilaterals>(Position(3, -2, 1), Vector3(0, 0, 4), Vector3(0, 4, 0), rightBlue));
@@ -294,42 +294,42 @@ void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmou
             boxes1.Add(box(Position(x0, y0, z0), Position(x1, y1, z1), ground));
         }
     }
-
+    
     HittableCollection world;
-
+    
     world.Add(make_shared<BVHNode>(boxes1));
-
+    
     shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(7, 7, 7));
     world.Add(make_shared<Quadrilaterals>(Position(123, 554, 147), Vector3(300, 0, 0), Vector3(0, 0, 265), light));
-
+    
     Position center1 = Position(400, 400, 200);
     Vector3 center2 = center1 + Vector3(30, 0, 0);
     shared_ptr<Lambertian> sphere_material = make_shared<Lambertian>(Color(0.7, 0.3, 0.1));
     world.Add(make_shared<Sphere>(center1, center2, 50, sphere_material));
-
+    
     world.Add(make_shared<Sphere>(Position(260, 150, 45), 50, make_shared<Dielectric>(1.5)));
     world.Add(make_shared<Sphere>(Position(0, 150, 145), 50, make_shared<Metal>(Color(0.8, 0.8, 0.9), 1.0)));
-
+    
     shared_ptr<Sphere> boundary = make_shared<Sphere>(Position(360, 150, 145), 70, make_shared<Dielectric>(1.5));
     world.Add(boundary);
     world.Add(make_shared<ConstantDensityMedium>(boundary, 0.2, Color(0.2, 0.4, 0.9)));
     boundary = make_shared<Sphere>(Position(0, 0, 0), 5000, make_shared<Dielectric>(1.5));
     world.Add(make_shared<ConstantDensityMedium>(boundary, .0001, Color(1, 1, 1)));
-
+    
     //shared_ptr<ImageTexture> emat = make_shared<Lambertian>(make_shared<ImageTexture>("earthmap.jpg"));
     //world.Add(make_shared<Sphere>(Position(400, 200, 400), 100, emat));
     shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(0.65);
     world.Add(make_shared<Sphere>(Position(220, 280, 300), 80, make_shared<Lambertian>(pertext)));
-
+    
     HittableCollection boxes2;
     shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
     for (int j = 0; j < clusterAmount; j++)
     {
         boxes2.Add(make_shared<Sphere>(Position::Random(0, 165), 10, white));
     }
-
+    
     world.Add(make_shared<Translate>(make_shared<RotateY>(make_shared<BVHNode>(boxes2), 15), Vector3(-100, 270, 395)));
-
+    
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
     Camera camera(imageWidth, 1.0, samplePerPixel, bounces, 27, Position(478, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
@@ -343,12 +343,12 @@ int main(int argc, char* argv[])
     // Main Computation
     switch (0)
     {
-        //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
+        // BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
         break;
     case 2: Checkers();
         break;
-        //Amount of spheres (smol), recomended 7~11
+        // Amount of spheres (smol), recomended 7~11
     case 3: RandomSpheres(7);
         break;
     case 4: //Earth();
@@ -364,10 +364,10 @@ int main(int argc, char* argv[])
         break;
     case 9: CornellSmoke();
         break;
-        // FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
+        //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
     case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders & Multi Threading
         break;
-    default: FinalSceneB2(315, 65, 25, 15, 70); //switch(0) for default
+    default: FinalSceneB2(315, 65, 25, 15, 70); // switch(0) for default
         break;
     }
     
@@ -379,4 +379,3 @@ int main(int argc, char* argv[])
     
     return 0;
 }
-//1755

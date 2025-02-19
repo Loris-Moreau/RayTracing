@@ -19,15 +19,15 @@ public:
 
 	void Render(const Hittable& rWorld);
 
-	double verticalFov; //Vertical view angle (field of view)
-	Position lookFrom; //Point camera is looking from
-	Position lookAt;  //Point camera is looking at
-	Vector3 vecUp;	 //Camera-relative "up" direction
+	double verticalFov; // Vertical view angle (field of view)
+	Position lookFrom; // Point camera is looking from
+	Position lookAt;  // Point camera is looking at
+	Vector3 vecUp;	 // Camera-relative "up" direction
 
 	double defocusAngle = 0; // Variation angle of rays through each pixel
 	double focusDist = 10; // Distance from camera lookfrom point to plane of perfect focus
 
-	Color background; //Scene Background color
+	Color background; // Scene Background color
 
 private:
 	double viewportHeight;
@@ -45,12 +45,12 @@ private:
 
 	Position center, originPixelLocation;
 	Vector3 pixelDeltaX, pixelDeltaY;
-	Vector3 x, y, w; //Camera frame basis vectors (X,Y,Z)
+	Vector3 x, y, w; // Camera frame basis vectors (X,Y,Z)
 
 	double rayTime = RandomDouble();
 
-	Vector3 defocusDiskX; //Defocus disk horizontal radius
-	Vector3 defocusDiskY; //Defocus disk vertical radius
+	Vector3 defocusDiskX; // Defocus disk horizontal radius
+	Vector3 defocusDiskY; // Defocus disk vertical radius
 
 	void Initialize();
 	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld) const;

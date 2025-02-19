@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+#include <omp.h>
+
 void Camera::Render(const Hittable& rWorld)
 {
     Initialize();
@@ -8,6 +10,7 @@ void Camera::Render(const Hittable& rWorld)
     
     std::clog << "Execute order 37" << '\n';
     
+#pragma omp parallel for schedule(dynamic) num_threads(8)  // Parallelize rows
     for (int y = 0; y < height; y++)
     {
         //std::clog << "Progress : " << (y * 100 / height) << " %\n" << std::flush;
@@ -21,7 +24,7 @@ void Camera::Render(const Hittable& rWorld)
                 Ray ray = GetRay(x, y);
                 pixel += RayColor(ray, maxBounces, rWorld);
             }
-
+            
             WriteColor(std::cout, pixel, sampleCount);
         }
     }
@@ -119,6 +122,7 @@ Ray Camera::GetRay(int x, int y) const
     Vector3 pixelCenter = originPixelLocation + (x * pixelDeltaX) + (y * pixelDeltaY);
     Vector3 pixelSample = pixelCenter + PixelSampleSquared();
 
+    // Select ray origin (use defocus sampling only if necessary)
     Position rayOrigin = (defocusAngle <= 0) ? center : DefocusDiskSample();
     Vector3 rayDirection = pixelSample - rayOrigin;
 

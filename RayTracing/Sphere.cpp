@@ -2,18 +2,19 @@
 
 bool Sphere::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 {
+    // Use the moving sphere formula if applicable
 	Position center1 = isMoving ? Center(ray.time()) : mCenter;
 
-	Vector3 oC = ray.GetOrigin() - mCenter;
+    Vector3 oC = ray.GetOrigin() - center1; // Corrected to use `center1` for moving spheres
 	double a = ray.GetDirection().SquaredLength();
 	double halfB = Dot(oC, ray.GetDirection());
-	double c = oC.SquaredLength() - mRadius * mRadius;
+    double c = oC.SquaredLength() - (mRadius * mRadius);
 
 	double discriminant = halfB * halfB - a * c;
 	if (discriminant < 0) return false;
 	double sqrtDiscriminant = sqrt(discriminant);
 
-	// Find the nearest root withing the min max time frame
+    // Find the nearest valid intersection
 	double root = (-halfB - sqrtDiscriminant) / a;
 	if (!rayTime.Surrounds(root))
 	{
@@ -21,9 +22,10 @@ bool Sphere::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 		if (!rayTime.Surrounds(root)) return false;
 	}
 
+    // Fill hit information
 	hitInfo.time = root;
 	hitInfo.coordinates = ray.At(root);
-	Vector3 outwardNormal = (hitInfo.coordinates - mCenter) / mRadius;
+    Vector3 outwardNormal = (hitInfo.coordinates - center1) / mRadius; // here as well mCenter to center1
 	hitInfo.SetFaceNormal(ray, outwardNormal);
 
 	GetSphereUV(outwardNormal, hitInfo.x, hitInfo.y);
@@ -49,10 +51,19 @@ void Sphere::GetSphereUV(const Position& position, double& U, double& V)
 	//	<1 0 0> yields <0.50 0.50>       <-1  0  0> yields <0.00 0.50>
 	//	<0 1 0> yields <0.50 1.00>       < 0 -1  0> yields <0.50 0.00>
 	//	<0 0 1> yields <0.25 0.50>       < 0  0 -1> yields <0.75 0.50>
-
+/*
 	double theta = acos(-position.y);
 	double phi = atan2(-position.z, position.x) + pi;
 
 	U = phi / (2 * pi);
 	V = theta / pi;
+*/
+	constexpr double INV_2PI = 0.15915494309; // 1 / (2 * pi)
+	constexpr double INV_PI = 0.31830988618;  // 1 / pi
+
+	double theta = acos(-position.y);
+	double phi = atan2(-position.z, position.x) + pi;
+
+	U = phi * INV_2PI;
+	V = theta * INV_PI;
 }

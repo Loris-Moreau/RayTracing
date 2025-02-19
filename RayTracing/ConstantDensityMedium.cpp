@@ -22,8 +22,7 @@ bool ConstantDensityMedium::Hit(const Ray& ray, Interval rayTime, HitInfo& hitIn
     if (hitInfo1.time >= hitInfo2.time)
         return false;
 
-    if (hitInfo1.time < 0)
-        hitInfo1.time = 0;
+    if (hitInfo1.time < 0) hitInfo1.time = 0;
 
     double rayLength = ray.GetDirection().Length();
     double distanceInsideBoundary = (hitInfo2.time - hitInfo1.time) * rayLength;

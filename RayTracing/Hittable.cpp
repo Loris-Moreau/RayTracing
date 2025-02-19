@@ -5,6 +5,12 @@ void HitInfo::SetFaceNormal(const Ray& ray, const Vector3& outwardNormal)
 	//NOTE : The outwardNormal vector should be unit length
 	frontFace = Dot(ray.GetDirection(), outwardNormal) < 0;
 	normal = frontFace ? outwardNormal : -outwardNormal;
+
+    // Test
+    if (Dot(ray.GetDirection(), normal) > 0)
+        normal = -normal;
+    
+    //SetFaceNormal(ray, normal);
 }
 
 Translate::Translate(shared_ptr<Hittable> position, const Vector3& displacement)

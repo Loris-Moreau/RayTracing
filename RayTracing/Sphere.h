@@ -6,8 +6,11 @@ class Sphere : public Hittable
 {
 public:
     // Stationary Sphere
-    Sphere(Position _center1, double _radius, shared_ptr<Materials> _material) 
-        : mCenter(_center1), mRadius(_radius), mat(_material), isMoving(false)
+    /*Sphere(Position _center1, double _radius, shared_ptr<Materials> _material) 
+        : mCenter(_center1), mRadius(_radius), mat(_material), isMoving(false)*/
+    Sphere(Position _center1, double _radius, shared_ptr<Materials> _material)
+    : mCenter(_center1), mRadius(_radius), mat(std::move(_material)), isMoving(false),
+      bBox(_center1 - Vector3(_radius, _radius, _radius), _center1 + Vector3(_radius, _radius, _radius))
     {
         Vector3 roundVector = Vector3(mRadius, mRadius, mRadius);
         bBox = AABB(mCenter - roundVector, mCenter + roundVector);

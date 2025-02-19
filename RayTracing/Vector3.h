@@ -8,7 +8,7 @@ class Vector3
 {
 public:
     double x = 0.0, y = 0.0, z = 0.0;
-
+    
     Vector3() = default;
     Vector3(double pX, double pY, double pZ) : x(pX), y(pY), z(pZ) {}
     
@@ -35,7 +35,7 @@ public:
 };
 
 
-//Alias for Vector3 to increase code readability
+// Alias for Vector3 to increase code readability
 using Position = Vector3;
 
 inline std::ostream& operator<<(std::ostream& rOut, const Vector3& rV)

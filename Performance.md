@@ -9,20 +9,20 @@
 case 1: BaseBalls(1, 0);
         break;
 ```
-Time to Render : 5 min *(No Compute Shaders & No Multi Threading)*
+Time to Render : 5 min *(with & without Optimization)*
 
 ```
 case 2: Checkers();
         break;
 ```
-Time to Render : 3 min 30 sec *(No Compute Shaders & No Multi Threading)*
+Time to Render : 7 min *(No Compute Shaders & No Multi Threading)*
 
 ```
 // Amount of spheres (smol), recomended 7~11
 case 3: RandomSpheres(7);
         break;
 ```
-Time to Render : 4 min *(No Compute Shaders & No Multi Threading)*
+Time to Render : 7 min *(No Compute Shaders & No Multi Threading)*
 
 ```
 case 4: //Earth();
@@ -35,13 +35,15 @@ Time to Render : N/A
 case 5: PerlinSphere();
         break;
 ```
-Time to Render : 4 min 34 sec *(No Compute Shaders & No Multi Threading)*
+Time to Render : 4 min *(No Compute Shaders & No Multi Threading)*
 
 ```
 case 6: Quads();
         break;
 ```
-Time to Render : 6 min *(No Compute Shaders & No Multi Threading)*
+Time to Render : 66 min *(No Compute Shaders & No Multi Threading)*
+
+Time to Render : 23 min *(With SIMD Optimization)*
 
 ```
 case 7: SimpleLight();
@@ -73,4 +75,9 @@ case 0: FinalSceneB2(400, 70, 30, 20, 100);
 ```
 Time to Render : 26 min *(No Compute Shaders & No Multi Threading)*
 
+Time to Render : 7 min *(Optimized)*
+
 ---
+
+Optimizing the Quads make them roughly 3x Faster,
+& Optimizing the Spheres make them roughly 0x Faster.
