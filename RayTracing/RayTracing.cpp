@@ -341,7 +341,7 @@ int main(int argc, char* argv[])
     auto globalTimeClockStart = high_resolution_clock::now();
 
     // Main Computation
-    switch (0)
+    switch (10)
     {
         // BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
@@ -365,7 +365,8 @@ int main(int argc, char* argv[])
     case 9: CornellSmoke();
         break;
         //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders & Multi Threading
+        //case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 5Hrs to render without compute shaders & Multi Threading
+    case 10: FinalSceneB2(600, 800, 50, 20, 500); // <-- time hrs to render with optimization
         break;
     default: FinalSceneB2(315, 65, 25, 15, 70); // switch(0) for default
         break;

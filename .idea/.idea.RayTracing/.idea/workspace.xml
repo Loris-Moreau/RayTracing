@@ -8,21 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Performance.md" beforeDir="false" afterPath="$PROJECT_DIR$/Performance.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/AABB.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/AABB.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/AABB.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/AABB.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/ConstantDensityMedium.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/ConstantDensityMedium.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Hittable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Hittable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Quadrilaterals.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Quadrilaterals.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Sphere.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Sphere.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Sphere.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Sphere.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Vector3.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Vector3.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.exe.recipe" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/x64/Debug/RayTracing.exe.recipe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Render.ppm" beforeDir="false" afterPath="$PROJECT_DIR$/Render.ppm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -156,7 +144,7 @@
       <workItem from="1739784597040" duration="1672000" />
       <workItem from="1739786667897" duration="5826000" />
       <workItem from="1739957647962" duration="18465000" />
-      <workItem from="1739979974876" duration="1815000" />
+      <workItem from="1739979974876" duration="10940000" />
     </task>
     <servers />
   </component>

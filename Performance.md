@@ -9,7 +9,9 @@
 case 1: BaseBalls(1, 0);
         break;
 ```
-Time to Render : 5 min *(with & without Optimization)*
+Time to Render : 5 min *(No Compute Shaders & No Multi Threading)*
+
+Time to Render : 5 min *(Optimized)*
 
 ```
 case 2: Checkers();
@@ -17,12 +19,16 @@ case 2: Checkers();
 ```
 Time to Render : 7 min *(No Compute Shaders & No Multi Threading)*
 
+Time to Render : Time *(Optimized)*
+
 ```
 // Amount of spheres (smol), recomended 7~11
 case 3: RandomSpheres(7);
         break;
 ```
 Time to Render : 7 min *(No Compute Shaders & No Multi Threading)*
+
+Time to Render : Time *(Optimized)*
 
 ```
 case 4: //Earth();
@@ -37,13 +43,15 @@ case 5: PerlinSphere();
 ```
 Time to Render : 4 min *(No Compute Shaders & No Multi Threading)*
 
+Time to Render : Time *(Optimized)*
+
 ```
 case 6: Quads();
         break;
 ```
 Time to Render : 66 min *(No Compute Shaders & No Multi Threading)*
 
-Time to Render : 23 min *(With SIMD Optimization)*
+Time to Render : 23 min *(Optimized)*
 
 ```
 case 7: SimpleLight();
@@ -51,11 +59,15 @@ case 7: SimpleLight();
 ```
 Time to Render : 5 min *(No Compute Shaders & No Multi Threading)*
 
+Time to Render : Time *(Optimized)*
+
 ```
 case 8: CornellBox();
         break;
 ```
 Time to Render : 6 min 30 sec *(No Compute Shaders & No Multi Threading)*
+
+Time to Render : Time *(Optimized)*
 
 ```
 case 9: CornellSmoke();
@@ -63,11 +75,15 @@ case 9: CornellSmoke();
 ```
 Time to Render : 7 min *(No Compute Shaders & No Multi Threading)*
 
+Time to Render : Time *(Optimized)*
+
 ```
-case 10: FinalSceneB2(600, 200, 50, 20, 500); // <-- 
+case 10: FinalSceneB2(600, 200, 100, 20, 250); // <-- 
         break;
 ```
 Time to Render : 5 Hrs *(No Compute Shaders & No Multi Threading)*
+
+Time to Render : 2 Hrs 9 Mins Time *(Optimized)*
 
 ``` 
 case 0: FinalSceneB2(400, 70, 30, 20, 100); 
