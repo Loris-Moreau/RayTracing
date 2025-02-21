@@ -23,7 +23,6 @@ bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenu
     attenuation = Color(1.0, 1.0, 1.0);
 
     double refractionRatio = hitInfo.frontFace ? (1.0 / indexOfRefraction) : indexOfRefraction;
-
     Vector3 unitDirection = Unit(rayIn.GetDirection());
 
     double cosTheta = fmin(Dot(-unitDirection, hitInfo.normal), 1.0);
@@ -50,7 +49,7 @@ bool Dielectric::Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenu
 double Dielectric::Reflectance(double cosine, double reflectanceIndex)
 {
     // Use Schlick's approximation for reflectance.
-    auto r0 = (1 - reflectanceIndex) / (1 + reflectanceIndex);
+    double r0 = (1 - reflectanceIndex) / (1 + reflectanceIndex);
     r0 = r0 * r0;
     return r0 + (1 - r0) * pow((1 - cosine), 5);
 }

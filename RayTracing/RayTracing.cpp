@@ -258,24 +258,45 @@ void CornellBox()
     shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(.73, .73, .73));
     shared_ptr<Lambertian> green = make_shared<Lambertian>(Color(.12, .45, .15));
     shared_ptr<DiffuseLight> light = make_shared<DiffuseLight>(Color(15, 15, 15));
-
-    world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
-    world.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, -105), light));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
-    world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
-
+    
+    struct QuadDef
+    {
+        Position pos;
+        Vector3  u, v;
+        std::shared_ptr<Materials> mat;
+    };
+    
+    std::vector<QuadDef> quads =
+    {
+        // Green wall
+        { {555,  0,   0},    {0, 555, 0},   {0, 0, 555},   green },
+        // Red wall
+        { {0,    0,   0},    {0, 555, 0},   {0, 0, 555},   red   },
+        // Light on the ceiling
+        { {343, 554, 332},   {-130, 0, 0},  {0, 0, -105},  light },
+        // Floor
+        { {0,    0,   0},    {555, 0, 0},   {0, 0, 555},   white },
+        // Ceiling
+        { {555,  555, 555},  {-555, 0, 0},  {0, 0, -555},  white },
+        // Back wall
+        { {0,    0,   555},  {555, 0, 0},   {0, 555, 0},   white }
+    };
+    
+    for (const auto &qd : quads)
+    {
+        world.Add(std::make_shared<Quadrilaterals>(qd.pos, qd.u, qd.v, qd.mat));
+    }
+    
     shared_ptr<Hittable> box1 = box(Position(0, 0, 0), Position(165, 330, 165), white);
     box1 = make_shared<RotateY>(box1, 15);
     box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
     world.Add(box1);
-
+    
     shared_ptr<Hittable> box2 = box(Position(0, 0, 0), Position(165, 165, 165), white);
     box2 = make_shared<RotateY>(box2, -18);
     box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
     world.Add(box2);
-
+    
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
     Camera camera(600, 1.0, 200, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
     camera.Render(world);
@@ -383,7 +404,7 @@ int main(int argc, char* argv[])
     auto globalTimeClockStart = high_resolution_clock::now();
 
     // Main Computation
-    constexpr int caseNum = 8;
+    constexpr int caseNum = 0;
     switch (caseNum)
     {
         // BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)

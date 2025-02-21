@@ -11,6 +11,7 @@ class Materials
 public:
     virtual ~Materials() = default;
 
+    // Default emitted color is black.
     virtual Color Emitted(double u, double v, const Position& p) const;
 
     virtual bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const = 0;
@@ -20,7 +21,7 @@ class Lambertian : public Materials
 {
 public:
     Lambertian(const Color& a) : albedo(make_shared<SolidColor>(a)) {}
-    Lambertian(shared_ptr<Texture> a) : albedo(a) {}
+    Lambertian(shared_ptr<Texture> a) : albedo(std::move(a)) {}
 
     bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const override;
 
@@ -58,8 +59,8 @@ class Isotropic :public Materials
     //This code assumes that the boundary shape is convex. 
     //So this particular implementation will work for boundaries like boxes or spheres, but will not work with toruses or shapes that contain voids.
 public:
-    Isotropic(Color color) : albedo(make_shared<SolidColor>(color)) {}
-    Isotropic(shared_ptr<Texture> a) : albedo(a) {}
+    Isotropic(const Color& color) : albedo(make_shared<SolidColor>(color)) {}
+    Isotropic(shared_ptr<Texture> a) : albedo(std::move(a)) {}
 
     bool Scatter(const Ray& rayIn, const HitInfo& hitInfo, Color& attenuation, Ray& scattered) const override;
 

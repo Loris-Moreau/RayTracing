@@ -1,0 +1,37 @@
+1. Compute Shaders for Ray Tracing
+Why Compute Shaders?
+Compute shaders let you dispatch thousands of lightweight threads that work on independent rays. They give you:
+
+Flexible Work Distribution: You can organize work into thread groups (work groups) and carefully optimize group sizes, memory access patterns (e.g. using shared memory/SSBOs), and avoid unnecessary synchronization.
+Reduced Overhead: Unlike fragment shaders (where the full graphics pipeline is used), compute shaders can execute pure computations—ideal for tasks like ray-sphere intersection tests.
+Progressive Sampling: You can repeatedly run your compute shader to accumulate samples over iterations, progressively refining your image without blocking the main thread.
+Reference: 
+KIDRIGGER.DEV
+ explains a GPU-based approach to ray tracing in One Weekend using compute shaders.
+
+2. GPU Data Management
+Scene Data via SSBOs: Store your scene geometry and material data in Shader Storage Buffer Objects. This lets you upload all your primitives (spheres, planes, etc.) to the GPU in one (or a few) large arrays.
+Memory Layout & Thread-Group Optimization: Organize your compute shader so that adjacent threads work on nearby pixels. This increases memory coalescing and minimizes redundant loads. You may also experiment with tiling techniques (see techniques like thread-group ID swizzling) to improve L2 cache hit rates.
+Tip: Make sure you consider potential TDR (Timeout Detection & Recovery) issues on Windows—breaking up the work into smaller chunks (tiles) can help.
+
+Reference: 
+DEVELOPER.NVIDIA.COM
+ discusses optimizing compute shaders with respect to thread-group organization.
+
+3. CPU Multithreading
+Even when offloading the heavy lifting to the GPU, there’s still room to optimize on the CPU side:
+
+Prepare and Dispatch in Parallel: Use multithreading (for example, using libraries like Rayon in Rust or std::thread in C++) to prepare your scene data and dispatch compute shader work concurrently.
+Overlap I/O and GPU Work: While the GPU is busy computing a frame, you can use a separate thread to, for example, copy the result from GPU memory, perform post-processing, or set up the next dispatch.
+Reference: 
+USERS.RUST-LANG.ORG
+ shows a discussion on moving from CPU multithreading to GPU multithreading which can offer some useful insight.
+
+4. Practical Steps to Achieve 3× Speedup
+Profile Your Existing Code: Identify which parts (e.g., ray–object intersection, color accumulation) are the real bottlenecks.
+Port Hot Sections to Compute Shaders: Start by offloading the per-ray computations. Make sure your compute shader efficiently reads scene data and writes out to a texture.
+Optimize Work Group Sizes: Experiment with different thread group sizes and tiling strategies to maximize GPU occupancy.
+Combine GPU & CPU Parallelism: Use CPU threads to handle tasks that don’t map well onto the GPU (like scene setup, user input, or progressive refinement across frames) while the GPU handles the heavy ray computations.
+Reference: 
+STACKOVERFLOW.COM
+ discusses some of the tradeoffs between compute shaders versus full-screen quad approaches.
