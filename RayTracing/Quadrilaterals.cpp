@@ -2,8 +2,10 @@
 
 #include <immintrin.h>
 
+#include <utility>
+
 Quadrilaterals::Quadrilaterals(const Position& _Q, const Vector3& _u, const Vector3& _v, shared_ptr<Materials> _mat)
-    : Q(_Q), u(_u), v(_v), mat(_mat)
+    : Q(_Q), u(_u), v(_v), mat(std::move(_mat))
 {
     Vector3 n = Cross(u, v);
     normal = Unit(n);
@@ -18,7 +20,7 @@ void Quadrilaterals::SetBoundingBox()
     bBox = AABB(Q, Q + u + v).Pad();
 }
 
-bool Quadrilaterals::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
+/*bool Quadrilaterals::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 {
     double denom = Dot(normal, ray.GetDirection());
 
@@ -53,60 +55,64 @@ bool Quadrilaterals::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) con
     hitInfo.SetFaceNormal(ray, normal);
 
     return true;
-}
+}*/
 
 // Hit SIMD Optimization Test
-/*
 bool Quadrilaterals::Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const
 {
-    __m256d normal_vec = _mm256_set_pd(normal.x, normal.y, normal.z, 0.0);
-    __m256d ray_dir = _mm256_set_pd(ray.GetDirection().x, ray.GetDirection().y, ray.GetDirection().z, 0.0);
-    
-    // Dot product of normal and ray direction
-    __m256d denom_vec = _mm256_mul_pd(normal_vec, ray_dir);
-    double denom = ((double*)&denom_vec)[0] + ((double*)&denom_vec)[1] + ((double*)&denom_vec)[2];
-    
+    // 1. Pack normal, ray direction, ray origin into AVX registers: (x,y,z,0)
+    __m256d normalVec = _mm256_set_pd(0.0, normal.z, normal.y, normal.x);
+    __m256d dirVec    = _mm256_set_pd(0.0, ray.GetDirection().z, ray.GetDirection().y, ray.GetDirection().x);
+    __m256d origVec   = _mm256_set_pd(0.0, ray.GetOrigin().z,    ray.GetOrigin().y,    ray.GetOrigin().x);
+
+    // 2. Compute denom = Dot(normal, direction)
+    double denom = dotAVX(normalVec, dirVec);
     if (fabs(denom) < 1e-8)
     {
-        return false;
+        return false;  // Ray is parallel to plane
     }
-    
-    __m256d ray_origin = _mm256_set_pd(ray.GetOrigin().x, ray.GetOrigin().y, ray.GetOrigin().z, 0.0);
-    __m256d dot_origin = _mm256_mul_pd(normal_vec, ray_origin);
-    double dot_o = ((double*)&dot_origin)[0] + ((double*)&dot_origin)[1] + ((double*)&dot_origin)[2];
-    double t = (D - dot_o) / denom;
-    
+
+    // 3. Compute t = (D - Dot(normal, origin)) / denom
+    double dotNO = dotAVX(normalVec, origVec);
+    double t = (D - dotNO) / denom;
     if (!rayTime.Contains(t))
     {
-        return false;
-}
-    
+        return false;  // Intersection is outside valid t-range
+    }
+
+    // 4. Get intersection point & planar vector
     Position intersection = ray.At(t);
-    Vector3 planar_hitpt_vector = intersection - Q;
-    
-    __m256d planar_vec = _mm256_set_pd(planar_hitpt_vector.x, planar_hitpt_vector.y, planar_hitpt_vector.z, 0.0);
-    __m256d v_vec = _mm256_set_pd(v.x, v.y, v.z, 0.0);
-    __m256d u_vec = _mm256_set_pd(u.x, u.y, u.z, 0.0);
-    
-    __m256d cross_v = _mm256_mul_pd(planar_vec, v_vec);
-    __m256d cross_u = _mm256_mul_pd(u_vec, planar_vec);
-    
-    double alpha = ((double*)&cross_v)[0] + ((double*)&cross_v)[1] + ((double*)&cross_v)[2];
-    double beta = ((double*)&cross_u)[0] + ((double*)&cross_u)[1] + ((double*)&cross_u)[2];
-    
+    Vector3 planarHitVec = intersection - Q;
+
+    // 5. Convert planarHitVec, u, v, w to AVX
+    __m256d planarVec = _mm256_set_pd(0.0, planarHitVec.z, planarHitVec.y, planarHitVec.x);
+    __m256d vVec      = _mm256_set_pd(0.0, v.z,            v.y,            v.x);
+    __m256d uVec      = _mm256_set_pd(0.0, u.z,            u.y,            u.x);
+    __m256d wVec      = _mm256_set_pd(0.0, w.z,            w.y,            w.x);
+    // NOTE: 'w' was set in the constructor as w = n / Dot(n, n) (where n=Cross(u,v))
+
+    // 6. alpha = Dot(w, Cross(planarHitVec, v))
+    __m256d crossPV = crossAVX(planarVec, vVec);
+    double alpha = dotAVX(wVec, crossPV);
+
+    // 7. beta = Dot(w, Cross(u, planarHitVec))
+    __m256d crossUP = crossAVX(uVec, planarVec);
+    double beta = dotAVX(wVec, crossUP);
+
+    // 8. Check if inside [0,1] range
     if (!isInterior(alpha, beta, hitInfo))
     {
         return false;
     }
-    
-    hitInfo.time = t;
+
+    // 9. Fill hit info
+    hitInfo.time        = t;
     hitInfo.coordinates = intersection;
-    hitInfo.mat = mat;
+    hitInfo.mat         = mat;
     hitInfo.SetFaceNormal(ray, normal);
-    
+
     return true;
 }
-*/
 // end of Hit SIMD Optimization Test
 
 

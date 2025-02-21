@@ -65,7 +65,7 @@ Time to Render : Time *(Optimized)*
 case 8: CornellBox();
         break;
 ```
-Time to Render : 6 min 30 sec *(No Compute Shaders & No Multi Threading)*
+Time to Render : 5 Hrs *(No Compute Shaders & No Multi Threading)*
 
 Time to Render : Time *(Optimized)*
 
@@ -73,7 +73,7 @@ Time to Render : Time *(Optimized)*
 case 9: CornellSmoke();
         break;
 ```
-Time to Render : 7 min *(No Compute Shaders & No Multi Threading)*
+Time to Render : 5 Hrs 15 Mins *(No Compute Shaders & No Multi Threading)*
 
 Time to Render : Time *(Optimized)*
 
@@ -89,11 +89,11 @@ Time to Render : 2 Hrs 9 Mins Time *(Optimized)*
 case 0: FinalSceneB2(400, 70, 30, 20, 100); 
         break;
 ```
-Time to Render : 26 min *(No Compute Shaders & No Multi Threading)*
+Time to Render : 26 Mins *(No Compute Shaders & No Multi Threading)*
 
-Time to Render : 7 min *(Optimized)*
+Time to Render : 7 Mins *(Optimized)*
 
 ---
 
 Optimizing the Quads make them roughly 3x Faster,
-& Optimizing the Spheres make them roughly 0x Faster.
+& Optimizing the Spheres make them roughly 2x Faster.

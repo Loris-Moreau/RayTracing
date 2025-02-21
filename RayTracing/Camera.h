@@ -15,17 +15,18 @@ public:
 		Color bg = Color(0.70,0.80,1.00))
 		:  aspectRatio(ratio), width(imageWidth), sampleCount(samplePerPixel), maxBounces(bounces), verticalFov(fov), 
 		  lookFrom(lookfrom), lookAt(lookat), vecUp(upVector),
-		  defocusAngle(defocus_Angle), focusDist(focusDistance), background(bg) {}
+		  defocusAngle(defocus_Angle), focusDist(focusDistance), background(bg)
+	{}
 
 	void Render(const Hittable& rWorld);
 
 	double verticalFov; // Vertical view angle (field of view)
 	Position lookFrom; // Point camera is looking from
 	Position lookAt;  // Point camera is looking at
-	Vector3 vecUp;	 // Camera-relative "up" direction
+	Vector3 vecUp;   // Camera-relative "up" direction
 
 	double defocusAngle = 0; // Variation angle of rays through each pixel
-	double focusDist = 10; // Distance from camera lookfrom point to plane of perfect focus
+	double focusDist = 10; // Distance from camera lookFrom point to plane of perfect focus
 
 	Color background; // Scene Background color
 
@@ -53,8 +54,10 @@ private:
 	Vector3 defocusDiskY; // Defocus disk vertical radius
 
 	void Initialize();
+	
 	Color RayColor(const Ray& rRay, int bounceLeft, const Hittable& rWorld) const;
 	Ray GetRay(int x, int y) const;
+	
 	Vector3 PixelSampleSquared() const;
 
 	Position DefocusDiskSample() const;

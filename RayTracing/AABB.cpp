@@ -107,10 +107,10 @@ AABB AABB::Pad()
     constexpr double delta = 0.0001;
 
     return AABB
-    (
+    {
         x.Size() >= delta ? x : x.Expand(delta),
         y.Size() >= delta ? y : y.Expand(delta),
         z.Size() >= delta ? z : z.Expand(delta)
-    );
+    };
 }
 // End of Optimized Pad Func Test

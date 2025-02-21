@@ -13,8 +13,7 @@ public:
 
     bool Hit(const Ray& ray, Interval rayT, HitInfo& hitinfo) const override 
     {
-        if (!bBox.Hit(ray, rayT))
-            return false;
+        if (!bBox.Hit(ray, rayT)) { return false; }
 
         bool hit_left = left->Hit(ray, rayT, hitinfo);
         bool hit_right = right->Hit(ray, Interval(rayT.min, hit_left ? hitinfo.time : rayT.max), hitinfo);

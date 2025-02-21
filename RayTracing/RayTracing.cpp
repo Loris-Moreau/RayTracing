@@ -168,6 +168,7 @@ void PerlinSphere()
     camera.Render(world);
 }
 
+/*
 void Quads()
 {
     HittableCollection world;
@@ -188,6 +189,47 @@ void Quads()
 
     //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
     Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
+    camera.Render(world);
+}
+*/
+void Quads()
+{
+    HittableCollection world;
+
+    // Define materials
+    std::vector<std::shared_ptr<Lambertian>> materials =
+    {
+        std::make_shared<Lambertian>(Color(1.0, 0.2, 0.2)), // leftRed
+        std::make_shared<Lambertian>(Color(0.2, 1.0, 0.2)), // backGreen
+        std::make_shared<Lambertian>(Color(0.2, 0.2, 1.0)), // rightBlue
+        std::make_shared<Lambertian>(Color(1.0, 0.5, 0.0)), // upperOrange
+        std::make_shared<Lambertian>(Color(0.2, 0.8, 0.8))  // lowerMiku
+    };
+
+    // Define quad positions & vectors
+    struct QuadData
+    {
+        Position pos;
+        Vector3 u, v;
+        std::shared_ptr<Lambertian> mat;
+    };
+
+    std::vector<QuadData> quads =
+    {
+        {{-3, -2, 5}, {0, 0, -4}, {0, 4, 0}, materials[0]},
+        {{-2, -2, 0}, {4, 0, 0}, {0, 4, 0}, materials[1]},
+        {{3, -2, 1}, {0, 0, 4}, {0, 4, 0}, materials[2]},
+        {{-2, 3, 1}, {4, 0, 0}, {0, 0, 4}, materials[3]},
+        {{-2, -3, 5}, {4, 0, 0}, {0, 0, -4}, materials[4]}
+    };
+
+    for (const auto& q : quads)
+    {
+        world.Add(std::make_shared<Quadrilaterals>(q.pos, q.u, q.v, q.mat));
+    }
+
+    Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9),
+        Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
     camera.Render(world);
 }
 
@@ -341,7 +383,8 @@ int main(int argc, char* argv[])
     auto globalTimeClockStart = high_resolution_clock::now();
 
     // Main Computation
-    switch (10)
+    constexpr int caseNum = 8;
+    switch (caseNum)
     {
         // BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
     case 1: BaseBalls(1, 0);
@@ -371,7 +414,8 @@ int main(int argc, char* argv[])
     default: FinalSceneB2(315, 65, 25, 15, 70); // switch(0) for default
         break;
     }
-    
+
+    std::clog << "Finished case " << caseNum << '\n';
     // Timer Finish
     auto globalTimeClockEnd = high_resolution_clock::now();
     std::clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';

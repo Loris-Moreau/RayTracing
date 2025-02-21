@@ -29,7 +29,7 @@ void Camera::Render(const Hittable& rWorld)
         }
     }
     
-    std::clog << "It has been done" << '\n';
+    //std::clog << "It has been done" << '\n';
 }
 
 void Camera::Initialize()
