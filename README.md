@@ -15,6 +15,9 @@
 > [!TIP]
 > If you wish to do the renders yourself, at the end of the [Main](https://github.com/Loris-Moreau/RayTracing/blob/main/RayTracing/RayTracing.cpp "RayTracing.cpp") file *(Line 361)* change the number in the switch for the corresponding render you wish to do.
 
+> [!NOTE]
+> currently porting this to [Compute Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader "Compute Shader Branch") to shorten render time.
+
 <br>
 
 ## Here are my Renders :
