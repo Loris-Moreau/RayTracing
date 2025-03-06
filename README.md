@@ -44,4 +44,4 @@
 ![Cornell's Foggy Box (B2 P9](https://github.com/Loris-Moreau/RayTracing/blob/980fdc6f97b9a255894f0d68f418f7490e6b39ab/Images/Cornell's%20Foggy%20Box%20(B2%2C%20P9).png "Foggy Corn")
 
 ### Final Render of Book 2
-![Final Render (B2 P10)](https://github.com/Loris-Moreau/RayTracing/blob/980fdc6f97b9a255894f0d68f418f7490e6b39ab/Images/Final%20Render%20(B2).png "Final Render Book 2")
+![Final Render (B2 P10)](https://github.com/Loris-Moreau/RayTracing/blob/main/Images/Final%20Render%20high-Res%20(B2).png "Final Render Book 2")
