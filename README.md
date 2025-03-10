@@ -1,6 +1,8 @@
 # RayTracing 
 #### My Adventure following The [Ray Tracing in One Weekend](https://raytracing.github.io/) Series & Putting it into Compute Shaders.
 
+[DevLog here](https://loris-moreau.github.io/BlogEntries/RayTracing-10.html)
+
 > [!NOTE]
 > Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/dc6787cf7333bcb98622797fc1f6a5ec0eac29c6/Images "Images Folder") Folder for more Renders.
 >
