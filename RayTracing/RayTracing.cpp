@@ -4,7 +4,7 @@
 /// Command for .ppm file creation :
 ///.\x64\Debug\RayTracing.exe > Render.ppm
 ///
-/// If you wish to run the Compute Shader Implemantation run th '.bat' file located in Compute-Shaders Folder
+/// If you wish to run the Compute Shader Implementation run th '.bat' file located in Compute-Shaders Folder
 
 #include <SDL.h>
 #include "glew.h"

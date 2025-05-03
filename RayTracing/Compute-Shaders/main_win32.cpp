@@ -1,3 +1,7 @@
+// To switch which scene you want to creat go to line:211 
+// and change this line :
+// World* world = createSceneFinalB2();
+
 #include <windows.h>
 #include <stdio.h>
 #include <assert.h>
@@ -207,7 +211,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
     ShowWindow(windowHandle, nCmdShow);
 
-    World* world = createScene();
+    // Switch Scene HERE
+    World* world = createSceneFinalB2();
+    //
     Vector3 cameraPosition = world->camera->position;
 
     glEnable(GL_DEBUG_OUTPUT);
