@@ -6,8 +6,11 @@
 
 > [!TIP]
 > Everything you need for the Compute shaders Renders is in the "[Compute-Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/RayTracing/Compute-Shaders)" folder
+> 
 > If you wish to do the renders yourself, at the end of the Compute-Shaders/main_win32 file "[main_win32.cpp](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/RayTracing/Compute-Shaders/main_win32.cpp#L215 "Line 215 of Main")" change the name of the scene you wish to render.
+> 
 > ps: you can go in the "scene.h" file and make your own scene
+> 
 > To Run the Render go to the "Compute-Shaders" folder and run the "build.bat" file, and enjoy the show.
 > 
 
