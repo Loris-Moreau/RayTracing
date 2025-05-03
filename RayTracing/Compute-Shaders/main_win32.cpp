@@ -6,7 +6,7 @@
 #include <time.h>
 
 #include "glad_wgl.h"
-//#include "../scene.h"
+#include "scene.h"
 
 #define LOG(...) {char cad[1024]; sprintf(cad, __VA_ARGS__);  OutputDebugString(cad);}
 
@@ -118,8 +118,8 @@ int WINAPI wWinMain(HINSTANCE hInstance,
 
     // Create OpenGL context
     HGLRC wglContext = wglCreateContext(deviceContext);
-    // To able to use wgl extensions, we have to make current a WGL context.
-    // Otherwise we can't get function pointers to WGL extensions.
+    // To be able to use wgl extensions, we have to make current a WGL context.
+    // Otherwise, we can't get function pointers to WGL extensions.
     wglMakeCurrent(deviceContext, wglContext);
     
     // Load WGL extensions.
@@ -165,8 +165,8 @@ int WINAPI wWinMain(HINSTANCE hInstance,
     assert(computeProgramSuccess);
 
     // Draw program
-    uint32_t vertexShader = CompileGLShaderFile("../win32gpu/vertex.glsl", GL_VERTEX_SHADER);
-    uint32_t fragmentShader = CompileGLShaderFile("../win32gpu/fragment.glsl", GL_FRAGMENT_SHADER);
+    uint32_t vertexShader = CompileGLShaderFile("vertex.glsl", GL_VERTEX_SHADER);
+    uint32_t fragmentShader = CompileGLShaderFile("fragment.glsl", GL_FRAGMENT_SHADER);
 
     uint32_t shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
@@ -330,7 +330,7 @@ int WINAPI wWinMain(HINSTANCE hInstance,
     }
 
     // Yeah, I should destroy all the opengl objects that created, free scene memory,
-    // destroy window and gl context, etc
+    // destroy window and gl context, etc...
     // But after application terminated, all the allocated memory will be freed, and all objects will be destroyed.
     // Everything will be cleaned up by the OS.
     // Should I do that cleanup in code ?

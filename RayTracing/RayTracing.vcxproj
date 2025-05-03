@@ -160,6 +160,10 @@
     <ClInclude Include="Compute-Shaders\glad.h" />
     <ClInclude Include="Compute-Shaders\glad_wgl.h" />
     <ClInclude Include="Compute-Shaders\khrplatform.h" />
+    <ClInclude Include="Compute-Shaders\Maths\math_matrix.h" />
+    <ClInclude Include="Compute-Shaders\Maths\math_util.h" />
+    <ClInclude Include="Compute-Shaders\Maths\math_vector.h" />
+    <ClInclude Include="Compute-Shaders\scene.h" />
     <ClInclude Include="ConstantDensityMedium.h" />
     <ClInclude Include="DiffuseLight.h" />
     <ClInclude Include="Hittable.h" />
@@ -169,6 +173,9 @@
     <ClInclude Include="Perlin.h" />
     <ClInclude Include="Quadrilaterals.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="simd.h" />
+    <ClInclude Include="simd_avx2.h" />
+    <ClInclude Include="simd_sse.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utility.h" />
