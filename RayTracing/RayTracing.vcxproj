@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\glew-2.2.0-win32\glew-2.2.0\include\GL;$(SolutionDir)\GL\SDL\include;$(SolutionDir)\SDL-0\maths;$(SolutionDir)\SDL-0\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\glew-2.2.0-win32\glew-2.2.0\include\GL;$(SolutionDir)\GL\SDL\include;$(SolutionDir)\SDL-0\maths;$(SolutionDir)\SDL-0\Engine;$(SolutionDir)\Raytracing\ComputeShaders%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +136,9 @@
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="BVHNode.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Compute-Shaders\glad.c" />
+    <ClCompile Include="Compute-Shaders\glad_wgl.c" />
+    <ClCompile Include="Compute-Shaders\main_win32.cpp" />
     <ClCompile Include="ConstantDensityMedium.cpp" />
     <ClCompile Include="DiffuseLight.cpp" />
     <ClCompile Include="Hittable.cpp" />
@@ -154,6 +157,9 @@
     <ClInclude Include="BVHNode.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Compute-Shaders\glad.h" />
+    <ClInclude Include="Compute-Shaders\glad_wgl.h" />
+    <ClInclude Include="Compute-Shaders\khrplatform.h" />
     <ClInclude Include="ConstantDensityMedium.h" />
     <ClInclude Include="DiffuseLight.h" />
     <ClInclude Include="Hittable.h" />
@@ -169,9 +175,9 @@
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Shaders\compute.glsl" />
-    <Content Include="Shaders\fragment.glsl" />
-    <Content Include="Shaders\vertex.glsl" />
+    <Content Include="Compute-Shaders\compute.glsl" />
+    <Content Include="Compute-Shaders\fragment.glsl" />
+    <Content Include="Compute-Shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

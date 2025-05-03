@@ -3,8 +3,6 @@
 #include "Hittable.h"
 #include "Materials.h"
 
-using namespace std;
-
 class Camera
 {
 public:
