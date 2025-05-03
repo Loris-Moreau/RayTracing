@@ -1,9 +1,6 @@
 # RayTracing 
 #### My Adventure following The [Ray Tracing in One Weekend](https://raytracing.github.io/) Series & putting them in Compute Shaders
 
-> [!NOTE]
-> Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
-
 > [!TIP]
 > Everything you need for the Compute shaders Renders is in the "[Compute-Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/RayTracing/Compute-Shaders)" folder
 > 
@@ -12,7 +9,9 @@
 > ps: you can go in the "scene.h" file and make your own scene
 > 
 > To Run the Render go to the "Compute-Shaders" folder and run the "build.bat" file, and enjoy the show.
-> 
+
+> [!NOTE]
+> Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
 
 <br>
 
