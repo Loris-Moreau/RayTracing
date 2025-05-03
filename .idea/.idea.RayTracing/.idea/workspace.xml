@@ -8,11 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/build.bat" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/build.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,6 +163,7 @@
       <workItem from="1746291157305" duration="1412000" />
       <workItem from="1746292614997" duration="2136000" />
       <workItem from="1746294954418" duration="4926000" />
+      <workItem from="1746304387260" duration="326000" />
     </task>
     <servers />
   </component>

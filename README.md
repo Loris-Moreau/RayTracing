@@ -9,6 +9,8 @@
 > ps: you can go in the "scene.h" file and make your own scene
 > 
 > To Run the Render go to the "Compute-Shaders" folder and run the "build.bat" file, and enjoy the show.
+> 
+> Also, there is progressive rendering so the more you let it run the better the image gets.
 
 > [!NOTE]
 > Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
