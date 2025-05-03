@@ -4,6 +4,10 @@
 /// Command for .ppm file creation :
 ///.\x64\Debug\RayTracing.exe > Render.ppm
 
+
+#include <SDL.h>
+#include "glew.h"
+
 #include "Camera.h"
 #include "BVHNode.h"
 
@@ -41,9 +45,9 @@ void BaseBalls(int set, int glass)
     if (set == 1)
     {
         //Second Set Materials
-        shared_ptr<Materials> centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
-        shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
-        shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
+        centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
+        leftMat = make_shared<Dielectric>(1.5);
+        rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
     }
 
     world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
@@ -372,8 +376,7 @@ int main(int argc, char* argv[])
 
     // Timer Finish
     auto globalTimeClockEnd = high_resolution_clock::now();
-    clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';
+    std::clog << '\n' << "Total Time taken : " << duration_cast<milliseconds>(globalTimeClockEnd - globalTimeClockStart).count() << " milliseconds" << '\n';
     
     return 0;
 }
-//1755
