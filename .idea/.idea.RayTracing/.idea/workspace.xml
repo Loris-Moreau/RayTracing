@@ -8,12 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/RayTracing/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Shaders/compute.glsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Shaders/fragment.glsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Shaders/vertex.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/build.bat" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/build.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +47,13 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Batch.build.executor&quot;: &quot;Run&quot;,
     &quot;C++ Project.RayTracing.executor&quot;: &quot;Debug&quot;,
-    &quot;C/C++ Project.RayTracing.executor&quot;: &quot;Debug&quot;,
+    &quot;C/C++ Project.RayTracing.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;compute-test&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Compute-Shader&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -62,7 +62,16 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Batch.build">
+    <configuration name="build" type="BatchConfigurationType" factoryName="Batch" temporary="true">
+      <module name="rider.module" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="./RayTracing/Compute-Shaders" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="build.bat" />
+      <option name="PARAMETERS" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="RayTracing" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
         <option name="CONFIGURATION" value="Debug" />
@@ -131,6 +140,11 @@
         <option name="Build" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Batch.build" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -149,6 +163,9 @@
       <workItem from="1746277080487" duration="679000" />
       <workItem from="1746277943951" duration="75000" />
       <workItem from="1746279545821" duration="5398000" />
+      <workItem from="1746291157305" duration="1412000" />
+      <workItem from="1746292614997" duration="2136000" />
+      <workItem from="1746294954418" duration="4926000" />
     </task>
     <servers />
   </component>

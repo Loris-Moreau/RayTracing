@@ -1,16 +1,21 @@
 # RayTracing 
-#### My Adventure following The [Ray Tracing in One Weekend](https://raytracing.github.io/) Series
+#### My Adventure following The [Ray Tracing in One Weekend](https://raytracing.github.io/) Series & putting them in Compute Shaders
 
 > [!NOTE]
-> Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/dc6787cf7333bcb98622797fc1f6a5ec0eac29c6/Images "Images Folder") Folder for more Renders.
->
+> Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
 
->[!TIP]
->If you wish to do the renders yourself, at the end of the main file "[RayTracing.cpp](https://github.com/Loris-Moreau/RayTracing/blob/b894421b12f8b2ddfb9136333192a70b5050cb1d/RayTracing/RayTracing.cpp#L333 "Line 333 of Main")" change the number in the switch for the corresponding render you wish to do.
+> [!TIP]
+> Everything you need for the Compute shaders Renders is in the "[Compute-Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/RayTracing/Compute-Shaders)" folder
+> If you wish to do the renders yourself, at the end of the Compute-Shaders/main_win32 file "[main_win32.cpp](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/RayTracing/Compute-Shaders/main_win32.cpp#L215 "Line 215 of Main")" change the name of the scene you wish to render.
+> ps: you can go in the "scene.h" file and make your own scene
+> To Run the Render go to the "Compute-Shaders" folder and run the "build.bat" file, and enjoy the show.
+> 
 
 <br>
 
 ## Here are my Renders :
+
+With Compute Shaders I managed to Reduce render Times by more than 10x.
 
 ### Final Render of Book 1
 ![Final Render (Book 1)](https://github.com/Loris-Moreau/RayTracing/blob/79252e22f57695ea77a9d8465e6bfb24c4784826/Images/Final%20Render%20(B1).png)
