@@ -182,6 +182,7 @@
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Compute-Shaders\build.bat" />
     <Content Include="Compute-Shaders\compute.glsl" />
     <Content Include="Compute-Shaders\fragment.glsl" />
     <Content Include="Compute-Shaders\vertex.glsl" />
