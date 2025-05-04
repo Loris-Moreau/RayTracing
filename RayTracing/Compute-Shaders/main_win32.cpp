@@ -156,7 +156,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     RegisterClassA(&windowClass);
 
     const int WIDTH = 1280;
-    const int HEIGHT = 720;
+    const int HEIGHT = 940;
+    
     HWND windowHandle = CreateWindowExA(0,
                                        windowClassName,
                                        "Window",
@@ -211,9 +212,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
     ShowWindow(windowHandle, nCmdShow);
 
-    // Switch Scene HERE
+    /// Switch Scene HERE
     World* world = createSceneFinalB2();
-    //
+    ///
+    
     Vector3 cameraPosition = world->camera->position;
 
     glEnable(GL_DEBUG_OUTPUT);

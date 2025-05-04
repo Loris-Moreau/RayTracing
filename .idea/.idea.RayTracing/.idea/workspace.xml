@@ -9,7 +9,15 @@
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/glad.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/glad.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/glad_wgl.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/glad_wgl.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.exe" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/bin/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/vc140.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,6 +173,8 @@
       <workItem from="1746294954418" duration="4926000" />
       <workItem from="1746304387260" duration="326000" />
       <workItem from="1746351575061" duration="1023000" />
+      <workItem from="1746355380721" duration="5093000" />
+      <workItem from="1746360880089" duration="142000" />
     </task>
     <servers />
   </component>
