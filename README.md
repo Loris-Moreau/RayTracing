@@ -14,6 +14,10 @@
 
 > [!NOTE]
 > Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
+>
+> Here is the [Documentation](https://loris-moreau.github.io/Blog/RayTracing-10.html).
+>
+> And here is the [Performance Recordings](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/Performance.md).
 
 <br>
 
