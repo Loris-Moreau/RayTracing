@@ -679,10 +679,14 @@ World* createSceneFinalB2()
     RectangleXY lightRect = CreateRectangle(Vector3(0.0f, 11.0f, -9.5f), Vector3(10.0f, 4.0f, 1.0f), 4, XAxis, -HALF_PI);
     RectangleXY bottomRect = CreateRectangle(Vector3(0.0f, -8.0f, -35.0f), Vector3(40.0f, 40.0f, 1.0f), 2, XAxis, -HALF_PI);
 
-    Box box = CreateBox(Vector3(10.0f, -6.0f, -15.0f), Vector3(2.0f, 2.0f, 2.0f), 1);
-    RotateBox(&box, Vector3(0.0f, 1.0f, 0.0f), 10.0f);
+    Box box = CreateBox(Vector3(10.0f, -4.0f, -15.0f), Vector3(2.0f, 4.0f, 2.0f), 1);
+    RotateBox(&box, Vector3(0.0f, 1.0f, 0.0f), -15.0f);
     
-    uint32_t rectangleCount = 8;
+    
+    Box box2 = CreateBox(Vector3(-17.0f, -4.25f, -15.0f), Vector3(2.0f, 2.0f, 2.0f), 6);
+    RotateBox(&box2, Vector3(0.0f, 1.0f, 0.0f), -15.0f);
+    
+    uint32_t rectangleCount = 14;
     RectangleXY* rectangles = new RectangleXY[rectangleCount];
     rectangles[0] = lightRect;
     rectangles[1] = bottomRect;
@@ -692,6 +696,12 @@ World* createSceneFinalB2()
     rectangles[5] = box.rectangles[3];
     rectangles[6] = box.rectangles[4];
     rectangles[7] = box.rectangles[5];
+    rectangles[8] = box2.rectangles[0];
+    rectangles[9] = box2.rectangles[1];
+    rectangles[10] = box2.rectangles[2];
+    rectangles[11] = box2.rectangles[3];
+    rectangles[12] = box2.rectangles[4];
+    rectangles[13] = box2.rectangles[5];
 
     for (uint32_t rectangleIndex = 0; rectangleIndex < rectangleCount; ++rectangleIndex)
     {

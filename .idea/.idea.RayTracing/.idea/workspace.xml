@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/main_win32.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/scene.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/glad.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/glad.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/glad_wgl.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/glad_wgl.obj" afterDir="false" />
@@ -175,6 +174,8 @@
       <workItem from="1746351575061" duration="1023000" />
       <workItem from="1746355380721" duration="5093000" />
       <workItem from="1746360880089" duration="142000" />
+      <workItem from="1746370634491" duration="385000" />
+      <workItem from="1746371052536" duration="530000" />
     </task>
     <servers />
   </component>
