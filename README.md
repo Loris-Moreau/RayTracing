@@ -8,7 +8,7 @@
 > 
 > ps: you can go in the "scene.h" file and make your own scene
 > 
-> To Run the Render go to the "Compute-Shaders" folder and run the "build.bat" file, and enjoy the show.
+> To Run the Render go to the "Compute-Shaders" folder and run the "build.bat" file, and enjoy the show, *(there is a shortcut of the batch file in the topmost folder)*.
 > 
 > Also, there is progressive rendering so the more you let it run the better the image gets.
 
