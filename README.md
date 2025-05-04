@@ -54,8 +54,8 @@ With Compute Shaders I managed to Reduce render Times by more than 10x.
 ## Cornell's Box (Standard) Render of Book 2 Part 8
 ### Time to Render : 30 minutes
 ![Cornell's Standard Box (B2, P8)](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/Images/Cornell's%20Box%20(B2%2C%20P8).png "Corn")
-### Optimized Cornell's Box (Standard) Render
-# Time to Render : 1 minute
+## Optimized Cornell's Box (Standard) Render
+### Time to Render : 1 minute
 ![Cornell's Standard Box (B2, P8)](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/Images/computeShaderRenderCornell.png "Optimized Corn")
 <!--
 ### Cornell's Box (Foggy)
