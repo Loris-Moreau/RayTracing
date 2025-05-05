@@ -6,9 +6,6 @@
 ///
 /// If you wish to run the Compute Shader Implementation run th '.bat' file located in Compute-Shaders Folder
 
-#include <SDL.h>
-#include "glew.h"
-
 #include "Camera.h"
 #include "BVHNode.h"
 

@@ -8,8 +8,132 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed890744-0072-474a-a787-c15b1aeeef66" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RayTracing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RayTracing/Compute-Shaders/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/Compute-Shaders/scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/glew32.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/BUGS.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/COPYING.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/README-SDL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/WhatsNew.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-android.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-cmake.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-directfb.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-dynapi.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-emscripten.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-gesture.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-git.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-hg.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-ios.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-kmsbsd.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-linux.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-macosx.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-nacl.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-os2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-pandora.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-platforms.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-porting.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-psp.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-raspberrypi.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-touch.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-visualc.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-vita.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-wince.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-windows.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README-winrt.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/docs/doxyfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_assert.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_atomic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_audio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_bits.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_blendmode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_clipboard.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config.h.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_android.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_iphoneos.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_macosx.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_macosx.h.orig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_minimal.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_pandora.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_psp.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_windows.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_winrt.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_config_wiz.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_copying.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_cpuinfo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_egl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_endian.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_error.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_events.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_filesystem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_gamecontroller.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_gesture.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_haptic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_hints.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_joystick.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_keyboard.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_keycode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_loadso.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_locale.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_log.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_main.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_messagebox.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_metal.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_misc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_mouse.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_mutex.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_name.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengl_glext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengles.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengles2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengles2_gl2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengles2_gl2ext.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengles2_gl2platform.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_opengles2_khrplatform.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_pixels.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_platform.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_power.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_quit.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_rect.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_render.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_revision.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_rwops.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_scancode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_sensor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_shape.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_stdinc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_surface.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_system.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_syswm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_assert.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_common.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_compare.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_crc32.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_font.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_fuzzer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_harness.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_images.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_log.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_md5.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_memory.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_test_random.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_thread.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_timer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_touch.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_version.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_video.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/SDL_vulkan.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/begin_code.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GL/SDL/include/close_code.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/RayTracing.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/RayTracing.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/glad.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/glad.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/glad_wgl.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/glad_wgl.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.exe" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.exe" afterDir="false" />
@@ -17,6 +141,34 @@
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.obj" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/main_win32.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/main_win32.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RayTracing/bin/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RayTracing/bin/vc140.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SDL2.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build - Shortcut.lnk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/Makefile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/advanced.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/basic.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/build.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/credits.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/github.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/glew.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/glew.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/glew.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/glew.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/glxew.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/gpl.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/install.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/khronos.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/log.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/mesa.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/new.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/ogl_sm.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/travis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/doc/wglew.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/include/GL/eglew.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/include/GL/glew.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/include/GL/glxew.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/glew-2.2.0-win32/glew-2.2.0/include/GL/wglew.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,6 +328,8 @@
       <workItem from="1746360880089" duration="142000" />
       <workItem from="1746370634491" duration="385000" />
       <workItem from="1746371052536" duration="530000" />
+      <workItem from="1746462992827" duration="289000" />
+      <workItem from="1746463362321" duration="263000" />
     </task>
     <servers />
   </component>
