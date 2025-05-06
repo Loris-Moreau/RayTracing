@@ -4,18 +4,32 @@
 
 class Ray
 {
-public:
+ public:
     Ray() = default;
-    Ray(const Position& origin, const Vector3& direction) : mOrigin(origin), mDirection(direction), mTime(0) {}
-    Ray(const Position& origin, const Vector3& direction, const double time = 0.0) : mOrigin(origin), mDirection(direction), mTime(time) {}
 
-    Position GetOrigin() const { return mOrigin; }
-    Vector3 GetDirection() const { return mDirection; }
-    double time() const { return mTime; }
-    Position At(const double time) const { return mOrigin + time * mDirection; }
-
-private:
-    Position mOrigin;
-    Vector3 mDirection;
-    double mTime;
+    Ray(const Vector3& origin, const Vector3& direction, double time = 0.0) : orig(origin), dir(direction), tm(time) {}
+    
+    Vector3 origin() const
+    {
+        return orig;
+    }
+    
+    Vector3 direction() const
+    {
+        return dir;
+    }
+    
+    double time() const
+    {
+        return tm;
+    }
+    
+    Vector3 at(double t) const
+    {
+        return orig + t * dir;
+    }
+    
+    Vector3 orig;
+    Vector3 dir;
+    double tm;
 };

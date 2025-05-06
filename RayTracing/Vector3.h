@@ -1,165 +1,160 @@
 #pragma once
 
-#include <cmath>
+#include <algorithm>
 #include <iostream>
-#include "Utility.h"
+
+#include "Common.h"
 
 class Vector3
 {
-public:
-    double x, y, z;
+ public:
+    Vector3() : e{0, 0, 0} {}
 
-    Vector3() : x(0), y(0), z(0) {}
-    Vector3(const double pX, const double pY, const double pZ) : x(pX), y(pY), z(pZ) {}
-    
-    Vector3 operator-() const { return {-x, -y, -z}; }
+    Vector3(double e0, double e1, double e2) : e{e0, e1, e2} {}
 
-    double operator[](const int i) const { return i == 0 ? x : (i == 1 ? y : z); }
-    double& operator[](const int i) { return i == 0 ? x : (i == 1 ? y : z); }
+    Vector3 operator-() const;
 
-    Vector3& operator+=(const Vector3& rVec);
+    double operator[](int i) const;
+    double& operator[](int i);
 
-    Vector3& operator*=(double t);
+    Vector3& operator+=(const Vector3& v);
+    Vector3& operator*=(const double t);
+    Vector3& operator/=(const double t);
 
-    Vector3& operator/=(double t);
+    double x() const;
+    double y() const;
+    double z() const;
 
-    double Length() const;
+    double length() const;
+    double length_squared() const;
 
-    double SquaredLength() const;
+    void write_color(std::ostream& out, int samples_per_pixel);
 
-    bool NearZero() const;
+    static Vector3 random();
+    static Vector3 random(double min, double max);
 
-    static Vector3 Random();
-
-    static Vector3 Random(double min, double max);
+    double e[3];
 };
 
-//Alias for Vector3 to increase code readability
-using Position = Vector3;
+// Type aliases for Vector3
+using point3 = Vector3; // 3D point
+using color = Vector3; // RGB color
 
-inline std::ostream& operator<<(std::ostream& rOut, const Vector3& rV)
+inline std::ostream& operator<<(std::ostream& out, const Vector3& v)
 {
-    return rOut << rV.x << ' ' << rV.y << ' ' << rV.z << '\n';
+    return out << v.e[0] << ' ' << v.e[1] << ' ' << v.e[2];
 }
 
-inline Vector3 operator+(const Vector3& rLeft, const Vector3& rRight)
+inline Vector3 operator+(const Vector3& u, const Vector3& v)
 {
-    return {rLeft.x + rRight.x, rLeft.y + rRight.y, rLeft.z + rRight.z};
+    return {u.e[0] + v.e[0], u.e[1] + v.e[1], u.e[2] + v.e[2]};
 }
 
-inline Vector3 operator-(const Vector3& rLeft, const Vector3& rRight)
+inline Vector3 operator-(const Vector3& u, const Vector3& v)
 {
-    return {rLeft.x - rRight.x, rLeft.y - rRight.y, rLeft.z - rRight.z};
+    return {u.e[0] - v.e[0], u.e[1] - v.e[1], u.e[2] - v.e[2]};
 }
 
-inline Vector3 operator*(const Vector3& rLeft, const Vector3& rRight)
+inline Vector3 operator*(const Vector3& u, const Vector3& v)
 {
-    return {rLeft.x * rRight.x, rLeft.y * rRight.y, rLeft.z * rRight.z};
+    return {u.e[0] * v.e[0], u.e[1] * v.e[1], u.e[2] * v.e[2]};
 }
 
-inline Vector3 operator*(const Vector3& rLeft, const double scalar)
+inline Vector3 operator*(double t, const Vector3& v)
 {
-    return {rLeft.x * scalar, rLeft.y * scalar, rLeft.z * scalar};
+    return {t * v.e[0], t * v.e[1], t * v.e[2]};
 }
 
-inline Vector3 operator*(const double scalar, const Vector3& rRight)
+inline Vector3 operator*(const Vector3& v, double t)
 {
-    return rRight * scalar;
+    return t * v;
 }
 
-inline Vector3 operator/(const Vector3& vector, const double scalar)
+inline Vector3 operator/(Vector3 v, double t)
 {
-    return (1 / scalar) * vector;
+    return (1 / t) * v;
 }
 
-inline double Dot(const Vector3& rLeft, const Vector3& rRight)
+inline double dot(const Vector3& u, const Vector3& v)
 {
-    return rLeft.x * rRight.x
-        + rLeft.y * rRight.y
-        + rLeft.z * rRight.z;
+    return u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2];
 }
 
-inline Vector3 Cross(const Vector3& rLeft, const Vector3& rRight)
+inline Vector3 cross(const Vector3& u, const Vector3& v)
 {
-    return
-    {
-        rLeft.y * rRight.z - rLeft.z * rRight.y,
-        rLeft.z * rRight.x - rLeft.x * rRight.z,
-        rLeft.x * rRight.y - rLeft.y * rRight.x
-    };
+    return {u.e[1] * v.e[2] - u.e[2] * v.e[1],
+            u.e[2] * v.e[0] - u.e[0] * v.e[2],
+            u.e[0] * v.e[1] - u.e[1] * v.e[0]};
 }
 
-inline Vector3 Unit(const Vector3& vector)
+inline Vector3 unit_vector(Vector3 v)
 {
-    return vector / vector.Length();
+    return v / v.length();
 }
 
-inline Position RandomInUnitSphere() //Las Vegas Algorithm
+inline Vector3 random_in_unit_sphere()
 {
     while (true)
     {
-        Position position = Vector3::Random(-1, 1);
-        if (position.SquaredLength() < 1) return position;
-    }
-}
-
-inline Vector3 RandomUnitVector()
-{
-    return Unit(RandomInUnitSphere());
-}
-
-inline Vector3 RandomInUnitDisc()
-{
-    while (true)
-    {
-        Vector3 position = Vector3(RandomDouble(-1, 1), RandomDouble(-1, 1), 0);
-        if (position.SquaredLength() < 1)
+        Vector3 p = Vector3::random(-1, 1);
+        if (p.length_squared() >= 1)
         {
-            return position;
+            continue;
         }
+
+        return p;
     }
 }
 
-inline Vector3 RandomOnHemisphere(const Vector3& normal)
+inline Vector3 random_unit_vector()
 {
-    const Vector3 onUnitSphere = RandomUnitVector();
-    //If in the same hemisphere as the normal
-    if (Dot(onUnitSphere, normal) > 0.0)
+    const double a = random_double(0, 2 * pi);
+    const double z = random_double(-1, 1);
+    const double r = sqrt(1 - z * z);
+
+    return Vector3{r * std::cos(a), r * std::sin(a), z};
+}
+
+inline Vector3 random_in_hemisphere(const Vector3& normal)
+{
+    const Vector3 in_unit_sphere = random_in_unit_sphere();
+
+    // In the same hemisphere as the normal
+    if (dot(in_unit_sphere, normal) > 0.0)
     {
-        return onUnitSphere;
+        return in_unit_sphere;
     }
-    return -onUnitSphere;
+    else
+    {
+        return -in_unit_sphere;
+    }
 }
 
-inline Vector3 Reflect(const Vector3& y, const Vector3& n)
+inline Vector3 reflect(const Vector3& v, const Vector3& n)
 {
-    return y - 2 * Dot(y, n) * n;
+    return v - 2 * dot(v, n) * n;
 }
 
-inline Vector3 Refract(const Vector3& uv, const Vector3& n, const double etaiOverEtat)
+inline Vector3 refract(const Vector3& uv, const Vector3& n, double etai_over_etat)
 {
-    const double cosTheta = fmin(Dot(-uv, n), 1.0);
-    const Vector3 rayOutPerp = etaiOverEtat * (uv + cosTheta * n);
-    const Vector3 rayOutParallel = -sqrt(fabs(1.0 - rayOutPerp.SquaredLength())) * n;
+    const double cos_theta = dot(-uv, n);
+    const Vector3 r_out_parallel = etai_over_etat * (uv + cos_theta * n);
+    const Vector3 r_out_perp = -sqrt(1.0 - r_out_parallel.length_squared()) * n;
 
-    return rayOutPerp + rayOutParallel;
+    return r_out_parallel + r_out_perp;
 }
 
-inline int RandomInt(const int min, const int max)
+inline Vector3 random_in_unit_disk()
 {
-    // Returns a random integer in [min,max].
-    return static_cast<int>(RandomDouble(min, max + 1));
-}
+    while (true)
+    {
+        Vector3 p = Vector3{random_double(-1, 1), random_double(-1, 1), 0};
 
-inline Vector3 RandomCosineDirection()
-{
-    const double r1 = RandomDouble();
-    const double r2 = RandomDouble();
+        if (p.length_squared() >= 1)
+        {
+            continue;
+        }
 
-    const double phi = 2 * pi * r1;
-    const double x = cos(phi) * sqrt(r2);
-    const double y = sin(phi) * sqrt(r2);
-    const double z = sqrt(1 - r2);
-
-    return {x, y, z};
+        return p;
+    }
 }

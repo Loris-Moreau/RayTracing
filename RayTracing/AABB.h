@@ -1,38 +1,62 @@
 #pragma once
 
-//Axis-aligned bounding box class
-#include "Interval.h"
+#include "Common.h"
 
 class AABB
 {
-public:
-    Interval x, y, z;
+ public:
+    AABB() = default;
+    AABB(const point3& a, const point3& b) : _min(a), _max(b) {}
 
-    AABB() = default; // The default AABB is empty, since intervals are empty by default.
-    AABB(const Interval& ix, const Interval& iy, const Interval& iz) : x(ix), y(iy), z(iz) {}
-    AABB(const Position& a, const Position& b);
-
-    AABB(const AABB& box0, const AABB& box1)
+    point3 min() const
     {
-        x = Interval(box0.x, box1.x);
-        y = Interval(box0.y, box1.y);
-        z = Interval(box0.z, box1.z);
+        return _min;
     }
 
-    const Interval& axis(int n) const;
+    point3 max() const
+    {
+        return _max;
+    }
 
-    bool Hit(const Ray& ray, Interval rayT) const;
+    bool hit(const Ray& r, double tmin, double tmax) const;
 
-    AABB Pad() const;
-
+    point3 _min;
+    point3 _max;
 };
 
-inline AABB operator+(const AABB& bBox, const Vector3& offset)
+inline bool AABB::hit(const Ray& r, double tmin, double tmax) const
 {
-    return AABB(bBox.x + offset.x, bBox.y + offset.y, bBox.z + offset.z);
+    for (int a = 0; a < 3; ++a)
+    {
+        const double invD = 1.0f / r.direction()[a];
+        double t0 = (min()[a] - r.origin()[a]) * invD;
+        double t1 = (max()[a] - r.origin()[a]) * invD;
+
+        if (invD < 0.0f)
+        {
+            std::swap(t0, t1);
+        }
+
+        tmin = t0 > tmin ? t0 : tmin;
+        tmax = t1 < tmax ? t1 : tmax;
+
+        if (tmax <= tmin)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
-inline AABB operator+(const Vector3& offset, const AABB& bBox)
+inline AABB surrounding_box(AABB box0, AABB box1)
 {
-    return bBox + offset;
+    const point3 small(fmin(box0.min().x(), box1.min().x()),
+                      fmin(box0.min().y(), box1.min().y()),
+                      fmin(box0.min().z(), box1.min().z()));
+    const point3 big(fmax(box0.max().x(), box1.max().x()),
+                     fmax(box0.max().y(), box1.max().y()),
+                     fmax(box0.max().z(), box1.max().z()));
+
+    return AABB(small, big);
 }

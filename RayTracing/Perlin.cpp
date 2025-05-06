@@ -2,126 +2,114 @@
 
 Perlin::Perlin()
 {
-    ranvec = new Vector3[pointCount];
-    for (int i = 0; i < pointCount; ++i) 
+    ranvec = new Vector3[point_count];
+    for (int i = 0; i < point_count; ++i)
     {
-        ranvec[i] = Unit(Vector3::Random(-1, 1));
+        ranvec[i] = unit_vector(Vector3::random(-1, 1));
     }
 
-    permX = PerlinGeneratePerm();
-    permY = PerlinGeneratePerm();
-    permZ = PerlinGeneratePerm();
+    perm_x = perlin_generate_perm();
+    perm_y = perlin_generate_perm();
+    perm_z = perlin_generate_perm();
 }
 
 Perlin::~Perlin()
 {
     delete[] ranvec;
-    delete[] permX;
-    delete[] permY;
-    delete[] permZ;
+    delete[] perm_x;
+    delete[] perm_y;
+    delete[] perm_z;
 }
 
-double Perlin::noise(const Position& position) const
+double Perlin::noise(const point3& p) const
 {
-    double U = position.x - floor(position.x);
-    double V = position.y - floor(position.y);
-    double W = position.z - floor(position.z);
-
-    /*
-    //Hermitian Smoothing
-    U = U * U * (3 - 2 * U);
-    V = V* V * (3 - 2 * V);
-    W = W * W * (3 - 2 * W);
-    */
-
-    const int i = static_cast<int>(floor(position.x));
-    const int j = static_cast<int>(floor(position.y));
-    const int k = static_cast<int>(floor(position.z));
+    double u = p.x() - floor(p.x());
+    double v = p.y() - floor(p.y());
+    double w = p.z() - floor(p.z());
+    const int i = static_cast<int>(floor(p.x()));
+    const int j = static_cast<int>(floor(p.y()));
+    const int k = static_cast<int>(floor(p.z()));
     Vector3 c[2][2][2];
 
-    for (int di = 0; di < 2; di++)
-        for (int dj = 0; dj < 2; dj++)
-            for (int dk = 0; dk < 2; dk++)
-                c[di][dj][dk] = ranvec
-                [
-                    permX[(i + di) & 255] ^
-                    permY[(j + dj) & 255] ^
-                    permZ[(k + dk) & 255]
-                ];
+    for (int di = 0; di < 2; ++di)
+    {
+        for (int dj = 0; dj < 2; ++dj)
+        {
+            for (int dk = 0; dk < 2; ++dk)
+            {
+                c[di][dj][dk] =
+                    ranvec[perm_x[(i + di) & 255] ^ perm_y[(j + dj) & 255] ^
+                           perm_z[(k + dk) & 255]];
+            }
+        }
+    }
 
-    return PerlinInterp(c, U, V, W);
+    return perlin_interp(c, u, v, w);
 }
 
-double Perlin::Turbulence(const Position& position, const int depth) const
+double Perlin::turb(const point3& p, int depth) const
 {
     double accum = 0.0;
-    double weight = 1.0; 
-    Position tempP = position;
+    point3 temp_p = p;
+    double weight = 1.0;
 
-    for (int i = 0; i < depth; i++) 
+    for (int i = 0; i < depth; ++i)
     {
-        accum += weight * noise(tempP);
+        accum += weight * noise(temp_p);
         weight *= 0.5;
-        tempP *= 2;
+        temp_p *= 2;
     }
 
     return fabs(accum);
 }
 
-int* Perlin::PerlinGeneratePerm()
+int* Perlin::perlin_generate_perm()
 {
-    int* point = new int[pointCount];
-
-    for (int i = 0; i < Perlin::pointCount; i++)
+    int* const p = new int[point_count];
+        
+    for (int i = 0; i < point_count; ++i)
     {
-        point[i] = i;
+        p[i] = i;
     }
-    Permute(point, pointCount);
 
-    return point;
+    permute(p, point_count);
+
+    return p;
 }
 
-void Perlin::Permute(int* point, const int n)
+void Perlin::permute(int* p, int n)
 {
-    for (int i = n - 1; i > 0; i--)
+    for (int i = n - 1; i > 0; --i)
     {
-        const int target = RandomInt(0, i);
-        const int tmp = point[i];
-        point[i] = point[target];
-        point[target] = tmp;
+        const int target = random_int(0, i);
+
+        const int tmp = p[i];
+        p[i] = p[target];
+        p[target] = tmp;
     }
 }
 
-double Perlin::TrilinearInterp(double c[2][2][2], const double U, const double V, const double W)
+double Perlin::perlin_interp(Vector3 c[2][2][2], double u, double v, double w)
 {
-    double accum = 0.0;
-    for (int i = 0; i < 2; i++)
-        for (int j = 0; j < 2; j++)
-            for (int k = 0; k < 2; k++)
-                accum += (i * U + (1 - i) * (1 - U)) *
-                (j * V + (1 - j) * (1 - V)) *
-                (k * W + (1 - k) * (1 - W)) * c[i][j][k];
-
-    return accum;
-}
-
-double Perlin::PerlinInterp(Vector3 c[2][2][2], const double U, const double V, const double W)
-{
-    const double uu = U * U * (3 - 2 * U);
-    const double vv = V * V * (3 - 2 * V);
-    const double ww = W * W * (3 - 2 * W);
+    const double uu = u * u * (3 - 2 * u);
+    const double vv = v * v * (3 - 2 * v);
+    const double ww = w * w * (3 - 2 * w);
     double accum = 0.0;
 
-    for (int i = 0; i < 2; i++)
-        for (int j = 0; j < 2; j++)
-            for (int k = 0; k < 2; k++)
+    for (int i = 0; i < 2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
+            for (int k = 0; k < 2; ++k)
             {
-                const Vector3 weight_v(U - i, V - j, W - k);
-                accum += (i * uu + (1 - i) * (1 - uu))
-                    * (j * vv + (1 - j) * (1 - vv))
-                    * (k * ww + (1 - k) * (1 - ww))
-                    * Dot(c[i][j][k], weight_v);
+                Vector3 weight_v(u - i, v - j, w - k);
+                accum += (i * uu + (1 - i) * (1 - uu)) *
+                         (j * vv + (1 - j) * (1 - vv)) *
+                         (k * ww + (1 - k) * (1 - ww)) *
+                         dot(c[i][j][k], weight_v);
             }
+        }
+    }
 
     return accum;
 }

@@ -1,392 +1,353 @@
-//RayTracing.cpp : This file contains the 'main' function. Program execution begins and ends there.
+#include <iostream>
 
-///Command for .ppm file creation :
-///.\x64\Debug\RayTracing.exe > Render.ppm
-
+#include "Box.h"
+#include "BVH.h"
 #include "Camera.h"
-#include "BVHNode.h"
-
-#include "HittableCollection.h"
+#include "CheckerTexture.h"
+#include "Common.h"
+#include "ConstantMedium.h"
+#include "Dielectric.h"
+#include "DiffuseLight.h"
+#include "FlipFace.h"
+#include "HittableList.h"
+#include "ImageTexture.h"
+#include "Lambertian.h"
+#include "Metal.h"
+#include "MovingSphere.h"
+#include "NoiseTexture.h"
+#include "RotateY.h"
+#include "SolidColor.h"
 #include "Sphere.h"
-#include "Quadrilaterals.h"
-//Mat
-#include "Materials.h"
-#include "ConstantDensityMedium.h"
+#include "Translate.h"
+#include "XYRect.h"
+#include "XZRect.h"
+#include "YZRect.h"
 
-#include "Texture.h"
-
-using namespace std;
-
-void BaseBalls(int set, int glass)
+Vector3 ray_color(const Ray& r, const color& background, const Hittable& world, int depth)
 {
-    //World
-    HittableCollection world;
+    HitRecord rec;
 
-    //First Set Materials
-    shared_ptr<Materials> groundMat = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-
-    shared_ptr<Materials> rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.7);
-    shared_ptr<Materials> centerMat = make_shared<Dielectric>(1.5);
-    shared_ptr<Materials> leftMat = make_shared<Dielectric>(1.5);
-
-    if (set == 1)
+    // If we've exceeded the Ray bounce limit, no more light is gathered.
+    if (depth <= 0)
     {
-        //Second Set Materials
-        centerMat = make_shared<Lambertian>(Color(0.1, 0.2, 0.5));
-        leftMat = make_shared<Dielectric>(1.5);
-        rightMat = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
+        return color{0, 0, 0};
     }
 
-    world.Add(make_shared<Sphere>(Position(0, -100.5, -1), 100, groundMat));
-    world.Add(make_shared<Sphere>(Position(0, 0, -1), 0.5, centerMat));
-    world.Add(make_shared<Sphere>(Position(1.0, 0, -1), 0.5, rightMat)); //shiny metal ball
-
-    if (glass == 1)
+    // If the Ray hits nothing, return the background color.
+    if (!world.hit(r, 0.001, infinity, rec))
     {
-        world.Add(make_shared<Sphere>(Position(-1.0, 0, -1), 0.5, leftMat)); //Reflective glass
-    }
-    else
-    {
-        world.Add(make_shared<Sphere>(Position(-1.0, 0.0, -1.0), -0.4, leftMat)); //Transparent Glass
+        return background;
     }
 
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(2, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.65, 10);
-    camera.Render(world, world);
+    Ray scattered;
+    color attenuation;
+    const color emitted = rec.mat_ptr->emitted(rec.u, rec.v, rec.p);
+
+    if (!rec.mat_ptr->scatter(r, rec, attenuation, scattered))
+    {
+        return emitted;
+    }
+
+    return emitted +
+           attenuation * ray_color(scattered, background, world, depth - 1);
 }
 
-void RandomSpheres(int nb)
+HittableList random_scene()
 {
-    //World
-    HittableCollection world;
+    HittableList world;
 
-    shared_ptr<Materials> groundMaterial = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
-    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, groundMaterial));
+    std::shared_ptr<CheckerTexture> checker = std::make_shared<CheckerTexture>(
+        std::make_shared<SolidColor>(0.2, 0.3, 0.1),
+        std::make_shared<SolidColor>(0.9, 0.9, 0.9));
+    
+    world.add(std::make_shared<Sphere>(point3{0, -1000, 0}, 1000, std::make_shared<Lambertian>(checker)));
 
-    for (int a = -nb; a < nb; a++)
+    for (int a = -10; a < 10; ++a)
     {
-        for (int b = -nb; b < nb; b++)
+        for (int b = -10; b < 10; ++b)
         {
-            double choose_mat = RandomDouble();
-            Position Center(a + 0.9 * RandomDouble(), 0.2, b + 0.9 * RandomDouble());
+            const double choose_mat = random_double();
+            Vector3 center(a + 0.9 * random_double(), 0.2, b + 0.9 * random_double());
 
-            if ((Center - Position(4, 0.2, 0)).Length() > 0.9)
+            if ((center - Vector3{4, .2, 0}).length() > 0.9)
             {
-                shared_ptr<Materials> sphereMaterial;
-
                 if (choose_mat < 0.8)
                 {
-                    //Diffuse
-                    Vector3 albedo = Color::Random() * Color::Random();
-                    sphereMaterial = make_shared<Lambertian>(albedo);
-                    Vector3 center2 = Center + Vector3(0, RandomDouble(0, 0.5), 0);
-                    world.Add(make_shared<Sphere>(Center, center2, 0.2, sphereMaterial));
+                    // diffuse
+                    Vector3 albedo = Vector3::random() * Vector3::random();
+                    world.add(std::make_shared<MovingSphere>(
+                        center, center + Vector3{0, random_double(0, .5), 0}, 0.0,
+                        1.0, 0.2,
+                        std::make_shared<Lambertian>(std::make_shared<SolidColor>(albedo))));
                 }
                 else if (choose_mat < 0.95)
                 {
-                    //Metal
-                    Vector3 albedo = Color::Random(0.5, 1);
-                    double fuzz = RandomDouble(0, 0.5);
-                    sphereMaterial = make_shared<Metal>(albedo, fuzz);
-                    world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
+                    // Metal
+                    Vector3 albedo = Vector3::random(.5, 1);
+                    double fuzz = random_double(0, .5);
+                    world.add(std::make_shared<Sphere>(center, 0.2, std::make_shared<Metal>(albedo, fuzz)));
                 }
                 else
                 {
-                    //Glass
-                    sphereMaterial = make_shared<Dielectric>(1.5);
-                    world.Add(make_shared<Sphere>(Center, 0.2, sphereMaterial));
+                    // glass
+                    world.add(std::make_shared<Sphere>(
+                        center, 0.2, std::make_shared<Dielectric>(1.5)));
                 }
             }
         }
     }
 
-    shared_ptr<Materials> material1 = make_shared<Dielectric>(1.5);
-    world.Add(make_shared<Sphere>(Position(0, 1, 0), 1.0, material1));
+    world.add(std::make_shared<Sphere>(Vector3{0, 1, 0}, 1.0, std::make_shared<Dielectric>(1.5)));
+    world.add(std::make_shared<Sphere>(Vector3{-4, 1, 0}, 1.0, std::make_shared<Lambertian>(std::make_shared<SolidColor>(0.4, 0.2, 0.1))));
+    world.add(std::make_shared<Sphere>(Vector3{4, 1, 0}, 1.0, std::make_shared<Metal>(Vector3{0.7, 0.6, 0.5}, 0.0)));
 
-    shared_ptr<Materials> material2 = make_shared<Lambertian>(Color(0.4, 0.2, 0.1));
-    world.Add(make_shared<Sphere>(Position(-4, 1, 0), 1.0, material2));
-
-    shared_ptr<Materials> material3 = make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0);
-    world.Add(make_shared<Sphere>(Position(4, 1, 0), 1.0, material3));
-
-    world = HittableCollection(make_shared<BVHNode>(world));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world, world);
+    return world;
 }
 
-void Checkers()
+HittableList two_spheres()
 {
-    //World
-    HittableCollection world;
+    HittableList objects;
 
-    shared_ptr<Texture> checker = make_shared<CheckerTexture>(0.8, Color(0.2, 0.3, 0.1), Color(0.9, 0.9, 0.9));
+    std::shared_ptr<CheckerTexture> checker = std::make_shared<CheckerTexture>(
+        std::make_shared<SolidColor>(0.2, 0.3, 0.1),
+        std::make_shared<SolidColor>(0.9, 0.9, 0.9));
 
-    world.Add(make_shared<Sphere>(Position(0, -10, 0), 10, make_shared<Lambertian>(checker)));
-    world.Add(make_shared<Sphere>(Position(0, 10, 0), 10, make_shared<Lambertian>(checker)));
+    objects.add(std::make_shared<Sphere>(point3(0, -10, 0), 10, std::make_shared<Lambertian>(checker)));
+    objects.add(std::make_shared<Sphere>(point3(0, 10, 0), 10, std::make_shared<Lambertian>(checker)));
 
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0.6, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world, world);
+    return objects;
 }
 
-//Image Texture
-/*
-void Earth()
+HittableList two_perlin_spheres()
 {
-    shared_ptr<Texture> imageTexture = make_shared<ImageTexture>("..\\Images\\earthmap.jpg");
-    shared_ptr<Materials> imageSurface = make_shared<Lambertian>(imageTexture);
-    shared_ptr<Sphere> renderedObj = make_shared<Sphere>(Position(0, 0, 0), 2, imageSurface);
+    HittableList objects;
 
+    const std::shared_ptr<NoiseTexture> pertext = std::make_shared<NoiseTexture>(4.0);
 
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(0, 0, 12), Position(0, 0, 0), Vector3(0, 1, 0), 0, 0, Color(0.70, 0.80, 1.00));
-    camera.Render(HittableCollection(renderedObj));
-}
-*/
+    objects.add(std::make_shared<Sphere>(
+        point3(0, -1000, 0), 1000, std::make_shared<Lambertian>(pertext)));
+    objects.add(std::make_shared<Sphere>(
+        point3(0, 2, 0), 2, std::make_shared<Lambertian>(pertext)));
 
-void PerlinSphere()
-{
-    //World
-    HittableCollection world;
-
-    shared_ptr<Texture> pertext = make_shared<NoiseTexture>(4);
-    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, make_shared<Lambertian>(pertext)));
-    world.Add(make_shared<Sphere>(Position(0, 2, 0), 2, make_shared<Lambertian>(pertext)));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(400, 16.0 / 9.0, 75, 50, 25, Position(13, 2, 6), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world, world);
+    return objects;
 }
 
-void Quads()
+HittableList earth()
 {
-    HittableCollection world;
+    std::shared_ptr<ImageTexture> earth_texture = std::make_shared<ImageTexture>("earthmap.jpg");
+    std::shared_ptr<Lambertian> earth_surface = std::make_shared<Lambertian>(earth_texture);
+    const std::shared_ptr<Sphere> globe = std::make_shared<Sphere>(point3(0, 0, 0), 2, earth_surface);
 
-    //Materials
-    shared_ptr<Materials> leftRed = make_shared<Lambertian>(Color(1.0, 0.2, 0.2));
-    shared_ptr<Materials> backGreen = make_shared<Lambertian>(Color(0.2, 1.0, 0.2));
-    shared_ptr<Materials> rightBlue = make_shared<Lambertian>(Color(0.2, 0.2, 1.0));
-    shared_ptr<Materials> upperOrange = make_shared<Lambertian>(Color(1.0, 0.5, 0.0));
-    shared_ptr<Materials> lowerMiku = make_shared<Lambertian>(Color(0.2, 0.8, 0.8));
-
-    //Quads
-    world.Add(make_shared<Quadrilaterals>(Position(-3, -2, 5), Vector3(0, 0, -4), Vector3(0, 4, 0), leftRed));
-    world.Add(make_shared<Quadrilaterals>(Position(-2, -2, 0), Vector3(4, 0, 0), Vector3(0, 4, 0), backGreen));
-    world.Add(make_shared<Quadrilaterals>(Position(3, -2, 1), Vector3(0, 0, 4), Vector3(0, 4, 0), rightBlue));
-    world.Add(make_shared<Quadrilaterals>(Position(-2, 3, 1), Vector3(4, 0, 0), Vector3(0, 0, 4), upperOrange));
-    world.Add(make_shared<Quadrilaterals>(Position(-2, -3, 5), Vector3(4, 0, 0), Vector3(0, 0, -4), lowerMiku));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance)
-    Camera camera(1200, 1.0, 70, 50, 80, Position(0, 0, 9), Position(0, 0, 0), Vector3(0, 1, 0), 0, 10, Color(0.70, 0.80, 1.00));
-    camera.Render(world, world);
+    return HittableList(globe);
 }
 
-void SimpleLight() 
+HittableList simple_light()
 {
-    HittableCollection world;
+    HittableList objects;
 
-    shared_ptr<Texture> pertext = make_shared<NoiseTexture>(4);
-    world.Add(make_shared<Sphere>(Position(0, -1000, 0), 1000, make_shared<Lambertian>(pertext)));
-    world.Add(make_shared<Sphere>(Position(0, 2, 0), 2, make_shared<Lambertian>(pertext)));
+    std::shared_ptr<NoiseTexture> pertext = std::make_shared<NoiseTexture>(4);
+    objects.add(std::make_shared<Sphere>(point3(0, -1000, 0), 1000, std::make_shared<Lambertian>(pertext)));
+    objects.add(std::make_shared<Sphere>(point3(0, 2, 0), 2, std::make_shared<Lambertian>(pertext)));
 
-    shared_ptr<Materials> difflight = make_shared<DiffuseLight>(Color(4, 4, 4));
-    world.Add(make_shared<Quadrilaterals>(Position(3, 1, -2), Vector3(2, 0, 0), Vector3(0, 2, 0), difflight));
-    //world.Add(make_shared<Sphere>(Position(0, 6, 0), 1.5, difflight));
+    std::shared_ptr<DiffuseLight> difflight = std::make_shared<DiffuseLight>(std::make_shared<SolidColor>(4, 4, 4));
+    objects.add(std::make_shared<Sphere>(point3(0, 7, 0), 2, difflight));
+    objects.add(std::make_shared<XYRect>(3, 5, 1, 3, -2, difflight));
 
-    //light source
-    HittableCollection lights;
-    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-2, 0, 0), Vector3(0, 2, 0), lightMat));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 16.0/9.0, 45, 50, 25, Position(20, 3, 6), Position(0, 1, 0), Vector3(0, 1, 0), 0, 10, Color(0, 0, 0));
-    camera.Render(world, lights);
+    return objects;
 }
 
-void CornellBox()
+HittableList cornell_box()
 {
-    HittableCollection world;
+    HittableList objects;
 
+    std::shared_ptr<Lambertian> red = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.65, .05, .05));
+    std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.73, .73, .73));
+    std::shared_ptr<Lambertian> green = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.12, .45, .15));
+    std::shared_ptr<DiffuseLight> light = std::make_shared<DiffuseLight>(
+        std::make_shared<SolidColor>(15, 15, 15));
 
-    shared_ptr<Materials> red = make_shared<Lambertian>(Color(0.65, 0.05, 0.05));
-    shared_ptr<Materials> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
-    shared_ptr<Materials> green = make_shared<Lambertian>(Color(0.12, 0.45, 0.15));
+    objects.add(std::make_shared<FlipFace>(
+        std::make_shared<YZRect>(0, 555, 0, 555, 555, green)));
+    objects.add(std::make_shared<YZRect>(0, 555, 0, 555, 0, red));
+    objects.add(std::make_shared<XZRect>(213, 343, 227, 332, 554, light));
+    objects.add(std::make_shared<FlipFace>(
+        std::make_shared<XZRect>(0, 555, 0, 555, 0, white)));
+    objects.add(std::make_shared<XZRect>(0, 555, 0, 555, 555, white));
+    objects.add(std::make_shared<FlipFace>(
+        std::make_shared<XYRect>(0, 555, 0, 555, 555, white)));
 
-    shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(4, 4, 4));
+    std::shared_ptr<Hittable> box1 =
+        std::make_shared<Box>(point3(0, 0, 0), point3(165, 330, 165), white);
+    box1 = std::make_shared<RotateY>(box1, 15);
+    box1 = std::make_shared<Translate>(box1, Vector3(265, 0, 295));
+    objects.add(std::move(box1));
 
-    //Room
-    world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
+    std::shared_ptr<Hittable> box2 =
+        std::make_shared<Box>(point3(0, 0, 0), point3(165, 165, 165), white);
+    box2 = std::make_shared<RotateY>(box2, -18);
+    box2 = std::make_shared<Translate>(box2, Vector3(130, 0, 65));
+    objects.add(std::move(box2));
 
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
-    world.Add(make_shared<Quadrilaterals>(Position(555, 555, 555), Vector3(-555, 0, 0), Vector3(0, 0, -555), white));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
-
-    //Light  
-    world.Add(make_shared<Quadrilaterals>(Position(213, 500, 227), Vector3(-130, 0, 0), Vector3(0, 0, 105), light));
-
-    //Box 1
-    shared_ptr<Materials> aluminum = make_shared<Metal>(Color(0.8, 0.85, 0.88), 0.0);
-    shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), aluminum);
-    box1 = make_shared<RotateY>(box1, 15);
-    box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
-    world.Add(box1);
-
-    //Box 2
-    shared_ptr<Hittable> box2 = Box(Position(0, 0, 0), Position(165, 165, 165), white);
-    box2 = make_shared<RotateY>(box2, -18);
-    box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
-    world.Add(box2);
-
-    //light source
-    HittableCollection lights;
-    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(213, 500, 227), Vector3(-130, 0, 0), Vector3(0, 0, 105), lightMat));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 25, 40, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0.70, 0.80, 1.00));
-    camera.Render(world, lights);
+    return objects;
 }
 
-void CornellSmoke() 
+HittableList cornell_smoke()
 {
-    HittableCollection world;
+    HittableList objects;
 
-    shared_ptr<Materials> red = make_shared<Lambertian>(Color(.65, .05, .05));
-    shared_ptr<Materials> white = make_shared<Lambertian>(Color(.73, .73, .73));
-    shared_ptr<Materials> green = make_shared<Lambertian>(Color(.12, .45, .15));
+    std::shared_ptr<Lambertian> red = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.65, .05, .05));
+    std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.73, .73, .73));
+    std::shared_ptr<Lambertian> green = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.12, .45, .15));
+    std::shared_ptr<DiffuseLight> light =
+        std::make_shared<DiffuseLight>(std::make_shared<SolidColor>(7, 7, 7));
 
-    shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(7, 7, 7));
+    objects.add(std::make_shared<FlipFace>(
+        std::make_shared<YZRect>(0, 555, 0, 555, 555, green)));
+    objects.add(std::make_shared<YZRect>(0, 555, 0, 555, 0, red));
+    objects.add(std::make_shared<XZRect>(113, 443, 127, 432, 554, light));
+    objects.add(std::make_shared<FlipFace>(
+        std::make_shared<XZRect>(0, 555, 0, 555, 555, white)));
+    objects.add(std::make_shared<XZRect>(0, 555, 0, 555, 0, white));
+    objects.add(std::make_shared<FlipFace>(
+        std::make_shared<XYRect>(0, 555, 0, 555, 555, white)));
 
-    world.Add(make_shared<Quadrilaterals>(Position(555, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), green));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(0, 555, 0), Vector3(0, 0, 555), red));
+    std::shared_ptr<Hittable> box1 =
+        std::make_shared<Box>(point3(0, 0, 0), point3(165, 330, 165), white);
+    box1 = std::make_shared<RotateY>(box1, 15);
+    box1 = std::make_shared<Translate>(box1, Vector3(265, 0, 295));
 
-    world.Add(make_shared<Quadrilaterals>(Position(113, 554, 127), Vector3(330, 0, 0), Vector3(0, 0, 305), light));
+    std::shared_ptr<Hittable> box2 =
+        std::make_shared<Box>(point3(0, 0, 0), point3(165, 165, 165), white);
+    box2 = std::make_shared<RotateY>(box2, -18);
+    box2 = std::make_shared<Translate>(box2, Vector3(130, 0, 65));
 
-    world.Add(make_shared<Quadrilaterals>(Position(0, 555, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 0), Vector3(555, 0, 0), Vector3(0, 0, 555), white));
-    world.Add(make_shared<Quadrilaterals>(Position(0, 0, 555), Vector3(555, 0, 0), Vector3(0, 555, 0), white));
+    objects.add(std::make_shared<ConstantMedium>(
+        box1, 0.01, std::make_shared<SolidColor>(0, 0, 0)));
+    objects.add(std::make_shared<ConstantMedium>(
+        box2, 0.01, std::make_shared<SolidColor>(1, 1, 1)));
 
-    shared_ptr<Hittable> box1 = Box(Position(0, 0, 0), Position(165, 330, 165), white);
-    box1 = make_shared<RotateY>(box1, 15);
-    box1 = make_shared<Translate>(box1, Vector3(265, 0, 295));
-
-    shared_ptr<Hittable> box2 = Box(Position(0, 0, 0), Position(165, 165, 165), white);
-    box2 = make_shared<RotateY>(box2, -18);
-    box2 = make_shared<Translate>(box2, Vector3(130, 0, 65));
-
-    world.Add(make_shared<ConstantDensityMedium>(box1, 0.01, Color(0, 0, 0)));
-    world.Add(make_shared<ConstantDensityMedium>(box2, 0.01, Color(1, 1, 1)));
-
-    //light source
-    HittableCollection lights;
-    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(600, 1.0, 50, 50, 25, Position(278, 278, -1250), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
-    camera.Render(world, lights);
+    return objects;
 }
 
-void FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
+HittableList final_scene()
 {
-    HittableCollection boxes1;
-    shared_ptr<Lambertian> ground = make_shared<Lambertian>(Color(0.48, 0.83, 0.53));
+    HittableList boxes1;
+    std::shared_ptr<Lambertian> ground = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(0.48, 0.83, 0.53));
 
-    for (int i = 0; i < floorAmount; i++)
+    const int boxes_per_side = 20;
+    for (int i = 0; i < boxes_per_side; i++)
     {
-        for (int j = 0; j < floorAmount; j++)
+        for (int j = 0; j < boxes_per_side; j++)
         {
-            double W = 100.0;
-            double x0 = -1000.0 + i * W;
-            double z0 = -1000.0 + j * W;
-            double y0 = 0.0;
-            double x1 = x0 + W;
-            double y1 = RandomDouble(1, 101);
-            double z1 = z0 + W;
+            const double w = 100.0;
+            const double x0 = -1000.0 + i * w;
+            const double z0 = -1000.0 + j * w;
+            const double y0 = 0.0;
+            const double x1 = x0 + w;
+            const double y1 = random_double(1, 101);
+            const double z1 = z0 + w;
 
-            boxes1.Add(Box(Position(x0, y0, z0), Position(x1, y1, z1), ground));
+            boxes1.add(std::make_shared<Box>(point3(x0, y0, z0),
+                                             point3(x1, y1, z1), ground));
         }
     }
 
-    HittableCollection world;
+    HittableList objects;
 
-    world.Add(make_shared<BVHNode>(boxes1));
+    objects.add(std::make_shared<BVHNode>(boxes1, 0, 1));
 
-    shared_ptr<Materials> light = make_shared<DiffuseLight>(Color(7, 7, 7));
-    world.Add(make_shared<Quadrilaterals>(Position(123, 554, 147), Vector3(300, 0, 0), Vector3(0, 0, 265), light));
+    std::shared_ptr<DiffuseLight> light = std::make_shared<DiffuseLight>(std::make_shared<SolidColor>(7, 7, 7));
+    objects.add(std::make_shared<XZRect>(123, 423, 147, 412, 554, light));
 
-    Position center1 = Position(400, 400, 200);
-    Vector3 center2 = center1 + Vector3(100, 0, 0);
-    shared_ptr<Materials> sphere_material = make_shared<Lambertian>(Color(0.7, 0.3, 0.1));
-    world.Add(make_shared<Sphere>(center1, center2, 50, sphere_material));
+    point3 center1 = point3(400, 400, 200);
+    Vector3 center2 = center1 + Vector3(30, 0, 0);
+    std::shared_ptr<Lambertian> moving_sphere_material = std::make_shared<Lambertian>(std::make_shared<SolidColor>(0.7, 0.3, 0.1));
+    objects.add(std::make_shared<MovingSphere>(center1, center2, 0, 1, 50, moving_sphere_material));
 
-    world.Add(make_shared<Sphere>(Position(260, 150, 45), 50, make_shared<Dielectric>(1.5)));
-    world.Add(make_shared<Sphere>(Position(0, 150, 145), 50, make_shared<Metal>(Color(0.8, 0.8, 0.9), 1.0)));
+    objects.add(std::make_shared<Sphere>(point3(260, 150, 45), 50, std::make_shared<Dielectric>(1.5)));
+    objects.add(std::make_shared<Sphere>(point3(0, 150, 145), 50, std::make_shared<Metal>(color(0.8, 0.8, 0.9), 10.0)));
 
-    shared_ptr<Sphere> boundary = make_shared<Sphere>(Position(360, 150, 145), 70, make_shared<Dielectric>(1.5));
-    world.Add(boundary);
-    world.Add(make_shared<ConstantDensityMedium>(boundary, 0.05, Color(0.2, 0.4, 0.9)));
-    boundary = make_shared<Sphere>(Position(0, 0, 0), 5000, make_shared<Dielectric>(1.5));
-    world.Add(make_shared<ConstantDensityMedium>(boundary, .0001, Color(1, 1, 1)));
+    std::shared_ptr<Sphere> boundary = std::make_shared<Sphere>(point3(360, 150, 145), 70, std::make_shared<Dielectric>(1.5));
+    objects.add(boundary);
+    objects.add(std::make_shared<ConstantMedium>(boundary, 0.2, std::make_shared<SolidColor>(0.2, 0.4, 0.9)));
+    boundary = std::make_shared<Sphere>(point3(0, 0, 0), 5000, std::make_shared<Dielectric>(1.5));
+    objects.add(std::make_shared<ConstantMedium>(boundary, .0001, std::make_shared<SolidColor>(1, 1, 1)));
 
-    //shared_ptr<ImageTexture> emat = make_shared<Lambertian>(make_shared<ImageTexture>("earthmap.jpg"));
-    //world.Add(make_shared<Sphere>(Position(400, 200, 400), 100, emat));
-    shared_ptr<NoiseTexture> pertext = make_shared<NoiseTexture>(0.65);
-    world.Add(make_shared<Sphere>(Position(220, 280, 300), 80, make_shared<Lambertian>(pertext)));
+    std::shared_ptr<Lambertian> emat = std::make_shared<Lambertian>(
+        std::make_shared<ImageTexture>("earthmap.jpg"));
+    objects.add(std::make_shared<Sphere>(point3(400, 200, 400), 100, emat));
+    std::shared_ptr<NoiseTexture> pertext = std::make_shared<NoiseTexture>(0.1);
+    objects.add(std::make_shared<Sphere>(
+        point3(220, 280, 300), 80, std::make_shared<Lambertian>(pertext)));
 
-    HittableCollection boxes2;
-    shared_ptr<Lambertian> white = make_shared<Lambertian>(Color(0.73, 0.73, 0.73));
-    for (int j = 0; j < clusterAmount; j++)
+    HittableList boxes2;
+    std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(
+        std::make_shared<SolidColor>(.73, .73, .73));
+    const int ns = 1000;
+    for (int j = 0; j < ns; j++)
     {
-        boxes2.Add(make_shared<Sphere>(Position::Random(0, 165), 10, white));
+        boxes2.add(std::make_shared<Sphere>(point3::random(0, 165), 10, white));
     }
 
-    world.Add(make_shared<Translate>(make_shared<RotateY>(make_shared<BVHNode>(boxes2), 15), Vector3(-100, 270, 395)));
+    objects.add(std::make_shared<Translate>(
+        std::make_shared<RotateY>(std::make_shared<BVHNode>(boxes2, 0.0, 1.0),
+                                   15),
+        Vector3(-100, 270, 395)));
 
-    //light source
-    HittableCollection lights;
-    shared_ptr<Materials> lightMat = shared_ptr<Materials>();
-    lights.Add(make_shared<Quadrilaterals>(Position(343, 554, 332), Vector3(-130, 0, 0), Vector3(0, 0, 0), lightMat));
-
-    //Camera(double imageWidth, double ratio, int samplePerPixel, int bounces, double fov, Position lookfrom, Position lookat, Vector3 upVector, double defocus_Angle, double focusDistance, bg)
-    Camera camera(imageWidth, 1.0, samplePerPixel, bounces, 27, Position(478, 278, -1200), Position(278, 278, 0), Vector3(0, 1, 0), 0, 100, Color(0, 0, 0));
-    camera.Render(world, lights);
+    return objects;
 }
 
 int main(int argc, char* argv[])
 {
-    switch (8)
+    const int image_width = 600;
+    const int image_height = 600;
+    const int samples_per_pixel = 10000;
+    const int max_depth = 50;
+    const double aspect_ratio = static_cast<double>(image_width) / image_height;
+
+    std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+
+    const HittableList world = final_scene();
+
+    const Vector3 lookfrom{478, 278, -800};
+    const Vector3 lookat{278, 278, 0};
+    const Vector3 vup{0, 1, 0};
+    const double dist_to_focus = 10.0;
+    const double aperture = 0.0;
+    const double vfov = 40.0;
+    const color background{0, 0, 0};
+
+    const Camera cam(lookfrom, lookat, vup, vfov, aspect_ratio, aperture,
+                     dist_to_focus, 0.0, 1.0);
+
+    for (int j = image_height - 1; j >= 0; --j)
     {
-        //BaseBalls(Set 2 (3 Different Balls) = 1, Reflective = 1 / Transparent = 0)
-    case 1: BaseBalls(1, 0);
-        break;
-    case 2: Checkers();
-        break;
-        //Amount of spheres (small), recommended 7~11
-    case 3: RandomSpheres(7);
-        break;
-    case 4: //Earth();
-        break;
-    case 5: PerlinSphere();
-        break;
-    case 6: Quads();
-        break;
-    case 7: SimpleLight();
-        break;
-    case 8: CornellBox();
-        break;
-    case 9: CornellSmoke();
-        break;
-        //FinalSceneB2(int imageWidth, int samplePerPixel, int bounces, int floorAmount, int clusterAmount)
-    case 10: FinalSceneB2(600, 200, 50, 20, 500);
-        //case 10: FinalSceneB2(600, 2000, 50, 20, 500); <--this took 5 hours to render
-        break;
-    default: FinalSceneB2(400, 70, 30, 20, 100); //switch(0) for default
-        break;
+        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+
+        for (int i = 0; i < image_width; ++i)
+        {
+            Vector3 color{0, 0, 0};
+
+            for (int s = 0; s < samples_per_pixel; ++s)
+            {
+                const double u = (i + random_double()) / image_width;
+                const double v = (j + random_double()) / image_height;
+                Ray r = cam.get_ray(u, v);
+                color += ray_color(r, background, world, max_depth);
+            }
+
+            color.write_color(std::cout, samples_per_pixel);
+        }
     }
+
+    std::cerr << "\nDone.\n";
 
     return 0;
 }

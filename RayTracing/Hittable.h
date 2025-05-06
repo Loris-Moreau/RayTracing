@@ -1,69 +1,39 @@
 #pragma once
 
 #include "AABB.h"
+#include "Ray.h"
 
-class Materials;
+class Material;
 
-class HitInfo
+struct HitRecord
 {
-public:
-	Position coordinates;
-	Vector3 normal;
-	
-	double time;
+    Vector3 p;
+    Vector3 normal;
+    
+    std::shared_ptr<Material> mat_ptr;
+    
+    double t{0.0};
+    double u{0.0};
+    double v{0.0};
+    
+    bool front_face{false};
 
-	double x;
-	double y;
-
-	bool frontFace;
-
-	void SetFaceNormal(const Ray& ray, const Vector3& outwardNormal);
-	
-	shared_ptr<Materials> mat;
+    void set_face_normal(const Ray& r, const Vector3& outward_normal)
+    {
+        // dot(r.direction(), outward_normal) > 0.0  => Ray is inside the Sphere
+        // dot(r.direction(), outward_normal) <= 0.0 => Ray is outside the
+        // Sphere
+        front_face = dot(r.direction(), outward_normal) < 0;
+        normal = front_face ? outward_normal : -outward_normal;
+    }
 };
 
 class Hittable
 {
-public:
-	Hittable() = default;
-	virtual ~Hittable() = default;
-	
-	virtual bool Hit(const Ray& rRay, Interval rayTime, HitInfo& hitInfo) const = 0;
+ public:
+    virtual ~Hittable() = default;
 
-	virtual AABB BoundingBox() const = 0;
-
-	virtual double PDFValue(const Position& o, const Vector3& v) const;
-
-	virtual Vector3 Random(const Vector3& o) const;
+    virtual bool hit(const Ray& r, double t_min, double t_max, HitRecord& rec) const = 0;
+    virtual bool bounding_box(double t0, double t1, AABB& output_box) const = 0;
 };
 
-class Translate final : public Hittable
-{
-public:
-	Translate(const shared_ptr<Hittable>& position, const Vector3& displacement);
-
-	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
-
-    AABB BoundingBox() const override { return bBox; }
-
-private:
-    shared_ptr<Hittable> object;
-    Vector3 offset;
-    AABB bBox;
-};
-
-class RotateY final : public Hittable
-{
-public:
-	RotateY(const shared_ptr<Hittable>& position, double angle);
-
-	bool Hit(const Ray& ray, Interval rayTime, HitInfo& hitInfo) const override;
-
-	AABB BoundingBox() const override { return bBox; }
-
-private:
-	shared_ptr<Hittable> object;
-	double sinTheta;
-	double cosTheta;
-	AABB bBox;
-};
