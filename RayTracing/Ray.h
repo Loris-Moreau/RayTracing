@@ -6,7 +6,7 @@ class Ray
 {
  public:
     Ray() = default;
-
+    
     Ray(const Vector3& origin, const Vector3& direction, double time = 0.0) : orig(origin), dir(direction), tm(time) {}
     
     Vector3 origin() const

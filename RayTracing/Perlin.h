@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Common.h"
+#include "Vector3.h"
 
 inline double trilinear_interp(double c[2][2][2], double u, double v, double w)
 {

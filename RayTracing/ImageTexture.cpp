@@ -1,5 +1,7 @@
 #include "ImageTexture.h"
 
+#include "Externals/stb_image.h"
+
 ImageTexture::ImageTexture(const char* filename)
 {
     int components_per_pixel = bytes_per_pixel;

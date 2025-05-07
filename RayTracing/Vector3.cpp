@@ -1,7 +1,5 @@
 #include "Vector3.h"
 
-#include "Common.h"
-
 Vector3 Vector3::operator-() const
 {
     return Vector3{-e[0], -e[1], -e[2]};
@@ -87,6 +85,5 @@ Vector3 Vector3::random()
 
 Vector3 Vector3::random(double min, double max)
 {
-    return Vector3(random_double(min, max), random_double(min, max),
-                random_double(min, max));
+    return Vector3(random_double(min, max), random_double(min, max), random_double(min, max));
 }

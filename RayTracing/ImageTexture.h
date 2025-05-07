@@ -9,7 +9,6 @@
 #endif
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "Externals/stb_image.h"
 
 // Restore warning levels.
 #ifdef _MSC_VER

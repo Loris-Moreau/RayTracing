@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Common.h"
+#include "Ray.h"
+#include "Vector3.h"
 
 class AABB
 {
