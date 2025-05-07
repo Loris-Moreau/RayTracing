@@ -238,8 +238,7 @@ HittableList cornell_smoke()
 HittableList final_scene()
 {
     HittableList boxes1;
-    std::shared_ptr<Lambertian> ground = std::make_shared<Lambertian>(
-        std::make_shared<SolidColor>(0.48, 0.83, 0.53));
+    std::shared_ptr<Lambertian> ground = std::make_shared<Lambertian>(std::make_shared<SolidColor>(0.48, 0.83, 0.53));
 
     const int boxes_per_side = 20;
     for (int i = 0; i < boxes_per_side; i++)
@@ -254,8 +253,7 @@ HittableList final_scene()
             const double y1 = random_double(1, 101);
             const double z1 = z0 + w;
 
-            boxes1.add(std::make_shared<Box>(point3(x0, y0, z0),
-                                             point3(x1, y1, z1), ground));
+            boxes1.add(std::make_shared<Box>(point3(x0, y0, z0), point3(x1, y1, z1), ground));
         }
     }
 
@@ -280,26 +278,21 @@ HittableList final_scene()
     boundary = std::make_shared<Sphere>(point3(0, 0, 0), 5000, std::make_shared<Dielectric>(1.5));
     objects.add(std::make_shared<ConstantMedium>(boundary, .0001, std::make_shared<SolidColor>(1, 1, 1)));
 
-    std::shared_ptr<Lambertian> emat = std::make_shared<Lambertian>(
-        std::make_shared<ImageTexture>("earthmap.jpg"));
+    std::shared_ptr<Lambertian> emat = std::make_shared<Lambertian>(std::make_shared<ImageTexture>("earthmap.jpg"));
     objects.add(std::make_shared<Sphere>(point3(400, 200, 400), 100, emat));
     std::shared_ptr<NoiseTexture> pertext = std::make_shared<NoiseTexture>(0.1);
-    objects.add(std::make_shared<Sphere>(
-        point3(220, 280, 300), 80, std::make_shared<Lambertian>(pertext)));
+    objects.add(std::make_shared<Sphere>(point3(220, 280, 300), 80, std::make_shared<Lambertian>(pertext)));
 
     HittableList boxes2;
-    std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(
-        std::make_shared<SolidColor>(.73, .73, .73));
+    std::shared_ptr<Lambertian> white = std::make_shared<Lambertian>(std::make_shared<SolidColor>(.73, .73, .73));
     const int ns = 1000;
     for (int j = 0; j < ns; j++)
     {
         boxes2.add(std::make_shared<Sphere>(point3::random(0, 165), 10, white));
     }
 
-    objects.add(std::make_shared<Translate>(
-        std::make_shared<RotateY>(std::make_shared<BVHNode>(boxes2, 0.0, 1.0),
-                                   15),
-        Vector3(-100, 270, 395)));
+    objects.add(std::make_shared<Translate>(std::make_shared<RotateY>(
+        std::make_shared<BVHNode>(boxes2, 0.0, 1.0), 15), Vector3(-100, 270, 395)));
 
     return objects;
 }
@@ -324,8 +317,7 @@ int main(int argc, char* argv[])
     const double vfov = 40.0;
     const color background{0, 0, 0};
 
-    const Camera cam(lookfrom, lookat, vup, vfov, aspect_ratio, aperture,
-                     dist_to_focus, 0.0, 1.0);
+    const Camera cam(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
 
     for (int j = image_height - 1; j >= 0; --j)
     {
@@ -342,7 +334,7 @@ int main(int argc, char* argv[])
                 Ray r = cam.get_ray(u, v);
                 color += ray_color(r, background, world, max_depth);
             }
-
+            
             color.write_color(std::cout, samples_per_pixel);
         }
     }
