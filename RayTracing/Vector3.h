@@ -10,8 +10,6 @@ class Vector3
  public:
     Vector3() : e{0, 0, 0} {}
     
-    //Vector3(Vector3&) = default;
-    
     Vector3(double e0, double e1, double e2) : e{e0, e1, e2} {}
 
     Vector3 operator-() const;
