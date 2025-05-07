@@ -13,7 +13,8 @@
 
 > [!NOTE]
 > Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/main/Images "Images Folder") Folder for more Renders.
->
+> 
+> Also here is another [implementation](https://github.com/Loris-Moreau/RayTracing/tree/Raytracer-V2 "Raytrace V2 Branch") of the raytracer that works a bit better.
 
 > [!TIP]
 > If you wish to do the renders yourself, at the end of the [Main](https://github.com/Loris-Moreau/RayTracing/blob/main/RayTracing/RayTracing.cpp "RayTracing.cpp") file *(Line 361)* change the number in the switch for the corresponding render you wish to do.
