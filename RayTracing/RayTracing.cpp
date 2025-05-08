@@ -1,3 +1,8 @@
+//RayTracing.cpp : This file contains the 'main' function. Program execution begins and ends there.
+
+///Command for .ppm file creation :
+///.\x64\Debug\RayTracing.exe > Render.ppm
+
 #include <iostream>
 
 #include "Box.h"
