@@ -289,7 +289,7 @@ int main(int argc, char* argv[])
     
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
     
-    const HittableList world = final_scene();
+    const HittableList world = cornell_box();
     
     const Vector3 lookfrom{478, 278, -800};
     const Vector3 lookat{278, 278, 0};
@@ -304,11 +304,11 @@ int main(int argc, char* argv[])
     for (int j = image_height - 1; j >= 0; --j)
     {
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-
+        
         for (int i = 0; i < image_width; ++i)
         {
             Vector3 color{0, 0, 0};
-
+            
             for (int s = 0; s < samples_per_pixel; ++s)
             {
                 const double u = (i + random_double()) / image_width;
