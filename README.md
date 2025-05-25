@@ -1,6 +1,13 @@
 # RayTracing 
 #### My Adventure following The [Ray Tracing in One Weekend](https://raytracing.github.io/) Series & putting them in Compute Shaders
 
+> [!NOTE]
+> Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
+>
+> Here is the [Documentation](https://loris-moreau.github.io/Blog/RayTracing-10.html).
+>
+> And here is the [Performance Recordings](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/Performance.md).
+
 > [!TIP]
 > Everything you need for the Compute shaders Renders is in the "[Compute-Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/RayTracing/Compute-Shaders)" folder
 > 
@@ -11,13 +18,6 @@
 > To Run the Raytracer go to the "[Compute-Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/RayTracing/Compute-Shaders)" folder and run the "build.bat" file, and enjoy the show.
 > 
 > Also, there is progressive rendering so the more you let it run the better the image gets.
-
-> [!NOTE]
-> Check the [Images](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader/Images "Images Folder") Folder for more Renders.
->
-> Here is the [Documentation](https://loris-moreau.github.io/Blog/RayTracing-10.html).
->
-> And here is the [Performance Recordings](https://github.com/Loris-Moreau/RayTracing/blob/Compute-Shader/Performance.md).
 
 <br>
 
