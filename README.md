@@ -3,7 +3,7 @@
 
 
 > [!NOTE]
-> currently porting this to [Compute Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader "Compute Shader Branch") to shorten render time.
+> this has beeen ported to [Compute Shaders](https://github.com/Loris-Moreau/RayTracing/tree/Compute-Shader "Compute Shader Branch") to shorten render time.
 
 > [!CAUTION]
 > Hi, 
